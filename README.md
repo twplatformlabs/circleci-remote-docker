@@ -38,7 +38,7 @@ This image intended to be used as the FROM image in a custom CircleCI remote doc
 For example:
 
 ```Dockerfile
-FROM twdps/circleci-remote-docker:2021.08
+FROM twdps/circleci-remote-docker:2021.08  
 
 ENV NODE_VERSION=12.16.3
 
