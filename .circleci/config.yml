@@ -18,7 +18,7 @@ on-tag-main: &on-tag-main
 
 workflows:
   version: 2
-  circleci-remote-docker-image-alpine-pipeline:
+  circleci-remote-docker-alpine-pipeline:
     jobs:
       - executor-tools/dev-release:
           shell: secrethub run -- /bin/sh -eo pipefail
@@ -46,7 +46,7 @@ workflows:
           release-tag: alpine-stable
           filters: *on-tag-main
 
-  # di-circleci-remote-docker-image-slim-pipeline:
+  # di-circleci-remote-docker-slim-pipeline:
   #   jobs:
   #     - executor-tools/machine-executor-dev-release:
   #         name: slim-dev-build
