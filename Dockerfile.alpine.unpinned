@@ -1,0 +1,12 @@
+FROM alpine:3
+
+LABEL maintainer=<nic.cheneweth@thoughtworks.com>
+
+# minimum packages required for use as a circleci remote-docker primary container
+# hadolint ignore=DL3018
+RUN apk add --no-cache \
+        git \
+        openssh \
+        tar \
+        gzip \
+        ca-certificates

@@ -1,0 +1,11 @@
+FROM alpine:3.14.1
+
+LABEL maintainer=<nic.cheneweth@thoughtworks.com>
+
+# minimum packages required for use as a circleci remote-docker primary container
+RUN apk add --no-cache \
+        git==2.32.0-r0 \
+        openssh==8.6_p1-r2 \
+        tar==1.34-r0 \
+        gzip==1.10-r1 \
+        ca-certificates==20191127-r5
