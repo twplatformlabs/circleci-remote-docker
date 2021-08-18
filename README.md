@@ -25,7 +25,7 @@ twdps/circleci-infra-image
 
 ## Table of Contents
 
-- [Getting Started](#getting-started)
+- [Getting Started](#getting-started)  
 - [What is included in the image](#what-is-included-in-the-image)
 - [Development](#development)
 - [Contributing](#contributing)
