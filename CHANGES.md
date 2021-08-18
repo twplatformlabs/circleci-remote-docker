@@ -15,15 +15,16 @@ FROM alpine:3.14.1^
 | ca-certificates | 20191127-r5 |
 
 
-FROM debian:bullseye-20210721-slim^  
+FROM debian:bookworm-20210816-slim^  
 
 | package         | version           |
 |-----------------|-------------------|
-| git             | 1:2.30.2-1        |
+| git             | 1:2.32.0-1^       |
 | openssh-server  | 1:8.4p1-5         |
 | tar             | 1.34+dfsg-1       |
 | gzip            | 1.10-4            |
 | ca-certificates | 20210119          |
+
 
 
 ## 07-02-2021 package versions in di-circleci-remote-docker 2021.07.1

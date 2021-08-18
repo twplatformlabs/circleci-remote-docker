@@ -60,7 +60,7 @@ This image is maintained with both an Alpine and Debian Linux based distribution
 - tar
 - gzip
 - ca-certificates
-_See CHANGES.md for current versions and security recommandations_
+_See CHANGES.md for current versions and .snyk for current vuln recommandations_
 
 ### Tagging Scheme
 

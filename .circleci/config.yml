@@ -29,6 +29,7 @@ workflows:
           tag: alpine-edge
           cis-docker-image-scan: true
           docker-cve-scan: true
+          severity-threshold: low
           snyk-organization: twdps
           bats-test: true
           test-path: test/circleci_remote_docker_alpine.bats
@@ -55,6 +56,9 @@ workflows:
           image: twdps/circleci-remote-docker
           tag: slim-edge
           bats-test: true
+          docker-cve-scan: true
+          severity-threshold: medium
+          snyk-organization: twdps
           test-path: test/circleci_remote_docker_slim.bats
           entry-point: /bin/bash
           container-name: circleci-remote-docker-slim-edge
