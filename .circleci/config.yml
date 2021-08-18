@@ -72,7 +72,7 @@ workflows:
           context: twdps-di
           pull-tag: slim-edge
           tag-annotation: slim-
-          image: twdps/di-circleci-remote-docker
+          image: twdps/circleci-remote-docker
           release-tag: slim-stable
           filters: *on-tag-main
 
