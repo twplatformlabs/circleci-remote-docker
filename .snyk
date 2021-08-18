@@ -7,4 +7,9 @@ ignore:
         reason: no patch currently available
         expires: 2021-10-01T00:00:00.000Z
         created: 2021-08-18T16:25:15.886Z
+  SNYK-DEBIAN11-CURL-1322658:
+    - '*':
+        reason: no patch currently available
+        expires: 2021-10-01T00:00:00.000Z
+        created: 2021-08-18T17:18:07.930Z
 patch: {}
