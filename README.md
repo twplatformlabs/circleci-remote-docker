@@ -68,7 +68,7 @@ This image has the following tagging scheme:
 
 ```
 twdps/di-circleci-remote-docker:edge
-twdps/di-circleci-remote-docker:stable  
+twdps/di-circleci-remote-docker:stable
 twdps/di-circleci-remote-docker:<YYYY.MM>
 ```
 
