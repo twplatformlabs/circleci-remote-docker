@@ -20,7 +20,8 @@ _difference with cimg libraries._ Enterprise settings often require specific sec
 **Other images in this series**  
 
 twdps/circleci-base-image  
-twdps/circleci-infra-image  
+twdps/circleci-executor-builder  
+twdps/circleci-infra-aws  
 
 ## Table of Contents
 
@@ -59,6 +60,7 @@ This image is maintained with both an Alpine and Debian Linux based distribution
 - tar
 - gzip
 - ca-certificates
+
 _See CHANGES.md for current versions and .snyk for current vuln recommandations_
 
 ### Tagging Scheme
@@ -66,37 +68,17 @@ _See CHANGES.md for current versions and .snyk for current vuln recommandations_
 This image has the following tagging scheme:
 
 ```
-twdps/di-circleci-remote-docker:edge
-twdps/di-circleci-remote-docker:stable
-twdps/di-circleci-remote-docker:<YYYY.MM>
+twdps/circleci-remote-docker:edge
+twdps/circleci-remote-docker:stable
+twdps/circleci-remote-docker:<YYYY.MM>
 ```
 
-`edge` - points to the latest version of the Base image. Built from the `HEAD` of the `master` branch. Intended to be used as a testing version of the image with the most recent changes however not guaranteed to be all that stable and not recommended for production software.  
+`<YYYY.MM>` - Release version of the image, referred to by the 4 digit year, dot, and a 2 digit month. For example `2020.05` would be the monthly tag from May 2020. This is the recommended version for use in an executor Dockerfile. Where interim patches are required you may see `2021.08.1` or addtional numbered versions.   
 
-`stable` - points to the latest, production ready base image. For projects that want a decent level of stability while recieving all software updates and recommended security patches. Security patches can sometimes include pre-release or release candidate versions of packages. Consider this similar to using the `:latest` tag and is not a generally recommended practice. Pin the `FROM` reference to a specific release and adopt new releases as part of your ci process. Typically updated once a month.  
+`stable` - generic tag that always points to the latest, monthly release image. For projects that want a decent level of stability while recieving all software updates and recommended security patches. Security patches can sometimes include pre-release or release candidate versions of packages. 
 
-`<YYYY.MM>` - Release version of the image, referred to by the 4 digit year, dot, and a 2 digit month. For example `2020.05` would be the monthly tag from May 2020. This is the recommended version for use in an executor Dockerfile.  
+`edge` - is the latest development of the Base image. Built from the `HEAD` of the `main` branch. Intended to be used as a testing version of the image with the most recent changes however not guaranteed to be all that stable.  
 
-## Development
-
-Images can be built and run locally with this repository.  
-This has the following requirements:
-
-- local machine of Linux (Alpine tested) or macOS
-- modern version of a shell (zsh/bash tested (v4+))
-- modern version of Docker Engine (v19.03+)
-
-### Building the Dockerfiles
-
-To build and test the Docker image locally, run the `testlocal.sh` script:
-
-```bash
-./testlocal.sh
-```
-
-*requirements for testing*  
-conftest  
-bats  
 
 ### Publishing Official Images (for Maintainers only)
 
