@@ -57,7 +57,7 @@ workflows:
           tag: slim-edge
           bats-test: true
           docker-cve-scan: true
-          severity-threshold: medium
+          severity-threshold: high
           snyk-organization: twdps
           test-path: test/circleci_remote_docker_slim.bats
           entry-point: /bin/bash
@@ -80,43 +80,48 @@ workflows:
           release-tag: slim-stable
           filters: *on-tag-main
 
-  # # builds nightly from .unpinned Dockerfile in order to test the latest base image and installed packages
-  # di-circleci-infra-image-nightly-build:
-  #   triggers:
-  #     - schedule:
-  #         cron: "0 0 * * 0"
-  #         filters:
-  #           branches:
-  #             only:
-  #               - master
-  #   jobs:
-  #     - executor-tools/dev-release:
-  #         shell: secrethub run -- /bin/sh -eo pipefail
-  #         name: nightly-alpine-build
-  #         context: twdps-di
-  #         image: twdps/di-circleci-remote-docker
-  #         tag: alpine-nightly
-  #         dockerfile: Dockerfile.alpine.unpinned
-  #         docker-cve-scan: true
-  #         cis-docker-image-scan: true
-  #         bats-test: true
-  #         test-path: test/di_circleci_remote_docker_alpine.bats
-  #         entry-point: /bin/ash
-  #         container-name: di-circleci-remote-docker-alpine-edge
+  # builds nightly from .unpinned Dockerfile in order to test the latest base image and installed packages
+  di-circleci-infra-image-nightly-build:
+    triggers:
+      - schedule:
+          cron: "0 0 1 * *"
+          filters:
+            branches:
+              only:
+                - master
+    jobs:
+      - executor-tools/dev-release:
+          shell: secrethub run -- /bin/sh -eo pipefail
+          name: alpine-nightly-build
+          context: twdps-di
+          dockerfile: Dockerfile.alpine
+          image: twdps/circleci-remote-docker
+          tag: alpine-nightly
+          cis-docker-image-scan: true
+          docker-cve-scan: true
+          severity-threshold: low
+          snyk-organization: twdps
+          bats-test: true
+          test-path: test/circleci_remote_docker_alpine.bats
+          entry-point: /bin/ash
+          container-name: circleci-remote-docker-alpine-nightly
 
-  #     - executor-tools/dev-release:
-  #         name: nightly-slim-build
-  #         context: twdps-di
-  #         image: twdps/di-circleci-remote-docker
-  #         tag: slim-nightly
-  #         dockerfile: Dockerfile.slim.unpinned
-  #         bats-test: true
-  #         test-path: test/di_circleci_remote_docker_slim.bats
-  #         entry-point: /bin/bash
-  #         container-name: di-circleci-remote-docker-slim-edge
-  #         after-checkout:
-  #           - run:
-  #               name: inject environment variables
-  #               command: |
-  #                 secrethub inject -i secrethub.env -o $BASH_ENV
-  #                 source $BASH_ENV
+      - executor-tools/dev-release:
+          name: slim-nightly-build
+          context: twdps-di
+          dockerfile: Dockerfile.slim
+          image: twdps/circleci-remote-docker
+          tag: slim-nightly
+          bats-test: true
+          docker-cve-scan: true
+          severity-threshold: high
+          snyk-organization: twdps
+          test-path: test/circleci_remote_docker_slim.bats
+          entry-point: /bin/bash
+          container-name: circleci-remote-docker-slim-nightly
+          after-checkout:
+            - run:
+                name: inject environment variables
+                command: |
+                  secrethub inject -i secrethub.env -o $BASH_ENV
+                  source $BASH_ENV

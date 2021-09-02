@@ -22,6 +22,7 @@ FROM debian:bookworm-20210816-slim
 | tar             | 1.34+dfsg-1       |
 | gzip            | 1.10-4            |
 | ca-certificates | 20210119          |
+| libssl1.1       | 1.1.1l-1^         |
 
 
 ## 08-27-2021 versions, updates in twdps/circleci-remote-docker 2021.08.2
