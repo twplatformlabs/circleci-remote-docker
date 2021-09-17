@@ -1,3 +1,30 @@
+## 09-16-2021 versions, updates in twdps/circleci-remote-docker 2021.09.1
+
+FROM alpine:3.14.2  
+
+| package         | version     |
+|-----------------|-------------|
+| git             | 2.32.0-r0   |
+| openssh         | 8.6_p1-r2   |
+| tar             | 1.34-r0     |
+| gzip            | 1.10-r1     |
+| ca-certificates | 20191127-r5 |
+
+FROM debian:bookworm-20210902-slim^  
+
+CVE patches added  
+
+| package         | version           |
+|-----------------|-------------------|
+| git             | 1:2.33.0-1        |
+| openssh-server  | 1:8.4p1-6         |
+| tar             | 1.34+dfsg-1       |
+| gzip            | 1.10-4            |
+| ca-certificates | 20210119          |
+| libc6           | 2.32-3^           |
+| libc-bin        | 2.32-3^           |
+| libgcrypt20     | 1.9.4-3^          |
+
 ## 09-01-2021 versions, updates in twdps/circleci-remote-docker 2021.09
 
 FROM alpine:3.14.2^  
