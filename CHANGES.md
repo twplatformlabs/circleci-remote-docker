@@ -1,3 +1,25 @@
+## 11-11-2021 base image update, new packages versions
+
+FROM alpine:3.14.2  
+
+| package         | version     |
+|-----------------|-------------|
+| git             | 2.32.0-r0   |
+| openssh         | 8.6_p1-r3^  |
+| tar             | 1.34-r0     |
+| gzip            | 1.10-r1     |
+| ca-certificates | 20191127-r5 |
+
+FROM debian:sid-20211011-slim^  
+
+| package         | version           |
+|-----------------|-------------------|
+| git             | 1:2.33.0-1        |
+| openssh-server  | 1:8.7p1-1^        |
+| tar             | 1.34+dfsg-1       |
+| gzip            | 1.10-4            |
+| ca-certificates | 20211016^         |
+
 ## 09-16-2021 versions, updates in twdps/circleci-remote-docker 2021.09.1
 
 FROM alpine:3.14.2  
