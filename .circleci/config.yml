@@ -55,7 +55,6 @@ workflows:
           dockerfile: Dockerfile.slim
           image: twdps/circleci-remote-docker
           tag: slim-edge
-          cis-docker-image-scan: true
           bats-test: true
           docker-cve-scan: true
           severity-threshold: medium
