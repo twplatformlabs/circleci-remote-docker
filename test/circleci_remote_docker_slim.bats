@@ -2,12 +2,12 @@
 
 @test "git version" {
   run bash -c "docker exec circleci-remote-docker-slim-edge git --version"
-  [[ "${output}" =~ "2.33.0" ]]
+  [[ "${output}" =~ "2.33" ]]
 }
 
 @test "openssh version" {
   run bash -c "docker exec circleci-remote-docker-slim-edge ssh -V"
-  [[ "${output}" =~ "8.4p1" ]]
+  [[ "${output}" =~ "8.7p1" ]]
 }
 
 @test "tar version" {
