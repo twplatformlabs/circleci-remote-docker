@@ -73,12 +73,13 @@ twdps/circleci-remote-docker:stable
 twdps/circleci-remote-docker:<YYYY.MM>
 ```
 
-`<YYYY.MM>` - Release version of the image, referred to by the 4 digit year, dot, and a 2 digit month. For example `2020.05` would be the monthly tag from May 2020. This is the recommended version for use in an executor Dockerfile. Where interim patches are required you may see `2021.08.1` or addtional numbered versions.   
+`<YYYY.MM>` - Release version of the image, referred to by the 4 digit year, dot, and a 2 digit month. For example `2020.05` would be the monthly tag from May 2020. This is the recommended version for use in an executor Dockerfile. Where interim patches are required you may see `2021.08.1` or addtional numbered versions.  
 
-`stable` - generic tag that always points to the latest, monthly release image. For projects that want a decent level of stability while recieving all software updates and recommended security patches. Security patches can sometimes include pre-release or release candidate versions of packages. 
+`stable` - generic tag that always points to the latest, monthly release image. For projects that want a decent level of stability while recieving all software updates and recommended security patches. Security patches can sometimes include pre-release or release candidate versions of packages.
 
 `edge` - is the latest development of the Base image. Built from the `HEAD` of the `main` branch. Intended to be used as a testing version of the image with the most recent changes however not guaranteed to be all that stable.  
 
+Also please note, stable in this case does not always imply general release for underlying components. For example, `sid` is used for the debain image in order to pick up the latest, patch versions on package to eliminate any median or critical CVE issues.  
 
 ### Publishing Official Images (for Maintainers only)
 

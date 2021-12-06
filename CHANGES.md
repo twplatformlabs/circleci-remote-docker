@@ -1,3 +1,27 @@
+## 12-06-2021 base image update, new packages versions
+
+^changes
+
+FROM alpine:3.15.0^
+
+| package         | version      |
+|-----------------|--------------|
+| git             | 2.34.1-r0^   |
+| openssh         | 8.8_p1-r1^   |
+| tar             | 1.34-r0      |
+| gzip            | 1.11-r0^     |
+| ca-certificates | 20191127-r7^ |
+
+FROM debian:sid-20211011-slim^  
+
+| package         | version           |
+|-----------------|-------------------|
+| git             | 1:2.34.1-1^       |
+| openssh-server  | 1:8.7p1-2^        |
+| tar             | 1.34+dfsg-1       |
+| gzip            | 1.10-4            |
+| ca-certificates | 20211016          |
+
 ## 11-11-2021 base image update, new packages versions
 
 FROM alpine:3.14.2  
