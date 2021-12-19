@@ -1,3 +1,7 @@
+## 12-19-2021 config automated release note creation
+
+CHANGES.md deprecated. From this point forward, see the repository release notes for changes and additions.  
+
 ## 12-06-2021 base image update, new packages versions
 
 ^changes

@@ -80,6 +80,12 @@ workflows:
           release-tag: slim-stable
           filters: *on-tag-main
 
+  generate-release-notes:
+    jobs:
+      - executor-tools/release:
+          shell: secrethub run -- /bin/sh -eo pipefail
+          filters: *on-tag-main
+
   # builds nightly from .unpinned Dockerfile in order to test the latest base image and installed packages
   di-circleci-infra-image-nightly-build:
     triggers:

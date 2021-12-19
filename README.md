@@ -61,7 +61,7 @@ This image is maintained with both an Alpine and Debian Linux based distribution
 - gzip
 - ca-certificates
 
-_See CHANGES.md for current versions and .snyk for current vuln recommandations_
+_See release notes or distribution dockerfiles for specific versions and .snyk for current vulnerability status_
 
 ### Tagging Scheme
 
@@ -79,20 +79,30 @@ twdps/circleci-remote-docker:<YYYY.MM>
 
 `edge` - is the latest development of the Base image. Built from the `HEAD` of the `main` branch. Intended to be used as a testing version of the image with the most recent changes however not guaranteed to be all that stable.  
 
-Also please note, stable in this case does not always imply general release for underlying components. For example, `sid` is used for the debain image in order to pick up the latest, patch versions on package to eliminate any median or critical CVE issues.  
+Also please note, stable in this case does not always imply general release for underlying components. For example, `sid` is used for the debain image in order to pick up the latest, patch versions on packages to eliminate any median or critical CVE issues.  
+
+## Contributing
+
+We encourage [issues](https://github.com/twdps/circleci-remote-docker/issues) and [pull requests](https://github.com/twdps/circleci-remote-docker/pulls) against this repository. In order to value your time, here are some things to consider:
+
+1. Intended to be the minimum configuration necessary for an alpine or debain based image to be successfully launched by circleci as a remote docker executor and specifically does not include any other packages.  
+1. PRs are welcome. Given the role of this image as a building block in building CircleCI remote docker executors, it is expected that PRs or Issue will be releated to bugs or compatibility issues. PR's to include additional packages will only be considered where necessary to continue supporting Alpine or debian linux as a remote docker base.  
+
+### Local development
+
+Use `test_local.sh` to build and test image locally. In order to successfully run the CIS benchmark test locally you will need a local copy of the CIS Docker benchmark section 4 policy statement. The [orb-executor-tools](https://circleci.com/developer/orbs/orb/twdps/executor-tools) used to build this image includes a standard set of CIS requirements, pull a copy of that file and name it `policy.rego` (which will be ignored by current git settings) for local testing.  
+
+**requirements**  
+
+[bats](https://github.com/bats-core/bats-core)
+[conftest](https://github.com/open-policy-agent/conftest)
+[hadolint](https://github.com/hadolint/hadolint)
 
 ### Publishing Official Images (for Maintainers only)
 
 Git push will trigger the dev-build pipeline. In addition to the tests performed in testlocal.sh, a snyk scan is done to expose any known vulnerabilities.  
 
 To create a release version, simply tag HEAD with the release version format `YYYY.MM`  
-
-## Contributing
-
-We encourage [issues](https://github.com/twdps/circleci-remote-docker/issues) and [pull requests](https://github.com/twdps/circleci-remote-docker/pulls) against this repository. In order to value your time, here are some things to consider:
-
-1. Intended to be the minimum configuration necessary for an alpine or debain based image to be successfully launched by circleci as a remote docker executor and specifically does not include any other packages. As such, the way to use the image is in the `FROM twdps/circleci-remote-docker:tag` statement of your Dockerfile.
-1. PRs are welcome. Given the role of this image as a building block in building CircleCI remote docker executors, it is expected that PRs or Issue will be releated to bugs or compatibility issues. PR's to include additional packages will only be considered where necessary to continue supporting Alpine linux as a remote docker base.  
 
 ## Additional Resources
 
