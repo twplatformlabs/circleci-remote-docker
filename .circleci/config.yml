@@ -83,6 +83,7 @@ workflows:
   generate-release-notes:
     jobs:
       - executor-tools/release:
+          context: twdps-di
           shell: secrethub run -- /bin/sh -eo pipefail
           filters: *on-tag-main
 
