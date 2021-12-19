@@ -11,11 +11,11 @@
 </div>
 <br />
 
-With inspiration from the CircleCI convenience images, `twdps/circleci-remote-docker` maintains both alpine and buster-slim variants with self-hosted runners in mind. As the name suggests, this image is designed to serve as a starter image for building a use-tailored CircleCI [remote docker executor](https://circleci.com/docs/2.0/custom-images/#section=configuration).  
+With inspiration from the CircleCI convenience images, `twdps/circleci-remote-docker` maintains both alpine and slim variants with both remote and self-hosted runners in mind. As the name suggests, this image is designed to serve as a starter image for building a use-tailored CircleCI [remote docker executor](https://circleci.com/docs/2.0/custom-images/#section=configuration).  
 
-This image contains the minimum packages required to operate a build on CircleCI.  
+This image contains the minimum packages required to function as a remote_docker executor on CircleCI.  
 
-_difference with cimg libraries._ Enterprise settings often require specific security and configuration testing. The twdps series of convenience images includes common sdlc security practices, including CIS-benchmark testing. The Alpine image is expected to not have any cve issues.  
+_difference with cimg libraries._ Enterprise settings often require specific security and configuration testing. The twdps series of convenience images includes common sdlc security practices, including CIS-benchmark testing. Review `.snyk` for current vulnerability status.  
 
 **Other images in this series**  
 
@@ -61,7 +61,7 @@ This image is maintained with both an Alpine and Debian Linux based distribution
 - gzip
 - ca-certificates
 
-_See release notes or distribution dockerfiles for specific versions and .snyk for current vulnerability status_
+_See release notes or distribution dockerfiles for specific versions_
 
 ### Tagging Scheme
 
@@ -75,11 +75,11 @@ twdps/circleci-remote-docker:<YYYY.MM>
 
 `<YYYY.MM>` - Release version of the image, referred to by the 4 digit year, dot, and a 2 digit month. For example `2020.05` would be the monthly tag from May 2020. This is the recommended version for use in an executor Dockerfile. Where interim patches are required you may see `2021.08.1` or addtional numbered versions.  
 
-`stable` - generic tag that always points to the latest, monthly release image. For projects that want a decent level of stability while recieving all software updates and recommended security patches. Security patches can sometimes include pre-release or release candidate versions of packages.
+`stable` - generic tag that always points to the latest, monthly release image. Provides a decent level of stability while recieving all software updates and recommended security patches. Security patches can sometimes include pre-release or release candidate versions of packages.
 
-`edge` - is the latest development of the Base image. Built from the `HEAD` of the `main` branch. Intended to be used as a testing version of the image with the most recent changes however not guaranteed to be all that stable.  
+`edge` - is the latest development of the Base image. Built from the `HEAD` of the `main` branch. Intended to be used as a testing version of the image with the most recent changes.  
 
-Also please note, stable in this case does not always imply general release for underlying components. For example, `sid` is used for the debain image in order to pick up the latest, patch versions on packages to eliminate any median or critical CVE issues.  
+Also please note, stable in this case does not always imply general release for underlying components. For example, `sid` is used for the debain image in order to pick up the latest, patch versions of packages to eliminate any median or critical CVE issues.  
 
 ## Contributing
 
