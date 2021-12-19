@@ -9,8 +9,7 @@
     },
     "template": {
         "issue": "- [{{text}}]({{url}}) {{name}}",
-        "label": "[**{{label}}**]",
-        "group": "\n#### {{heading}} :whale:",
+        "group": "\n#### {{heading}}",
         "release": "## {{release}} ({{date}})\n{{body}}",
         "releaseSeparator": "\n---\n\n"
     }
