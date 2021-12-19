@@ -1,5 +1,0 @@
----
-  dataSource: "issues"
-  prefix: ""
-  onlyMilestones: false
-  groupBy: "label"

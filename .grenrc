@@ -1,0 +1,17 @@
+{
+    "dataSource": "issues",
+    "prefix": "",
+    "ignoreLabels": ["documentation", "duplicate", "good first issue", "help wanted", "invalid", "question", "wontfix"],
+    "onlyMilestones": false,
+    "groupBy": {
+        "Enhancements:": ["enhancement", "upgrade"],
+        "Bug Fixes:": ["bug"]
+    },
+    "template": {
+        "issue": "- [{{text}}]({{url}}) {{name}}",
+        "label": "[**{{label}}**]",
+        "group": "\n#### {{heading}} :whale:",
+        "release": "## {{release}} ({{date}})\n{{body}}",
+        "releaseSeparator": "\n---\n\n"
+    }
+}
