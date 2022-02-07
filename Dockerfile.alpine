@@ -8,4 +8,4 @@ RUN apk add --no-cache \
         openssh==8.8_p1-r1 \
         tar==1.34-r0 \
         gzip==1.11-r0 \
-        ca-certificates==20191127-r7  20211220-r0
+        ca-certificates==20211220-r0
