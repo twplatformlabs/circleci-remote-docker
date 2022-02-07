@@ -15,4 +15,60 @@ ignore:
     - meta-common-packages@meta > perl/perl-base@5.32.1-6:
       reason: CPAN 2.28 allows Signature Verification Bypass
       expires: '2022-04-01T14:26:34.404Z'
+  SNYK-DEBIANUNSTABLE-EXPAT-2329088:
+    - git@1:2.34.1-1 > expat/libexpat1@2.4.1-3:
+      reason: Resource Exhaustion
+      expires: '2022-04-01T14:26:34.404Z'
+  SNYK-DEBIANUNSTABLE-EXPAT-2330885:
+    - git@1:2.34.1-1 > expat/libexpat1@2.4.1-3:
+      reason: Integer Overflow or Wraparound
+      expires: '2022-04-01T14:26:34.404Z'
+  SNYK-DEBIANUNSTABLE-EXPAT-2331794:
+    - git@1:2.34.1-1 > expat/libexpat1@2.4.1-3:
+      reason: Integer Overflow or Wraparound
+      expires: '2022-04-01T14:26:34.404Z'
+  SNYK-DEBIANUNSTABLE-EXPAT-2331797:
+    - git@1:2.34.1-1 > expat/libexpat1@2.4.1-3:
+      reason: Integer Overflow or Wraparound
+      expires: '2022-04-01T14:26:34.404Z'
+  SNYK-DEBIANUNSTABLE-EXPAT-2331809:
+    - git@1:2.34.1-1 > expat/libexpat1@2.4.1-3:
+      reason: Integer Overflow or Wraparound
+      expires: '2022-04-01T14:26:34.404Z'
+  SNYK-DEBIANUNSTABLE-GLIBC-2340918:
+    - glibc/libc-bin@2.32-4:
+      reason: Buffer Overflow
+      expires: '2022-04-01T14:26:34.404Z'
+    - meta-common-packages@meta > glibc/libc6@2.32-4:
+      reason: Buffer Overflow
+      expires: '2022-04-01T14:26:34.404Z'
+  SNYK-DEBIANUNSTABLE-GLIBC-2340920:
+    - glibc/libc-bin@2.32-4:
+      reason: Buffer Overflow
+      expires: '2022-04-01T14:26:34.404Z'
+    - meta-common-packages@meta > glibc/libc6@2.32-4:
+      reason: Buffer Overflow
+      expires: '2022-04-01T14:26:34.404Z'
+  SNYK-DEBIANUNSTABLE-EXPAT-2331801:
+    - git@1:2.34.1-1 > expat/libexpat1@2.4.1-3:
+      reason: Integer Overflow or Wraparound
+      expires: '2022-04-01T14:26:34.404Z'
+  SNYK-DEBIANUNSTABLE-EXPAT-2331810:
+    - git@1:2.34.1-1 > expat/libexpat1@2.4.1-3:
+      reason: Integer Overflow or Wraparound
+      expires: '2022-04-01T14:26:34.404Z'
+  SNYK-DEBIANUNSTABLE-EXPAT-2331821:
+    - git@1:2.34.1-1 > expat/libexpat1@2.4.1-3:
+      reason: Integer Overflow or Wraparound
+      expires: '2022-04-01T14:26:34.404Z'
+  SNYK-DEBIANUNSTABLE-EXPAT-2359257:
+    - git@1:2.34.1-1 > expat/libexpat1@2.4.1-3:
+      reason: Integer Overflow or Wraparound
+      expires: '2022-04-01T14:26:34.404Z'
+  SNYK-DEBIANUNSTABLE-EXPAT-2384930:
+    - git@1:2.34.1-1 > expat/libexpat1@2.4.1-3:
+      reason: Integer Overflow or Wraparound
+      expires: '2022-04-01T14:26:34.404Z'
 patch: {}
+
+#snyk test --docker docker.io/twdps/circleci-remote-docker:edge --file=Dockerfile.slim --exclude-base-image-vulns --policy-path=./.snyk --severity-threshold=<medium
