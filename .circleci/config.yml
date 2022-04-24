@@ -2,7 +2,19 @@
 version: 2.1
 
 orbs:
-  executor-tools: twdps/executor-tools@0.2.0
+  executor-tools: twdps/executor-tools@0.3.0
+
+# ================================================================= global pipeline parameters
+
+parameters:
+  context:
+    description: circleci context for all jobs
+    type: string
+    default: twdps-core-labs-team
+  shell-options:
+    description: shell options for all jobs
+    type: string
+    default: secrethub run --env-file secrethub.env -- /bin/bash -eo pipefail
 
 on-push-main: &on-push-main
   branches:
@@ -16,14 +28,16 @@ on-tag-main: &on-tag-main
   tags:
     only: /.*/
 
+# ================================================================= workflows
+
 workflows:
   version: 2
   alpine-image-pipeline:
     jobs:
       - executor-tools/dev-release:
-          shell: secrethub run -- /bin/sh -eo pipefail
           name: alpine-dev-build
-          context: twdps-di
+          shell: << pipeline.parameters.shell-options >>
+          context: << pipeline.parameters.context >>
           dockerfile: Dockerfile.alpine
           image: twdps/circleci-remote-docker
           tag: alpine-edge
@@ -38,9 +52,9 @@ workflows:
           filters: *on-push-main
 
       - executor-tools/publish:
-          shell: secrethub run -- /bin/sh -eo pipefail
           name: alpine-release
-          context: twdps-di
+          shell: << pipeline.parameters.shell-options >>
+          context: << pipeline.parameters.context >>
           pull-tag: alpine-edge
           tag-annotation: alpine-
           image: twdps/circleci-remote-docker
@@ -51,7 +65,7 @@ workflows:
     jobs:
       - executor-tools/machine-executor-dev-release:
           name: slim-dev-build
-          context: twdps-di
+          context: << pipeline.parameters.context >>
           dockerfile: Dockerfile.slim
           image: twdps/circleci-remote-docker
           tag: slim-edge
@@ -71,9 +85,9 @@ workflows:
           filters: *on-push-main
 
       - executor-tools/publish:
-          shell: secrethub run -- /bin/sh -eo pipefail
           name: slim-release
-          context: twdps-di
+          shell: << pipeline.parameters.shell-options >>
+          context: << pipeline.parameters.context >>
           pull-tag: slim-edge
           tag-annotation: slim-
           image: twdps/circleci-remote-docker
@@ -83,24 +97,25 @@ workflows:
   generate-release-notes:
     jobs:
       - executor-tools/release:
-          context: twdps-di
-          shell: secrethub run -- /bin/sh -eo pipefail
+          shell: << pipeline.parameters.shell-options >>
+          context: << pipeline.parameters.context >>
+          on-tag: true
           filters: *on-tag-main
 
   # builds nightly from .unpinned Dockerfile in order to test the latest base image and installed packages
-  di-circleci-infra-image-nightly-build:
+  circleci-iremote-docker-monthly-build:
     triggers:
       - schedule:
           cron: "0 0 1 * *"
           filters:
             branches:
               only:
-                - master
+                - main
     jobs:
       - executor-tools/dev-release:
-          shell: secrethub run -- /bin/sh -eo pipefail
           name: alpine-nightly-build
-          context: twdps-di
+          shell: << pipeline.parameters.shell-options >>
+          context: << pipeline.parameters.context >>
           dockerfile: Dockerfile.alpine
           image: twdps/circleci-remote-docker
           tag: alpine-nightly
@@ -115,7 +130,7 @@ workflows:
 
       - executor-tools/dev-release:
           name: slim-nightly-build
-          context: twdps-di
+          context: << pipeline.parameters.context >>
           dockerfile: Dockerfile.slim
           image: twdps/circleci-remote-docker
           tag: slim-nightly
