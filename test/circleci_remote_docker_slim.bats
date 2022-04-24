@@ -2,12 +2,12 @@
 
 @test "git version" {
   run bash -c "docker exec circleci-remote-docker-slim-edge git --version"
-  [[ "${output}" =~ "2.35" ]]
+  [[ "${output}" =~ "2.36" ]]
 }
 
 @test "openssh version" {
   run bash -c "docker exec circleci-remote-docker-slim-edge ssh -V"
-  [[ "${output}" =~ "8.9p1" ]]
+  [[ "${output}" =~ "9.0p1" ]]
 }
 
 @test "tar version" {
@@ -17,7 +17,7 @@
 
 @test "gzip version" {
   run bash -c "docker exec circleci-remote-docker-slim-edge gzip --version"
-  [[ "${output}" =~ "1.10" ]]
+  [[ "${output}" =~ "1.12" ]]
 }
 
 @test "ca-certificates installed" {
