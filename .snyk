@@ -31,4 +31,10 @@ ignore:
     - e2fsprogs@1.46.5-2 > e2fsprogs/logsave@1.46.5-2:
       reason: Out-of-bounds Read
       expires: '2022-06-01T14:26:34.404Z'
+    - e2fsprogs@1.46.5-2 > e2fsprogs/libss2@1.46.5-2:
+      reason: Out-of-bounds Read
+      expires: '2022-06-01T14:26:34.404Z'
+    - meta-common-packages@meta > e2fsprogs/libcom-err2@1.46.5-2:
+      reason: Out-of-bounds Read
+      expires: '2022-06-01T14:26:34.404Z'
 patch: {}
