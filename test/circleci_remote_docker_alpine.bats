@@ -2,7 +2,7 @@
 
 @test "git version" {
   run bash -c "docker exec circleci-remote-docker-alpine-edge git --version"
-  [[ "${output}" =~ "2.34.1" ]]
+  [[ "${output}" =~ "2.34.2" ]]
 }
 
 @test "openssh version" {
@@ -17,7 +17,7 @@
 
 @test "gzip version" {
   run bash -c "docker exec circleci-remote-docker-alpine-edge gzip --version"
-  [[ "${output}" =~ "1.11" ]]
+  [[ "${output}" =~ "1.12" ]]
 }
 
 @test "ca-certificates installed" {
