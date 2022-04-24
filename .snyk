@@ -3,16 +3,26 @@ version: v1.22.0
 # ignores vulnerabilities until expiry date; change duration by modifying expiry date
 ignore:
   SNYK-DEBIANUNSTABLE-PERL-1925974:
-    - git@1:2.35.1-1 > perl@5.34.0-3 > perl/perl-modules-5.34@5.34.0-3:
+    - git@1:2.36.0-1 > perl@5.34.0-4 > perl/perl-modules-5.34@5.34.0-4:
       reason: Improper Verification of Cryptographic Signature
-      expires: '2022-04-01T14:26:34.404Z'
-    - git@1:2.35.1-1 > perl@5.34.0-3 > perl/libperl5.34@5.34.0-3 > perl/perl-modules-5.34@5.34.0-3:
+      expires: '2022-06-01T14:26:34.404Z'
+    - git@1:2.36.0-1 > perl@5.34.0-4 > perl/libperl5.34@5.34.0-4 > perl/perl-modules-5.34@5.34.0-4:
       reason: Improper Verification of Cryptographic Signature
-      expires: '2022-04-01T14:26:34.404Z'
-    - git@1:2.35.1-1 > perl@5.34.0-3 > perl/libperl5.34@5.34.0-3:
+      expires: '2022-06-01T14:26:34.404Z'
+    - git@1:2.36.0-1 > perl@5.34.0-4 > perl/libperl5.34@5.34.0-4:
       reason: Improper Verification of Cryptographic Signature
-      expires: '2022-04-01T14:26:34.404Z'
-    - meta-common-packages@meta > perl/perl-base@5.34.0-3:
+      expires: '2022-06-01T14:26:34.404Z'
+    - meta-common-packages@meta > perl/perl-base@5.34.0-4:
       reason: Improper Verification of Cryptographic Signature
-      expires: '2022-04-01T14:26:34.404Z'
+      expires: '2022-06-01T14:26:34.404Z'
+  SNYK-DEBIANUNSTABLE-E2FSPROGS-2628472:
+    - e2fsprogs/libext2fs2@1.46.5-2:
+      reason: Out-of-bounds Read
+      expires: '2022-06-01T14:26:34.404Z'
+    - e2fsprogs@1.46.5-2 > e2fsprogs/libext2fs2@1.46.5-2:
+      reason: Out-of-bounds Read
+      expires: '2022-06-01T14:26:34.404Z'
+    - e2fsprogs/libss2@1.46.5-2:
+      reason: Out-of-bounds Read
+      expires: '2022-06-01T14:26:34.404Z'
 patch: {}
