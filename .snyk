@@ -25,6 +25,15 @@ ignore:
     - git@1:2.36.1-1 > curl/libcurl3-gnutls@7.83.1-1+b1 > krb5/libgssapi-krb5-2@1.19.2-2+b2 > e2fsprogs/libcom-err2@1.46.5-2:
       reason: Out-of-bounds Read
       expires: '2022-06-01T14:26:34.404Z'
+    - e2fsprogs@1.46.5-2 > e2fsprogs/libss2@1.46.5-2 > e2fsprogs/libcom-err2@1.46.5-2:
+      reason: Out-of-bounds Read
+      expires: '2022-06-01T14:26:34.404Z'
+    - git@1:2.36.1-1 > curl/libcurl3-gnutls@7.83.1-1+b1 > krb5/libgssapi-krb5-2@1.19.2-2+b2 > krb5/libkrb5-3@1.19.2-2+b2 > e2fsprogs/libcom-err2@1.46.5-2:
+      reason: Out-of-bounds Read
+      expires: '2022-06-01T14:26:34.404Z'
+    - e2fsprogs/libext2fs2@1.46.5-2:
+      reason: Out-of-bounds Read
+      expires: '2022-06-01T14:26:34.404Z'
   SNYK-DEBIANUNSTABLE-DB53-2825167:
     - git@1:2.36.1-1 > perl@5.34.0-4 > perl/libperl5.34@5.34.0-4 > db5.3/libdb5.3@5.3.28+dfsg1-0.8:
       reason: Out-of-bounds Read
