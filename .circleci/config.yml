@@ -103,7 +103,7 @@ workflows:
           filters: *on-tag-main
 
   # builds nightly from .unpinned Dockerfile in order to test the latest base image and installed packages
-  circleci-iremote-docker-monthly-build:
+  circleci-remote-docker-monthly-build:
     triggers:
       - schedule:
           cron: "0 0 1 * *"
