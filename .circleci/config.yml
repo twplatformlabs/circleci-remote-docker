@@ -2,7 +2,7 @@
 version: 2.1
 
 orbs:
-  executor-tools: twdps/executor-tools@0.5.0
+  executor-tools: twdps/executor-tools@0.7.0
 
 # ================================================================= global pipeline parameters
 
@@ -118,7 +118,7 @@ workflows:
           context: << pipeline.parameters.context >>
           dockerfile: Dockerfile.alpine
           image: twdps/circleci-remote-docker
-          tag: alpine-nightly
+          tag: alpine-edge
           cis-docker-image-scan: true
           docker-cve-scan: true
           severity-threshold: low
@@ -133,7 +133,7 @@ workflows:
           context: << pipeline.parameters.context >>
           dockerfile: Dockerfile.slim
           image: twdps/circleci-remote-docker
-          tag: slim-nightly
+          tag: slim-edge
           bats-test: true
           docker-cve-scan: true
           severity-threshold: high
