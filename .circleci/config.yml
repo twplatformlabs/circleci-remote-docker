@@ -126,7 +126,7 @@ workflows:
           bats-test: true
           test-path: test/circleci_remote_docker_alpine.bats
           entry-point: /bin/ash
-          container-name: circleci-remote-docker-alpine-nightly
+          container-name: circleci-remote-docker-alpine-edge
 
       - executor-tools/dev-release:
           name: slim-nightly-build
@@ -140,7 +140,7 @@ workflows:
           snyk-organization: twdps
           test-path: test/circleci_remote_docker_slim.bats
           entry-point: /bin/bash
-          container-name: circleci-remote-docker-slim-nightly
+          container-name: circleci-remote-docker-slim-edge
           after-checkout:
             - run:
                 name: inject environment variables
