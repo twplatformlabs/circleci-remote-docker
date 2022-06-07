@@ -3,6 +3,7 @@ version: 2.1
 
 orbs:
   executor-tools: twdps/executor-tools@0.7.0
+  op: twdps/onepassword@dev:latest
 
 # ================================================================= global pipeline parameters
 
@@ -77,11 +78,13 @@ workflows:
           entry-point: /bin/bash
           container-name: circleci-remote-docker-slim-edge
           after-checkout:
-            - run:
-                name: inject environment variables
-                command: |
-                  op inject -i op.env -o $BASH_ENV
-                  source $BASH_ENV
+            - op/env:
+                env-file: op.env
+            # - run:
+            #     name: inject environment variables
+            #     command: |
+            #       op inject -i op.env -o $BASH_ENV
+            #       source $BASH_ENV
           filters: *on-push-main
 
       - executor-tools/publish:
@@ -142,8 +145,10 @@ workflows:
           entry-point: /bin/bash
           container-name: circleci-remote-docker-slim-edge
           after-checkout:
-            - run:
-                name: inject environment variables
-                command: |
-                  op inject -i op.env -o $BASH_ENV
-                  source $BASH_ENV
+            - op/env:
+                env-file: op.env
+            # - run:
+            #     name: inject environment variables
+            #     command: |
+            #       op inject -i op.env -o $BASH_ENV
+            #       source $BASH_ENV
