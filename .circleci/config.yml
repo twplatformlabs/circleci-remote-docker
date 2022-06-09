@@ -2,8 +2,8 @@
 version: 2.1
 
 orbs:
-  executor-tools: twdps/executor-tools@0.7.0
-  op: twdps/onepassword@dev:latest
+  executor-tools: twdps/executor-tools@0.8.0
+  op: twdps/onepassword@1.0.0
 
 # ================================================================= global pipeline parameters
 
@@ -80,11 +80,6 @@ workflows:
           after-checkout:
             - op/env:
                 env-file: op.env
-            # - run:
-            #     name: inject environment variables
-            #     command: |
-            #       op inject -i op.env -o $BASH_ENV
-            #       source $BASH_ENV
           filters: *on-push-main
 
       - executor-tools/publish:
@@ -147,8 +142,3 @@ workflows:
           after-checkout:
             - op/env:
                 env-file: op.env
-            # - run:
-            #     name: inject environment variables
-            #     command: |
-            #       op inject -i op.env -o $BASH_ENV
-            #       source $BASH_ENV
