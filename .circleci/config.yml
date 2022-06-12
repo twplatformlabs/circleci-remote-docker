@@ -2,7 +2,7 @@
 version: 2.1
 
 orbs:
-  executor-tools: twdps/executor-tools@0.8.0
+  executor-tools: twdps/executor-tools@0.9.0
   op: twdps/onepassword@1.0.0
 
 # ================================================================= global pipeline parameters
@@ -60,6 +60,10 @@ workflows:
           tag-annotation: alpine-
           image: twdps/circleci-remote-docker
           release-tag: alpine-stable
+          after-publish:
+            - do/slack-webhook:
+                message: circleci-remote-docker:[alpine | slim]-$CIRCLE_TAG
+                webhook-url: $LAB_EVENTS_CHANNEL_WEBHOOK
           filters: *on-tag-main
 
   slim-image-pipeline:
