@@ -135,7 +135,7 @@ workflows:
           tag: slim-edge
           bats-test: true
           docker-cve-scan: true
-          severity-threshold: high
+          severity-threshold: low
           snyk-organization: twdps
           test-path: test/circleci_remote_docker_slim.bats
           entry-point: /bin/bash
