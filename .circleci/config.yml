@@ -40,6 +40,7 @@ workflows:
           name: alpine-dev-build
           shell: << pipeline.parameters.shell-options >>
           context: << pipeline.parameters.context >>
+          executor-image-name: twdps/circleci-remote-docker:alpine-2022.12
           dockerfile: Dockerfile.alpine
           image: twdps/circleci-remote-docker
           tag: alpine-edge
@@ -65,23 +66,23 @@ workflows:
 
   slim-image-pipeline:
     jobs:
-      - executor-tools/machine-executor-dev-release:
-          name: slim-dev-build
-          context: << pipeline.parameters.context >>
-          dockerfile: Dockerfile.slim
-          image: twdps/circleci-remote-docker
-          tag: slim-edge
-          bats-test: true
-          docker-cve-scan: true
-          severity-threshold: medium
-          snyk-organization: twdps
-          test-path: test/circleci_remote_docker_slim.bats
-          entry-point: /bin/bash
-          container-name: circleci-remote-docker-slim-edge
-          after-checkout:
-            - op/env:
-                env-file: op.env
-          filters: *on-push-main
+      # - executor-tools/machine-executor-dev-release:
+      #     name: slim-dev-build
+      #     context: << pipeline.parameters.context >>
+      #     dockerfile: Dockerfile.slim
+      #     image: twdps/circleci-remote-docker
+      #     tag: slim-edge
+      #     bats-test: true
+      #     docker-cve-scan: true
+      #     severity-threshold: medium
+      #     snyk-organization: twdps
+      #     test-path: test/circleci_remote_docker_slim.bats
+      #     entry-point: /bin/bash
+      #     container-name: circleci-remote-docker-slim-edge
+      #     after-checkout:
+      #       - op/env:
+      #           env-file: op.env
+      #     filters: *on-push-main
 
       - executor-tools/publish:
           name: slim-release

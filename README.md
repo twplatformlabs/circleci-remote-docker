@@ -3,9 +3,9 @@
 	<p>
 		<img alt="Thoughtworks Logo" src="https://raw.githubusercontent.com/ThoughtWorks-DPS/static/master/thoughtworks_flamingo_wave.png?sanitize=true" width=200 />
     <br />
-		<img alt="DPS Title" src="https://raw.githubusercontent.com/ThoughtWorks-DPS/static/master/dps_lab_title.png" width=350/>
+		<img alt="DPS Title" src="https://raw.githubusercontent.com/ThoughtWorks-DPS/static/master/EMPCPlatformStarterKitsImage.png" width=350/>
 	</p>
-  <h3>DPS Convenience Images</h3>
+  <h3>EMPC Convenience Images</h3>
   <h1>twdps/circleci-remote-docker</h1>
   <a href="https://app.circleci.com/pipelines/github/ThoughtWorks-DPS/circleci-remote-docker"><img src="https://circleci.com/gh/ThoughtWorks-DPS/circleci-remote-docker.svg?style=shield"></a> <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/github/license/ThoughtWorks-DPS/circleci-remote-docker"></a>
 </div>
@@ -25,10 +25,13 @@ twdps/circleci-infra-aws
 
 ## Table of Contents
 
-- [Getting Started](#getting-started)  
-- [What is included in the image](#what-is-included-in-the-image)
-- [Development](#development)
+- [Table of Contents](#table-of-contents)
+- [Getting Started](#getting-started)
+- [What is Included in the Image](#what-is-included-in-the-image)
+	- [Tagging Scheme](#tagging-scheme)
 - [Contributing](#contributing)
+	- [Local development](#local-development)
+	- [Publishing Official Images (for Maintainers only)](#publishing-official-images-for-maintainers-only)
 - [Additional Resources](#additional-resources)
 
 ## Getting Started
