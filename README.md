@@ -97,6 +97,7 @@ Use `test_local.sh` to build and test image locally. In order to successfully ru
 
 **requirements**  
 
+
 [bats](https://github.com/bats-core/bats-core)  
 [conftest](https://github.com/open-policy-agent/conftest)  
 [hadolint](https://github.com/hadolint/hadolint)  
