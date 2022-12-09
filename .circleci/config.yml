@@ -40,7 +40,7 @@ workflows:
           name: alpine-dev-build
           shell: << pipeline.parameters.shell-options >>
           context: << pipeline.parameters.context >>
-          executor-image-name: twdps/circleci-remote-docker:alpine-2022.12
+          executor-image: twdps/circleci-remote-docker:alpine-2022.12
           dockerfile: Dockerfile.alpine
           image: twdps/circleci-remote-docker
           tag: alpine-edge
