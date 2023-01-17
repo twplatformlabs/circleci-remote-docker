@@ -2,4 +2,14 @@
 version: v1.22.0
 # ignores vulnerabilities until expiry date; change duration by modifying expiry date
 ignore:
+  SNYK-DEBIANUNSTABLE-OPENSSL-3168235:
+    - openssh/openssh-server@1:9.1p1-2 > openssl/libssl3@3.0.7-1:
+      reason: Improper Locking
+      expires: '2023-03-01T14:26:34.404Z'
+    - ca-certificates@20211016 > openssl@3.0.7-1 > openssl/libssl3@3.0.7-1:
+      reason: Improper Locking
+      expires: '2023-03-01T14:26:34.404Z'
+    - openssh/openssh-server@1:9.1p1-2 > openssh/openssh-client@1:9.1p1-2 > openssl/libssl3@3.0.7-1:
+      reason: Improper Locking
+      expires: '2023-03-01T14:26:34.404Z'
 patch: {}
