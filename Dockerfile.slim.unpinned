@@ -1,6 +1,11 @@
 FROM debian:sid-slim
 
-LABEL maintainer=<nic.cheneweth@thoughtworks.com>
+LABEL org.opencontainers.image.authors="nic.cheneweth@thoughtworks.com" \
+      org.opencontainers.image.description="Alpine-based CircleCI executor image" \
+      org.opencontainers.image.licenses="MIT" \
+      org.opencontainers.image.source="https://github.com/ThoughtWorks-DPS/circleci-remote-docker" \
+      org.opencontainers.image.title="circleci-remote-docker" \
+      org.opencontainers.image.vendor="ThoughtWorks, Inc."
 
 # minimum packages required for use as a circleci remote-docker primary container
 # hadolint ignore=DL3008
