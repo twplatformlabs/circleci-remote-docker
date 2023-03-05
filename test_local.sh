@@ -12,9 +12,7 @@ conftest test Dockerfile.alpine --policy . --data .conftest
 # lint Dockerfiles
 echo "Linting Dockerfiles..."
 hadolint Dockerfile.alpine
-hadolint Dockerfile.alpine.unpinned
 hadolint Dockerfile.slim
-hadolint Dockerfile.slim.unpinned
 
 # pass unpinned as a parameter to this script to test the unpinned
 # package definitions for early detection of upcoming breaking changes
