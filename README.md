@@ -1,6 +1,9 @@
 
 <div align="center">
 	<p>
+		<img alt="ghcr Logo" src="https://raw.githubusercontent.com/ThoughtWorks-DPS/static/master/ghcr.png?sanitize=true" width=200 />
+		<h2>NOTE: The EMPC CircleCI convenience iamges are moving from Dockerhub to the Github Contrainer Registry. Docker is discontinuing the free Teams tier for opensource projects, so we are moving to ghcr. Prior versions will ONLY remain available on dockerhub until mid-May.</h2>
+		<br />
 		<img alt="Thoughtworks Logo" src="https://raw.githubusercontent.com/ThoughtWorks-DPS/static/master/thoughtworks_flamingo_wave.png?sanitize=true" width=200 />
     <br />
 		<img alt="DPS Title" src="https://raw.githubusercontent.com/ThoughtWorks-DPS/static/master/EMPCPlatformStarterKitsImage.png" width=350/>
@@ -103,7 +106,7 @@ Use `test_local.sh` to build and test image locally. In order to successfully ru
 
 ### Publishing Official Images (for Maintainers only)
 
-Git push will trigger the dev-build pipeline. In addition to the tests performed in testlocal.sh, a snyk scan is done to expose any known vulnerabilities.   
+Git push will trigger the dev-build pipeline. In addition to the tests performed in testlocal.sh, a snyk scan is done to expose any known vulnerabilities.  
 
 To create a release version, simply tag HEAD with the release version format `YYYY.MM`  
 

@@ -2,7 +2,7 @@
 version: 2.1
 
 orbs:
-  executor-tools: twdps/executor-tools@0.10.0
+  executor-tools: twdps/executor-tools@dev:latest
   op: twdps/onepassword@1.0.0
   do: twdps/pipeline-events@0.1.0
 
@@ -17,6 +17,10 @@ parameters:
     description: shell options for all jobs
     type: string
     default: op run --env-file op.env -- /bin/bash -eo pipefail
+  registry:
+    description: publish to this registry
+    type: string
+    default: ghcr.io/thoughtworks-dps
 
 on-push-main: &on-push-main
   branches:
@@ -61,6 +65,13 @@ workflows:
           tag-annotation: alpine-
           image: twdps/circleci-remote-docker
           release-tag: alpine-stable
+          sign-image: true
+          after-publish:
+            - run:
+                name: setup cosign keys
+                command: |
+                  op inject -i cosign.key.env -o cosign.key
+                  op inject -i cosign.pub.env -o cosign.pub
           filters: *on-tag-main
 
   slim-image-pipeline:
