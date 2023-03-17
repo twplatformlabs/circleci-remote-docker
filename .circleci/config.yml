@@ -106,6 +106,13 @@ workflows:
           tag-annotation: slim-
           image: twdps/circleci-remote-docker
           release-tag: slim-stable
+          sign-image: true
+          after-publish:
+            - run:
+                name: setup cosign keys
+                command: |
+                  op inject -i cosign.key.env -o cosign.key
+                  op inject -i cosign.pub.env -o cosign.pub
           filters: *on-tag-main
 
   generate-release-notes:
