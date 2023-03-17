@@ -10,7 +10,7 @@
 	</p>
   <h3>EMPC Convenience Images</h3>
   <h1>twdps/circleci-remote-docker</h1>
-  <a href="https://app.circleci.com/pipelines/github/ThoughtWorks-DPS/circleci-remote-docker"><img src="https://circleci.com/gh/ThoughtWorks-DPS/circleci-remote-docker.svg?style=shield"></a> <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/github/license/ThoughtWorks-DPS/circleci-remote-docker"></a> <a href="https://keybase.io/twdps"><img src="https://img.shields.io/keybase/pgp/twdps?logo=keybase"></a>
+  <a href="https://app.circleci.com/pipelines/github/ThoughtWorks-DPS/circleci-remote-docker"><img src="https://circleci.com/gh/ThoughtWorks-DPS/circleci-remote-docker.svg?style=shield"></a> <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/github/license/ThoughtWorks-DPS/circleci-remote-docker"></a> <a href="https://keybase.io/twdps"><img src="https://img.shields.io/keybase/pgp/twdps?label=keybase&logo=keybase"></a>
 </div>
 <br />
 
