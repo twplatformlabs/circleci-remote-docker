@@ -22,6 +22,7 @@ _difference with cimg libraries._ Enterprise settings often require specific sec
 twdps/circleci-base-image  
 twdps/circleci-executor-builder  
 twdps/circleci-infra-aws  
+twdps/kube-ops
 
 ## Table of Contents
 
