@@ -2,7 +2,7 @@
 version: 2.1
 
 orbs:
-  executor-tools: twdps/executor-tools@dev:latest
+  executor-tools: twdps/executor-tools@1.1.0
   op: twdps/onepassword@1.0.0
   do: twdps/pipeline-events@0.1.0
 
@@ -68,16 +68,12 @@ workflows:
           image: twdps/circleci-remote-docker
           release-tag: alpine-stable
           sign-image: true
-          sbom: true
           after-publish:
             - run:
                 name: setup cosign keys
                 command: |
                   op inject -i cosign.key.env -o cosign.key
                   op inject -i cosign.pub.env -o cosign.pub
-            - run:
-                name: temp - install syft
-                command: curl -sSfL https://raw.githubusercontent.com/anchore/syft/main/install.sh | sh -s -- -b /usr/local/bin
           filters: *on-tag-main
 
   slim-image-pipeline:
