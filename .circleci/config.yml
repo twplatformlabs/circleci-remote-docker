@@ -56,6 +56,12 @@ workflows:
           test-path: test/circleci_remote_docker_alpine.bats
           entry-point: /bin/ash
           container-name: circleci-remote-docker-alpine-edge
+          before-build:
+            - run:
+                name: update CREATED and VERSION in LABELS
+                command: |
+                  sed -i "s/CREATED/$(date -u +"%Y-%m-%dT%H:%M:%SZ")/g"
+                  sed -i "s/VERSION/${CIRCLE_TAG}/g"
           filters: *on-push-main
 
       - executor-tools/publish:
@@ -96,6 +102,12 @@ workflows:
           after-checkout:
             - op/env:
                 env-file: op.env
+          before-build:
+            - run:
+                name: update CREATED and VERSION in LABELS
+                command: |
+                  sed -i "s/CREATED/$(date -u +"%Y-%m-%dT%H:%M:%SZ")/g"
+                  sed -i "s/VERSION/${CIRCLE_TAG}/g"
           filters: *on-push-main
 
       - executor-tools/publish:
@@ -151,6 +163,12 @@ workflows:
           test-path: test/circleci_remote_docker_alpine.bats
           entry-point: /bin/ash
           container-name: circleci-remote-docker-alpine-edge
+          before-build:
+            - run:
+                name: update CREATED and VERSION in LABELS
+                command: |
+                  sed -i "s/CREATED/$(date -u +"%Y-%m-%dT%H:%M:%SZ")/g"
+                  sed -i "s/VERSION/${CIRCLE_TAG}/g"
 
       - executor-tools/dev-release:
           name: slim-recurring-build
@@ -169,3 +187,9 @@ workflows:
           after-checkout:
             - op/env:
                 env-file: op.env
+          before-build:
+            - run:
+                name: update CREATED and VERSION in LABELS
+                command: |
+                  sed -i "s/CREATED/$(date -u +"%Y-%m-%dT%H:%M:%SZ")/g"
+                  sed -i "s/VERSION/${CIRCLE_TAG}/g"

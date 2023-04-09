@@ -1,13 +1,16 @@
 FROM debian:sid-20230227-slim
 
-LABEL org.opencontainers.image.authors="nic.cheneweth@thoughtworks.com" \
-      org.opencontainers.image.description="Debain-based CircleCI executor image" \
-      org.opencontainers.image.licenses="MIT" \
+LABEL org.opencontainers.image.title="circleci-remote-docker" \
+      org.opencontainers.image.description="Debian-based CircleCI executor image containing only the minimum required packages" \
+      org.opencontainers.image.documentation="https://github.com/ThoughtWorks-DPS/circleci-remote-docker" \
       org.opencontainers.image.source="https://github.com/ThoughtWorks-DPS/circleci-remote-docker" \
-      org.opencontainers.image.title="circleci-remote-docker" \
-      org.opencontainers.image.vendor="ThoughtWorks, Inc."
+      org.opencontainers.image.url="https://github.com/ThoughtWorks-DPS/circleci-remote-docker" \
+      org.opencontainers.image.vendor="ThoughtWorks, Inc." \
+      org.opencontainers.image.authors="nic.cheneweth@thoughtworks.com" \
+      org.opencontainers.image.licenses="MIT" \
+      org.opencontainers.image.created="CREATED" \
+      org.opencontainers.image.version="VERSION"
 
-# minimum packages required for use as a circleci remote-docker primary container
 RUN apt-get update && \
     apt-get install --no-install-recommends -y \
             git=1:2.40.0-1 \

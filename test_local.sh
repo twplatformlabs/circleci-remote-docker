@@ -30,3 +30,6 @@ echo "run image configuration tests"
 docker run -it -d --name di-circleci-base-image-alpine-edge --entrypoint "/bin/ash" twdps/di-circleci-base-image:alpine-edge
 docker run -it -d --name di-circleci-base-image-slim-edge --entrypoint "/bin/bash" twdps/di-circleci-base-image:slim-edge
 bats test
+
+
+cosign sign --key cosign.key --annotations sbom="$(cat sbom.json)" $(cat manifestid) -y

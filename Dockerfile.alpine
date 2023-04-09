@@ -7,17 +7,9 @@ LABEL org.opencontainers.image.title="circleci-remote-docker" \
       org.opencontainers.image.url="https://github.com/ThoughtWorks-DPS/circleci-remote-docker" \
       org.opencontainers.image.vendor="ThoughtWorks, Inc." \
       org.opencontainers.image.authors="nic.cheneweth@thoughtworks.com" \
-      org.opencontainers.image.licenses="MIT"
-      # org.opencontainers.image.created="CREATED" \
-      # org.opencontainers.image.version="VERSION" \
-      # io.artifacthub.package.readme-url	yes	url of the readme file (in markdown format) for this package version. Please make sure it points to a raw markdown document, not HTML
-      # io.artifacthub.package.category	no	category of the package (ai-machine-learning, database, integration-delivery, monitoring-logging, networking, security, storage, streaming-messaging or skip-prediction)
-      # io.artifacthub.package.license	no	SPDX identifier of the package license
-      # io.artifacthub.package.logo-url	no	url of the logo image
-      # io.artifacthub.package.contains-security-updates	no	boolean that indicates if this image version contains security updates
-      # io.artifacthub.package.keywords	no	a list of comma separated keywords about this image
-      # io.artifacthub.package.alternative-locations	no	alternative locations where this image is hosted. They can be provided as a comma separated list of images urls
-      # io.artifacthub.package.deprecated	no	boolean that indicates if this image version is deprecated
+      org.opencontainers.image.licenses="MIT" \
+      org.opencontainers.image.created="CREATED" \
+      org.opencontainers.image.version="VERSION"
 
 RUN apk add --no-cache \
         git==2.38.4-r1 \
