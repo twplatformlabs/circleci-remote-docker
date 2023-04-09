@@ -20,7 +20,7 @@ parameters:
   registry:
     description: publish to this registry
     type: string
-    default: ghcr.io/thoughtworks-dps
+    default: docker.io
 
 on-push-main: &on-push-main
   branches:
@@ -127,7 +127,7 @@ workflows:
           on-tag: true
           filters: *on-tag-main
 
-  # builds nightly from .unpinned Dockerfile in order to test the latest base image and installed packages
+  # builds monthly automatically, in case not built for any other reason - to check for braeking changes
   circleci-remote-docker-monthly-build:
     triggers:
       - schedule:
@@ -138,7 +138,7 @@ workflows:
                 - main
     jobs:
       - executor-tools/dev-release:
-          name: alpine-nightly-build
+          name: alpine-recurring-build
           shell: << pipeline.parameters.shell-options >>
           context: << pipeline.parameters.context >>
           registry: << pipeline.parameters.registry >>
@@ -155,7 +155,7 @@ workflows:
           container-name: circleci-remote-docker-alpine-edge
 
       - executor-tools/dev-release:
-          name: slim-nightly-build
+          name: slim-recurring-build
           context: << pipeline.parameters.context >>
           registry: << pipeline.parameters.registry >>
           dockerfile: Dockerfile.slim

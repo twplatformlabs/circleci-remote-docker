@@ -1,9 +1,6 @@
 
 <div align="center">
 	<p>
-		<img alt="ghcr Logo" src="https://raw.githubusercontent.com/ThoughtWorks-DPS/static/master/ghcr.png" width=200 />
-		<h2>NOTE: The ThoughtWorks EMPC CircleCI convenience images are moving from Dockerhub to the Github Container Registry. Docker is discontinuing the free Teams tier for opensource projects, so we are moving to ghcr. Prior versions will ONLY remain available on dockerhub until mid-May.</h2>
-		<br />
 		<img alt="Thoughtworks Logo" src="https://raw.githubusercontent.com/ThoughtWorks-DPS/static/master/thoughtworks_flamingo_wave.png?sanitize=true" width=200 />
     <br />
 		<img alt="DPS Title" src="https://raw.githubusercontent.com/ThoughtWorks-DPS/static/master/EMPCPlatformStarterKitsImage.png" width=350/>
