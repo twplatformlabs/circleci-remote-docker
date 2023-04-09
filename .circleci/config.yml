@@ -60,8 +60,8 @@ workflows:
             - run:
                 name: update CREATED and VERSION in LABELS
                 command: |
-                  sed -i "s/CREATED/$(date -u +"%Y-%m-%dT%H:%M:%SZ")/g"
-                  sed -i "s/VERSION/${CIRCLE_TAG}/g"
+                  sed -i "s/CREATED/$(date -u +"%Y-%m-%dT%H:%M:%SZ")/g" Dockerfile.alpine
+                  sed -i "s/VERSION/${CIRCLE_TAG}/g" Dockerfile.alpine
           filters: *on-push-main
 
       - executor-tools/publish:
@@ -106,8 +106,8 @@ workflows:
             - run:
                 name: update CREATED and VERSION in LABELS
                 command: |
-                  sed -i "s/CREATED/$(date -u +"%Y-%m-%dT%H:%M:%SZ")/g"
-                  sed -i "s/VERSION/${CIRCLE_TAG}/g"
+                  sed -i "s/CREATED/$(date -u +"%Y-%m-%dT%H:%M:%SZ")/g" Dockerfile.slim
+                  sed -i "s/VERSION/${CIRCLE_TAG}/g" Dockerfile.slim
           filters: *on-push-main
 
       - executor-tools/publish:
@@ -167,8 +167,8 @@ workflows:
             - run:
                 name: update CREATED and VERSION in LABELS
                 command: |
-                  sed -i "s/CREATED/$(date -u +"%Y-%m-%dT%H:%M:%SZ")/g"
-                  sed -i "s/VERSION/${CIRCLE_TAG}/g"
+                  sed -i "s/CREATED/$(date -u +"%Y-%m-%dT%H:%M:%SZ")/g" Dockerfile.alpine
+                  sed -i "s/VERSION/${CIRCLE_TAG}/g" Dockerfile.alpine
 
       - executor-tools/dev-release:
           name: slim-recurring-build
@@ -191,5 +191,5 @@ workflows:
             - run:
                 name: update CREATED and VERSION in LABELS
                 command: |
-                  sed -i "s/CREATED/$(date -u +"%Y-%m-%dT%H:%M:%SZ")/g"
-                  sed -i "s/VERSION/${CIRCLE_TAG}/g"
+                  sed -i "s/CREATED/$(date -u +"%Y-%m-%dT%H:%M:%SZ")/g" Dockerfile.slim
+                  sed -i "s/VERSION/${CIRCLE_TAG}/g" Dockerfile.slim
