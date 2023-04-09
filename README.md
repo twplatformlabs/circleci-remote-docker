@@ -16,7 +16,7 @@
 
 With inspiration from the CircleCI convenience images, `twdps/circleci-remote-docker` maintains both alpine and slim variants with both remote and self-hosted runners in mind. As the name suggests, this image is designed to serve as a starter image for building a use-tailored CircleCI [remote docker executor](https://circleci.com/docs/2.0/custom-images/#section=configuration).  
 
-This image contains the minimum packages required to function as a remote_docker executor on CircleCI.  
+This image contains the [minimum packages required](https://circleci.com/docs/custom-images/) to function as a remote_docker executor on CircleCI.  
 
 _difference with cimg libraries._ Enterprise settings often require specific security and configuration testing. The twdps series of convenience images includes common sdlc security practices, including CIS-benchmark testing. Review `.snyk` for current vulnerability status.  
 
@@ -61,6 +61,7 @@ See how tags work below for more information.
 
 This image is maintained with both an Alpine and Debian Linux based distribution and contains the minimum requirements needed to be used as a remote docker executor on CircleCI:  
 
+- bash
 - git
 - openssh
 - tar
