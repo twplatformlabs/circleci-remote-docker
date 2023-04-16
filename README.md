@@ -26,10 +26,13 @@ cosign verify --key cosign.pub twdps/circleci-remote-docker:alpine-2023.04
 
 fetch image manifest:  
 ```
-$ docker image inspect --format='{{index .RepoDigests 0}}' twdps/circleci-remote-docker:alpine-2023.04
+docker image inspect --format='{{index .RepoDigests 0}}' twdps/circleci-remote-docker:alpine-2023.04
+```
 twdps/circleci-remote-docker@sha256:9d8e8eef60900fcf207e3b258b4ce13b4cdb1765f0f7ca3022fd685cd53b8a14
 
-$ oras pull docker.io/twdps/circleci-remote-docker:sha256-9d8e8eef60900fcf207e3b258b4ce13b4cdb1765f0f7ca3022fd685cd53b8a14.spdx
+download sbom:  
+```
+oras pull docker.io/twdps/circleci-remote-docker:sha256-9d8e8eef60900fcf207e3b258b4ce13b4cdb1765f0f7ca3022fd685cd53b8a14.spdx
 ```
 
 Review `.snyk` for current vulnerability status.  
