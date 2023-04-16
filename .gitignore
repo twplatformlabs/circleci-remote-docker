@@ -1,3 +1,5 @@
 policy.rego
 cosign.asc
 cosign.key
+*.asc
+*.pem

@@ -15,7 +15,24 @@ With inspiration from the CircleCI convenience images, `twdps/circleci-remote-do
 
 This image contains the [minimum packages required](https://circleci.com/docs/custom-images/) to function as a remote_docker executor on CircleCI.  
 
-_difference with cimg libraries._ Enterprise settings often require specific security and configuration testing. The twdps series of convenience images includes common sdlc security practices, including CIS-benchmark testing. Review `.snyk` for current vulnerability status.  
+_difference with cimg libraries._ Enterprise settings often require specific security and configuration testing. The twdps series of convenience images includes common sdlc security practices.  
+
+**signature**. Images are signed using `cosign`. You can verify an image using the twdps public key found [here](https://raw.githubusercontent.com/ThoughtWorks-DPS/static/master/cosign.pub).  
+```bash
+cosign verify --key cosign.pub twdps/circleci-remote-docker:alpine-2023.04
+```  
+
+**software bill of materials**. For each published image, an SBOM is generated using [syft](https://github.com/anchore/syft) and uploaded to the container registry tagged using the manifest id and .spdx extension. You can pull the sbom using the oras tool as follows:  
+
+fetch image manifest:  
+```
+$ docker image inspect --format='{{index .RepoDigests 0}}' twdps/circleci-remote-docker:alpine-2023.04
+twdps/circleci-remote-docker@sha256:9d8e8eef60900fcf207e3b258b4ce13b4cdb1765f0f7ca3022fd685cd53b8a14
+
+$ oras pull docker.io/twdps/circleci-remote-docker:sha256-9d8e8eef60900fcf207e3b258b4ce13b4cdb1765f0f7ca3022fd685cd53b8a14.spdx
+```
+
+Review `.snyk` for current vulnerability status.  
 
 **Other images in this series**  
 
