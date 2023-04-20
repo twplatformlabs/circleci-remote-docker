@@ -4,6 +4,7 @@ version: 2.1
 orbs:
   executor-tools: twdps/executor-tools@1.2.0
   op: twdps/onepassword@1.0.0
+  trace: twdps/honeycomb-buildevents@dev:latest  
   do: twdps/pipeline-events@0.1.0
 
 # ================================================================= global pipeline parameters
@@ -40,6 +41,10 @@ workflows:
   version: 2
   alpine-image-pipeline:
     jobs:
+      - trace/trace-workflow:
+          name: trace alpine build
+          buildevents-version: 0.13.0
+          filters: *on-push-tag
 
       - executor-tools/dev-release:
           name: alpine-dev-build
@@ -63,6 +68,8 @@ workflows:
                 command: |
                   sed -i "s/CREATED/$(date -u +"%Y-%m-%dT%H:%M:%SZ")/g" Dockerfile.alpine
                   sed -i "s/VERSION/${CIRCLE_SHA1}/g" Dockerfile.alpine
+          requires:
+            - trace alpine build
           filters: *on-push-main
 
       - executor-tools/publish:
