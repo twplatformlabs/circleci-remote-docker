@@ -44,7 +44,7 @@ workflows:
       - trace/trace-workflow:
           name: trace alpine build
           buildevents-version: 0.13.0
-          filters: *on-push-tag
+          filters: *on-push-main
 
       - executor-tools/dev-release:
           name: alpine-dev-build
