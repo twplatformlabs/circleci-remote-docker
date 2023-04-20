@@ -43,6 +43,7 @@ workflows:
     jobs:
       - trace/trace-workflow:
           name: trace alpine build
+          context: << pipeline.parameters.context >>
           buildevents-version: 0.13.0
           before-start:
             - checkout
