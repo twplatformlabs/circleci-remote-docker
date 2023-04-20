@@ -132,4 +132,5 @@ To create a release version, simply tag HEAD with the release version format `YY
 ## Additional Resources
 
 - [CircleCI Docs](https://circleci.com/docs/)  
-- [CircleCI Configuration Reference](https://circleci.com/docs/2.0/configuration-reference/#section=configuration)  
+- [CircleCI Configuration Reference](https://circleci.com/docs/2.0/configuration-reference/#section=configuration) 
+
