@@ -73,8 +73,6 @@ workflows:
                 command: |
                   sed -i "s/CREATED/$(date -u +"%Y-%m-%dT%H:%M:%SZ")/g" Dockerfile.alpine
                   sed -i "s/VERSION/${CIRCLE_SHA1}/g" Dockerfile.alpine
-          requires:
-            - trace alpine build
           filters: *on-push-main
 
       - executor-tools/publish:
