@@ -44,6 +44,9 @@ workflows:
       - trace/trace-workflow:
           name: trace alpine build
           buildevents-version: 0.13.0
+          before-start:
+            - op/env:
+                env-file: op.env
           filters: *on-push-main
 
       - executor-tools/dev-release:
