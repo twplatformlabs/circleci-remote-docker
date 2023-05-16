@@ -2,16 +2,24 @@
 version: v1.0.0
 # ignores vulnerabilities until expiry date; change duration by modifying expiry date
 ignore:
-  # SNYK-ALPINE317-OPENSSL-5438697:
-  #   - '*':
-  #     expires: 2023-06-01T14:26:34.404Z
-  #     reason: Runs on ephemeral pipeline executor
+  SNYK-DEBIAN12-PERL-5489190:
+    - '*':
+      expires: 2023-06-01T14:26:34.404Z
+      reason: Remediation - Runs on ephemeral pipeline executor
+  SNYK-DEBIAN12-GIT-5461953:
+    - '*':
+      expires: 2023-06-01T14:26:34.404Z
+      reason: Remediation - Runs on ephemeral pipeline executor
+  SNYK-DEBIAN12-GIT-5461954:
+    - '*':
+      expires: 2023-06-01T14:26:34.404Z
+      reason: Remediation - Runs on ephemeral pipeline executor
   SNYK-DEBIAN12-NCURSES-5421198:
     - '*':
       expires: 2023-06-01T14:26:34.404Z
-      reason: Runs on ephemeral pipeline executor
+      reason: Remediation - Runs on ephemeral pipeline executor
   SNYK-DEBIAN12-OPENSSH-3364257:
     - '*':
       expires: 2023-06-01T14:26:34.404Z
-      reason: Runs on ephemeral pipeline executor
+      reason: Remediation - Runs on ephemeral pipeline executor
 patch: {}
