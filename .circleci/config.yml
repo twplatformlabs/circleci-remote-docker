@@ -74,9 +74,9 @@ workflows:
 
       - executor-tools/publish:
           name: alpine-release
-          shell: << pipeline.parameters.shell-options >>
-          context: << pipeline.parameters.context >>
-          registry: << pipeline.parameters.registry >>
+          shell: *shell
+          context: *context
+          registry: *registry
           pull-tag: alpine-edge
           tag-annotation: alpine-
           image: twdps/circleci-remote-docker
@@ -95,8 +95,8 @@ workflows:
     jobs:
       - executor-tools/machine-executor-dev-release:
           name: slim-dev-build
-          context: << pipeline.parameters.context >>
-          registry: << pipeline.parameters.registry >>
+          context: *context
+          registry: *registry
           dockerfile: Dockerfile.slim
           image: twdps/circleci-remote-docker
           tag: slim-edge
@@ -120,9 +120,9 @@ workflows:
 
       - executor-tools/publish:
           name: slim-release
-          shell: << pipeline.parameters.shell-options >>
-          context: << pipeline.parameters.context >>
-          registry: << pipeline.parameters.registry >>
+          shell: *shell
+          context: *context
+          registry: *registry
           pull-tag: slim-edge
           tag-annotation: slim-
           image: twdps/circleci-remote-docker
