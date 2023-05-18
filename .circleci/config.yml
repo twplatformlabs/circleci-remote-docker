@@ -9,19 +9,16 @@ orbs:
 
 # ================================================================= global pipeline parameters
 
+globals:
+  - &context twdps-core-labs-team
+  - &shell op run --env-file op.env -- /bin/bash -eo pipefail
+  - &registry docker.io
+
 parameters:
-  context:
-    description: circleci context for all jobs
-    type: string
-    default: twdps-core-labs-team
-  shell-options:
-    description: shell options for all jobs
-    type: string
-    default: op run --env-file op.env -- /bin/bash -eo pipefail
-  registry:
-    description: publish to this registry
-    type: string
-    default: docker.io
+  nightly:
+    description: pipeline parameter passed by scheduled-build definition
+    type: bool
+    default: false
 
 on-push-main: &on-push-main
   branches:
@@ -41,21 +38,21 @@ workflows:
   version: 2
   alpine-image-pipeline:
     jobs:
-      - trace/trace-workflow:
-          name: trace alpine build
-          context: << pipeline.parameters.context >>
-          buildevents-version: 0.13.0
-          before-start:
-            - checkout
-            - op/env:
-                env-file: op.env
-          filters: *on-push-main
+      # - trace/trace-workflow:
+      #     name: trace alpine build
+      #     context: *context
+      #     buildevents-version: 0.13.0
+      #     before-start:
+      #       - checkout
+      #       - op/env:
+      #           env-file: op.env
+      #     filters: *on-push-main
 
       - executor-tools/dev-release:
           name: alpine-dev-build
-          shell: << pipeline.parameters.shell-options >>
-          context: << pipeline.parameters.context >>
-          registry: << pipeline.parameters.registry >>
+          shell: *shell
+          context: *context
+          registry: *registry
           dockerfile: Dockerfile.alpine
           image: twdps/circleci-remote-docker
           tag: alpine-edge
@@ -148,21 +145,15 @@ workflows:
           on-tag: true
           filters: *on-tag-main
 
-  # builds monthly automatically, in case not built for any other reason - to check for braeking changes
   circleci-remote-docker-monthly-build:
-    triggers:
-      - schedule:
-          cron: "0 0 1 * *"
-          filters:
-            branches:
-              only:
-                - main
+    when:
+      equal: [ true, << pipeline.parameters.nightly >> ]
     jobs:
       - executor-tools/dev-release:
-          name: alpine-recurring-build
-          shell: << pipeline.parameters.shell-options >>
-          context: << pipeline.parameters.context >>
-          registry: << pipeline.parameters.registry >>
+          name: nightly alpine build
+          shell: *shell
+          context: *context
+          registry: *registry
           dockerfile: Dockerfile.alpine
           image: twdps/circleci-remote-docker
           tag: alpine-edge
@@ -181,26 +172,59 @@ workflows:
                   sed -i "s/CREATED/$(date -u +"%Y-%m-%dT%H:%M:%SZ")/g" Dockerfile.alpine
                   sed -i "s/VERSION/${CIRCLE_SHA1}/g" Dockerfile.alpine
 
-      - executor-tools/dev-release:
-          name: slim-recurring-build
-          context: << pipeline.parameters.context >>
-          registry: << pipeline.parameters.registry >>
-          dockerfile: Dockerfile.slim
-          image: twdps/circleci-remote-docker
-          tag: slim-edge
-          bats-test: true
-          docker-cve-scan: true
-          severity-threshold: low
-          snyk-organization: twdps
-          test-path: test/circleci_remote_docker_slim.bats
-          entry-point: /bin/bash
-          container-name: circleci-remote-docker-slim-edge
-          after-checkout:
-            - op/env:
-                env-file: op.env
-          before-build:
-            - run:
-                name: update CREATED and VERSION in LABELS
-                command: |
-                  sed -i "s/CREATED/$(date -u +"%Y-%m-%dT%H:%M:%SZ")/g" Dockerfile.slim
-                  sed -i "s/VERSION/${CIRCLE_SHA1}/g" Dockerfile.slim
+  # builds monthly automatically, in case not built for any other reason - to check for braeking changes
+  # circleci-remote-docker-monthly-build:
+  #   triggers:
+  #     - schedule:
+  #         cron: "0 0 1 * *"
+  #         filters:
+  #           branches:
+  #             only:
+  #               - main
+  #   jobs:
+  #     - executor-tools/dev-release:
+  #         name: alpine-recurring-build
+  #         shell: << pipeline.parameters.shell-options >>
+  #         context: << pipeline.parameters.context >>
+  #         registry: << pipeline.parameters.registry >>
+  #         dockerfile: Dockerfile.alpine
+  #         image: twdps/circleci-remote-docker
+  #         tag: alpine-edge
+  #         cis-docker-image-scan: true
+  #         docker-cve-scan: true
+  #         severity-threshold: low
+  #         snyk-organization: twdps
+  #         bats-test: true
+  #         test-path: test/circleci_remote_docker_alpine.bats
+  #         entry-point: /bin/ash
+  #         container-name: circleci-remote-docker-alpine-edge
+  #         before-build:
+  #           - run:
+  #               name: update CREATED and VERSION in LABELS
+  #               command: |
+  #                 sed -i "s/CREATED/$(date -u +"%Y-%m-%dT%H:%M:%SZ")/g" Dockerfile.alpine
+  #                 sed -i "s/VERSION/${CIRCLE_SHA1}/g" Dockerfile.alpine
+
+  #     - executor-tools/dev-release:
+  #         name: slim-recurring-build
+  #         context: << pipeline.parameters.context >>
+  #         registry: << pipeline.parameters.registry >>
+  #         dockerfile: Dockerfile.slim
+  #         image: twdps/circleci-remote-docker
+  #         tag: slim-edge
+  #         bats-test: true
+  #         docker-cve-scan: true
+  #         severity-threshold: low
+  #         snyk-organization: twdps
+  #         test-path: test/circleci_remote_docker_slim.bats
+  #         entry-point: /bin/bash
+  #         container-name: circleci-remote-docker-slim-edge
+  #         after-checkout:
+  #           - op/env:
+  #               env-file: op.env
+  #         before-build:
+  #           - run:
+  #               name: update CREATED and VERSION in LABELS
+  #               command: |
+  #                 sed -i "s/CREATED/$(date -u +"%Y-%m-%dT%H:%M:%SZ")/g" Dockerfile.slim
+  #                 sed -i "s/VERSION/${CIRCLE_SHA1}/g" Dockerfile.slim
