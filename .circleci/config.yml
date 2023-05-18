@@ -137,13 +137,13 @@ workflows:
                   op inject -i cosign.pub.env -o cosign.pub
           filters: *on-tag-main
 
-  generate-release-notes:
-    jobs:
-      - executor-tools/release:
-          shell: << pipeline.parameters.shell-options >>
-          context: << pipeline.parameters.context >>
-          on-tag: true
-          filters: *on-tag-main
+  # generate-release-notes:
+  #   jobs:
+  #     - executor-tools/release:
+  #         shell: *shell
+  #         context: *context
+  #         on-tag: true
+  #         filters: *on-tag-main
 
   circleci-remote-docker-monthly-build:
     when:
