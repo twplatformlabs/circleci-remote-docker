@@ -17,7 +17,7 @@ globals:
 parameters:
   nightly:
     description: pipeline parameter passed by scheduled-build definition
-    type: bool
+    type: boolean
     default: false
 
 on-push-main: &on-push-main
