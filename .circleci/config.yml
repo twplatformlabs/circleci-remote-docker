@@ -7,7 +7,7 @@ orbs:
   trace: twdps/honeycomb-buildevents@dev:latest
   do: twdps/pipeline-events@1.0.0
 
-# ================================================================= global pipeline values
+# ================================================================= global pipeline values =
 
 globals:
   - &context twdps-core-labs-team
