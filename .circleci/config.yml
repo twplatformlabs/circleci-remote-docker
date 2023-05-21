@@ -33,7 +33,11 @@ workflows:
 
   alpine-based image:
     jobs:
-      - trace/watch-workflow
+      - trace/watch-workflow:
+          before-start:
+            - checkout
+            - op/env:
+                env-file: op.env
 
       - executor-tools/dev-release:
           name: alpine image build
