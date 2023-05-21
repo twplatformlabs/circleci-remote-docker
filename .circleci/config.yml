@@ -5,7 +5,7 @@ orbs:
   executor-tools: twdps/executor-tools@1.2.0
   op: twdps/onepassword@1.0.0
   trace: twdps/honeycomb-buildevents@dev:latest  
-  do: twdps/pipeline-events@0.1.0
+  do: twdps/pipeline-events@dev:latest
 
 # ================================================================= global pipeline parameters
 
@@ -13,12 +13,6 @@ globals:
   - &context twdps-core-labs-team
   - &shell op run --env-file op.env -- /bin/bash -eo pipefail
   - &registry docker.io
-
-parameters:
-  nightly:
-    description: pipeline parameter passed by scheduled-build definition
-    type: boolean
-    default: false
 
 on-push-main: &on-push-main
   branches:
@@ -36,8 +30,18 @@ on-tag-main: &on-tag-main
 
 workflows:
   version: 2
+
   alpine-image-pipeline:
     jobs:
+    
+      - do/schedule-pipeline:
+          scheduled-pipeline-name: weekly-ci-build
+          scheduled-pipeline-description: |
+            Automatically trigger a dev-release on a weekly schedule. Failure of
+            this recurring build indicates new releases of dependent packages.
+          hours-of-day: "[1]"
+          days-of-week: "[\"MON\"]"
+          
       # - trace/trace-workflow:
       #     name: trace alpine build
       #     context: *context
@@ -72,70 +76,70 @@ workflows:
                   sed -i "s/VERSION/${CIRCLE_SHA1}/g" Dockerfile.alpine
           filters: *on-push-main
 
-      - executor-tools/publish:
-          name: alpine-release
-          shell: *shell
-          context: *context
-          registry: *registry
-          pull-tag: alpine-edge
-          tag-annotation: alpine-
-          image: twdps/circleci-remote-docker
-          release-tag: alpine-stable
-          sign-image: true
-          sbom: true
-          after-publish:
-            - run:
-                name: setup cosign keys
-                command: |
-                  op inject -i cosign.key.env -o cosign.key
-                  op inject -i cosign.pub.env -o cosign.pub
-          filters: *on-tag-main
+      # - executor-tools/publish:
+      #     name: alpine-release
+      #     shell: *shell
+      #     context: *context
+      #     registry: *registry
+      #     pull-tag: alpine-edge
+      #     tag-annotation: alpine-
+      #     image: twdps/circleci-remote-docker
+      #     release-tag: alpine-stable
+      #     sign-image: true
+      #     sbom: true
+      #     after-publish:
+      #       - run:
+      #           name: setup cosign keys
+      #           command: |
+      #             op inject -i cosign.key.env -o cosign.key
+      #             op inject -i cosign.pub.env -o cosign.pub
+      #     filters: *on-tag-main
 
-  slim-image-pipeline:
-    jobs:
-      - executor-tools/machine-executor-dev-release:
-          name: slim-dev-build
-          context: *context
-          registry: *registry
-          dockerfile: Dockerfile.slim
-          image: twdps/circleci-remote-docker
-          tag: slim-edge
-          bats-test: true
-          docker-cve-scan: true
-          severity-threshold: medium
-          snyk-organization: twdps
-          test-path: test/circleci_remote_docker_slim.bats
-          entry-point: /bin/bash
-          container-name: circleci-remote-docker-slim-edge
-          after-checkout:
-            - op/env:
-                env-file: op.env
-          before-build:
-            - run:
-                name: update CREATED and VERSION in LABELS
-                command: |
-                  sed -i "s/CREATED/$(date -u +"%Y-%m-%dT%H:%M:%SZ")/g" Dockerfile.slim
-                  sed -i "s/VERSION/${CIRCLE_SHA1}/g" Dockerfile.slim
-          filters: *on-push-main
+  # slim-image-pipeline:
+  #   jobs:
+  #     - executor-tools/machine-executor-dev-release:
+  #         name: slim-dev-build
+  #         context: *context
+  #         registry: *registry
+  #         dockerfile: Dockerfile.slim
+  #         image: twdps/circleci-remote-docker
+  #         tag: slim-edge
+  #         bats-test: true
+  #         docker-cve-scan: true
+  #         severity-threshold: medium
+  #         snyk-organization: twdps
+  #         test-path: test/circleci_remote_docker_slim.bats
+  #         entry-point: /bin/bash
+  #         container-name: circleci-remote-docker-slim-edge
+  #         after-checkout:
+  #           - op/env:
+  #               env-file: op.env
+  #         before-build:
+  #           - run:
+  #               name: update CREATED and VERSION in LABELS
+  #               command: |
+  #                 sed -i "s/CREATED/$(date -u +"%Y-%m-%dT%H:%M:%SZ")/g" Dockerfile.slim
+  #                 sed -i "s/VERSION/${CIRCLE_SHA1}/g" Dockerfile.slim
+  #         filters: *on-push-main
 
-      - executor-tools/publish:
-          name: slim-release
-          shell: *shell
-          context: *context
-          registry: *registry
-          pull-tag: slim-edge
-          tag-annotation: slim-
-          image: twdps/circleci-remote-docker
-          release-tag: slim-stable
-          sign-image: true
-          sbom: true
-          after-publish:
-            - run:
-                name: setup cosign keys
-                command: |
-                  op inject -i cosign.key.env -o cosign.key
-                  op inject -i cosign.pub.env -o cosign.pub
-          filters: *on-tag-main
+  #     - executor-tools/publish:
+  #         name: slim-release
+  #         shell: *shell
+  #         context: *context
+  #         registry: *registry
+  #         pull-tag: slim-edge
+  #         tag-annotation: slim-
+  #         image: twdps/circleci-remote-docker
+  #         release-tag: slim-stable
+  #         sign-image: true
+  #         sbom: true
+  #         after-publish:
+  #           - run:
+  #               name: setup cosign keys
+  #               command: |
+  #                 op inject -i cosign.key.env -o cosign.key
+  #                 op inject -i cosign.pub.env -o cosign.pub
+  #         filters: *on-tag-main
 
   # generate-release-notes:
   #   jobs:
@@ -145,32 +149,32 @@ workflows:
   #         on-tag: true
   #         filters: *on-tag-main
 
-  circleci-remote-docker-monthly-build:
-    when:
-      equal: [ true, << pipeline.parameters.nightly >> ]
-    jobs:
-      - executor-tools/dev-release:
-          name: nightly alpine build
-          shell: *shell
-          context: *context
-          registry: *registry
-          dockerfile: Dockerfile.alpine
-          image: twdps/circleci-remote-docker
-          tag: alpine-edge
-          cis-docker-image-scan: true
-          docker-cve-scan: true
-          severity-threshold: low
-          snyk-organization: twdps
-          bats-test: true
-          test-path: test/circleci_remote_docker_alpine.bats
-          entry-point: /bin/ash
-          container-name: circleci-remote-docker-alpine-edge
-          before-build:
-            - run:
-                name: update CREATED and VERSION in LABELS
-                command: |
-                  sed -i "s/CREATED/$(date -u +"%Y-%m-%dT%H:%M:%SZ")/g" Dockerfile.alpine
-                  sed -i "s/VERSION/${CIRCLE_SHA1}/g" Dockerfile.alpine
+  # circleci-remote-docker-monthly-build:
+  #   when:
+  #     equal: [ true, << pipeline.parameters.nightly >> ]
+  #   jobs:
+  #     - executor-tools/dev-release:
+  #         name: nightly alpine build
+  #         shell: *shell
+  #         context: *context
+  #         registry: *registry
+  #         dockerfile: Dockerfile.alpine
+  #         image: twdps/circleci-remote-docker
+  #         tag: alpine-edge
+  #         cis-docker-image-scan: true
+  #         docker-cve-scan: true
+  #         severity-threshold: low
+  #         snyk-organization: twdps
+  #         bats-test: true
+  #         test-path: test/circleci_remote_docker_alpine.bats
+  #         entry-point: /bin/ash
+  #         container-name: circleci-remote-docker-alpine-edge
+  #         before-build:
+  #           - run:
+  #               name: update CREATED and VERSION in LABELS
+  #               command: |
+  #                 sed -i "s/CREATED/$(date -u +"%Y-%m-%dT%H:%M:%SZ")/g" Dockerfile.alpine
+  #                 sed -i "s/VERSION/${CIRCLE_SHA1}/g" Dockerfile.alpine
 
   # builds monthly automatically, in case not built for any other reason - to check for braeking changes
   # circleci-remote-docker-monthly-build:
