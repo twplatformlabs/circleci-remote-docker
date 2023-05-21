@@ -34,6 +34,8 @@ workflows:
   alpine-based image:
     jobs:
       - trace/watch-workflow:
+          shell: *shell
+          context: *context
           before-start:
             - checkout
             - op/env:
