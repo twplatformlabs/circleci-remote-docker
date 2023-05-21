@@ -2,7 +2,7 @@
 version: 2.1
 
 orbs:
-  executor-tools: twdps/executor-tools@1.2.0
+  executor-tools: twdps/executor-tools@dev:latest
   op: twdps/onepassword@1.0.0
   trace: twdps/honeycomb-buildevents@dev:latest
   do: twdps/pipeline-events@1.0.0
@@ -33,13 +33,6 @@ workflows:
 
   alpine-based image:
     jobs:
-      - trace/watch-workflow:
-          shell: *shell
-          context: *context
-          before-start:
-            - checkout
-            - op/env:
-                env-file: op.env
 
       - executor-tools/dev-release:
           name: alpine image build
@@ -57,15 +50,13 @@ workflows:
           test-path: test/circleci_remote_docker_alpine.bats
           entry-point: /bin/ash
           container-name: circleci-remote-docker-alpine-edge
+          honeycomb-trace: true
           before-build:
-            - trace/start-single-job-span
             - run:
                 name: update CREATED and VERSION in LABELS
                 command: |
                   sed -i "s/CREATED/$(date -u +"%Y-%m-%dT%H:%M:%SZ")/g" Dockerfile.alpine
                   sed -i "s/VERSION/${CIRCLE_SHA1}/g" Dockerfile.alpine
-          after-build:
-            - trace/stop-single-job-span
           filters: *on-push-main
 
       - executor-tools/publish:
