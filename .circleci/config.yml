@@ -43,7 +43,7 @@ workflows:
             Automatically trigger a dev-build on a weekly schedule. Failure of
             this recurring build indicates new releases of dependent packages.
           hours-of-day: "[1]"
-          days-of-week: "[\"MON\"]"
+          days-of-week: "[\"SUN\"]"
           filters: *on-push-main
 
       # - trace/trace-workflow:
