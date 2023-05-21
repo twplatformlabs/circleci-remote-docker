@@ -31,7 +31,7 @@ on-tag-main: &on-tag-main
 workflows:
   version: 2
 
-  alpine-image-pipeline:
+  alpine image:
     jobs:
     
       - do/schedule-pipeline:
@@ -41,7 +41,8 @@ workflows:
             this recurring build indicates new releases of dependent packages.
           hours-of-day: "[1]"
           days-of-week: "[\"MON\"]"
-          
+          filters: *on-push-main
+
       # - trace/trace-workflow:
       #     name: trace alpine build
       #     context: *context
@@ -53,7 +54,7 @@ workflows:
       #     filters: *on-push-main
 
       - executor-tools/dev-release:
-          name: alpine-dev-build
+          name: alpine dev-build
           shell: *shell
           context: *context
           registry: *registry
