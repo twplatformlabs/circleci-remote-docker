@@ -35,9 +35,10 @@ workflows:
     jobs:
     
       - do/schedule-pipeline:
+          name: configure weekly trigger of dev-build
           scheduled-pipeline-name: weekly-ci-build
           scheduled-pipeline-description: |
-            Automatically trigger a dev-release on a weekly schedule. Failure of
+            Automatically trigger a dev-build on a weekly schedule. Failure of
             this recurring build indicates new releases of dependent packages.
           hours-of-day: "[1]"
           days-of-week: "[\"MON\"]"
