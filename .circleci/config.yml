@@ -34,11 +34,6 @@ workflows:
   alpine-based image:
     jobs:
 
-      - trace/start-multi-job-span:
-          name: trace alpine build
-          context: *context
-          filters: *on-push-main
-
       - executor-tools/dev-release:
           name: alpine image build
           shell: *shell
@@ -56,24 +51,14 @@ workflows:
           entry-point: /bin/ash
           container-name: circleci-remote-docker-alpine-edge
           before-build:
+            - trace/start-single-job-span
             - run:
                 name: update CREATED and VERSION in LABELS
                 command: |
                   sed -i "s/CREATED/$(date -u +"%Y-%m-%dT%H:%M:%SZ")/g" Dockerfile.alpine
                   sed -i "s/VERSION/${CIRCLE_SHA1}/g" Dockerfile.alpine
-          requires:
-            - trace alpine build
-          filters: *on-push-main
-
-      - trace/stop-multi-job-span:
-          name: end trace alpine build
-          context: *context
-          before-start:
-            - checkout
-            - op/env:
-                env-file: op.env
-          requires:
-            - alpine image build
+          after-build:
+            - trace/stop-single-job-span
           filters: *on-push-main
 
       - executor-tools/publish:
