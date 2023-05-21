@@ -33,6 +33,7 @@ workflows:
 
   alpine-based image:
     jobs:
+      - trace/watch-workflow
 
       - executor-tools/dev-release:
           name: alpine image build
