@@ -36,6 +36,8 @@ workflows:
     
       - do/schedule-pipeline:
           name: configure weekly trigger
+          shell: *shell
+          context: *context
           scheduled-pipeline-name: weekly-ci-build
           scheduled-pipeline-description: |
             Automatically trigger a dev-build on a weekly schedule. Failure of
