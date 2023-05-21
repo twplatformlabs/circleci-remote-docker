@@ -34,15 +34,10 @@ workflows:
   alpine-based image:
     jobs:
 
-      # - trace/trace-workflow:
-      #     name: trace alpine build
-      #     context: *context
-      #     buildevents-version: 0.13.0
-      #     before-start:
-      #       - checkout
-      #       - op/env:
-      #           env-file: op.env
-      #     filters: *on-push-main
+      - trace/start-multi-job-span:
+          name: trace alpine build
+          context: *context
+          filters: *on-push-main
 
       - executor-tools/dev-release:
           name: alpine image build
@@ -66,6 +61,19 @@ workflows:
                 command: |
                   sed -i "s/CREATED/$(date -u +"%Y-%m-%dT%H:%M:%SZ")/g" Dockerfile.alpine
                   sed -i "s/VERSION/${CIRCLE_SHA1}/g" Dockerfile.alpine
+          requires:
+            - trace alpine build
+          filters: *on-push-main
+
+      - trace/stop-multi-job-span:
+          name: end trace alpine build
+          context: *context
+          before-start:
+            - checkout
+            - op/env:
+                env-file: op.env
+          requires:
+            - alpine image build
           filters: *on-push-main
 
       - executor-tools/publish:
