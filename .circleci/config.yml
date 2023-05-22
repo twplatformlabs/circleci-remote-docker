@@ -34,6 +34,13 @@ workflows:
   alpine-based image:
     jobs:
 
+      - trace/watch-workflow:
+          name: poll circle api for workflow completion
+          shell: *shell
+          context: *context
+          timeout: 120
+          filters: *on-push-main
+
       - executor-tools/dev-release:
           name: alpine image build
           shell: *shell
