@@ -5,7 +5,7 @@ orbs:
   executor-tools: twdps/executor-tools@1.5.0
   op: twdps/onepassword@1.0.0
   do: twdps/pipeline-events@1.0.0
-  # trace: twdps/honeycomb-buildevents@dev:latest
+  trace: twdps/honeycomb-buildevents@dev:latest
 
 # ================================================================= global pipeline values =
 
@@ -31,17 +31,17 @@ on-tag-main: &on-tag-main
 workflows:
   version: 2
 
-  alpine-based image:
+  build and test images:
     jobs:
 
       # buildevents 'watch' feature currently not working as expected
-      # - trace/watch-workflow:
-      #     name: poll circle api for workflow completion
-      #     shell: *shell
-      #     context: *context
-      #     before-start:
-      #       - checkout
-      #     filters: *on-push-main
+      - trace/watch-workflow:
+          name: poll circle api for workflow completion
+          shell: *shell
+          context: *context
+          before-start:
+            - checkout
+          filters: *on-push-main
 
       - executor-tools/dev-release:
           name: alpine image build
@@ -68,27 +68,6 @@ workflows:
                   sed -i "s/VERSION/${CIRCLE_SHA1}/g" Dockerfile.alpine
           filters: *on-push-main
 
-      - executor-tools/publish:
-          name: alpine release
-          shell: *shell
-          context: *context
-          registry: *registry
-          pull-tag: alpine-edge
-          tag-annotation: alpine-
-          image: twdps/circleci-remote-docker
-          release-tag: alpine-stable
-          sign-image: true
-          sbom: true
-          after-publish:
-            - run:
-                name: setup cosign keys
-                command: |
-                  op inject -i cosign.key.env -o cosign.key
-                  op inject -i cosign.pub.env -o cosign.pub
-          filters: *on-tag-main
-
-  slim-based image:
-    jobs:
       - executor-tools/machine-executor-dev-release:
           name: slim image build
           context: *context
@@ -103,6 +82,7 @@ workflows:
           test-path: test/circleci_remote_docker_slim.bats
           entry-point: /bin/bash
           container-name: circleci-remote-docker-slim-edge
+          honeycomb-trace: true
           after-checkout:
             - op/env:
                 env-file: op.env
@@ -113,6 +93,29 @@ workflows:
                   sed -i "s/CREATED/$(date -u +"%Y-%m-%dT%H:%M:%SZ")/g" Dockerfile.slim
                   sed -i "s/VERSION/${CIRCLE_SHA1}/g" Dockerfile.slim
           filters: *on-push-main
+
+  release version:
+    jobs:
+
+      - executor-tools/publish:
+          name: alpine release
+          shell: *shell
+          context: *context
+          registry: *registry
+          pull-tag: alpine-edge
+          tag-annotation: alpine-
+          image: twdps/circleci-remote-docker
+          release-tag: alpine-stable
+          sign-image: true
+          sbom: true
+          honeycomb-trace: true
+          after-publish:
+            - run:
+                name: setup cosign keys
+                command: |
+                  op inject -i cosign.key.env -o cosign.key
+                  op inject -i cosign.pub.env -o cosign.pub
+          filters: *on-tag-main
 
       - executor-tools/publish:
           name: slim release
@@ -125,6 +128,7 @@ workflows:
           release-tag: slim-stable
           sign-image: true
           sbom: true
+          honeycomb-trace: true
           after-publish:
             - run:
                 name: setup cosign keys
@@ -147,9 +151,9 @@ workflows:
           days-of-week: "[\"SUN\"]"
           filters: *on-tag-main
 
-      - do/release:
-          name: generate release notes
-          shell: *shell
-          context: *context
-          on-tag: true
-          filters: *on-tag-main
+      # - do/release:
+      #     name: generate release notes
+      #     shell: *shell
+      #     context: *context
+      #     on-tag: true
+      #     filters: *on-tag-main
