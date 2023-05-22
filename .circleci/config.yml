@@ -102,6 +102,7 @@ workflows:
           test-path: test/circleci_remote_docker_slim.bats
           entry-point: /bin/bash
           container-name: circleci-remote-docker-slim-edge
+          honeycomb-trace: true
           after-checkout:
             - op/env:
                 env-file: op.env
