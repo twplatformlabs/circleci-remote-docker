@@ -84,8 +84,12 @@ workflows:
           container-name: circleci-remote-docker-slim-edge
           honeycomb-trace: true
           after-checkout:
-            - op/env:
-                env-file: op.env
+            - run:
+                command: |
+                  op inject -i op.env -o $BASH_ENV --force
+                  source $BASH_ENV
+            # - op/env:
+            #     env-file: op.env
           before-build:
             - run:
                 name: update CREATED and VERSION in LABELS
