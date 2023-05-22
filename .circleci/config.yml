@@ -39,6 +39,8 @@ workflows:
           shell: *shell
           context: *context
           timeout: 120
+          before-start:
+            - checkout
           filters: *on-push-main
 
       - executor-tools/dev-release:
