@@ -4,8 +4,8 @@ version: 2.1
 orbs:
   executor-tools: twdps/executor-tools@1.5.0
   op: twdps/onepassword@1.0.0
-  trace: twdps/honeycomb-buildevents@dev:latest
   do: twdps/pipeline-events@1.0.0
+  # trace: twdps/honeycomb-buildevents@dev:latest
 
 # ================================================================= global pipeline values =
 
@@ -34,13 +34,14 @@ workflows:
   alpine-based image:
     jobs:
 
-      - trace/watch-workflow:
-          name: poll circle api for workflow completion
-          shell: *shell
-          context: *context
-          before-start:
-            - checkout
-          filters: *on-push-main
+      # buildevents 'watch' feature currently not working as expected
+      # - trace/watch-workflow:
+      #     name: poll circle api for workflow completion
+      #     shell: *shell
+      #     context: *context
+      #     before-start:
+      #       - checkout
+      #     filters: *on-push-main
 
       - executor-tools/dev-release:
           name: alpine image build
@@ -102,7 +103,6 @@ workflows:
           test-path: test/circleci_remote_docker_slim.bats
           entry-point: /bin/bash
           container-name: circleci-remote-docker-slim-edge
-          #honeycomb-trace: true
           after-checkout:
             - op/env:
                 env-file: op.env
