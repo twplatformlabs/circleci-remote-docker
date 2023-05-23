@@ -2,8 +2,8 @@
 version: 2.1
 
 orbs:
-  executor-tools: twdps/executor-tools@dev:latest
-  op: twdps/onepassword@dev:latest
+  executor-tools: twdps/executor-tools@1.7.0
+  op: twdps/onepassword@1.2.0
   do: twdps/pipeline-events@1.0.0
   trace: twdps/honeycomb-buildevents@dev:latest
 
@@ -33,6 +33,14 @@ workflows:
 
   alpine image build:
     jobs:
+
+      - trace/watch-workflow:
+          name: poll for alpine build completion
+          shell: *shell
+          context: *context
+          before-start:
+            - checkout
+          filters: *on-push-main
 
       - executor-tools/dev-release:
           name: alpine image build
