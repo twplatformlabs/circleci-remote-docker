@@ -3,7 +3,7 @@ version: 2.1
 
 orbs:
   executor-tools: twdps/executor-tools@dev:latest
-  op: twdps/onepassword@1.0.0
+  op: twdps/onepassword@dev:latest
   do: twdps/pipeline-events@1.0.0
   trace: twdps/honeycomb-buildevents@dev:latest
 
@@ -84,12 +84,8 @@ workflows:
           container-name: circleci-remote-docker-slim-edge
           honeycomb-trace: true
           after-checkout:
-            # - run:
-            #     command: |
-            #       op inject -i op.env -o $BASH_ENV --force
-            #       source $BASH_ENV
-            # - op/env:
-            #     env-file: op.env
+            - op/env:
+                env-file: op.env
           before-build:
             - run:
                 name: update CREATED and VERSION in LABELS
