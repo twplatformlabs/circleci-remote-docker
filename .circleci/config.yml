@@ -31,12 +31,12 @@ on-tag-main: &on-tag-main
 workflows:
   version: 2
 
-  build and test images:
+  alpine image build:
     jobs:
 
       # buildevents 'watch' feature currently not working as expected
       - trace/watch-workflow:
-          name: poll circle api for workflow completion
+          name: poll for alpine build completion
           shell: *shell
           context: *context
           before-start:
@@ -68,6 +68,16 @@ workflows:
                   sed -i "s/VERSION/${CIRCLE_SHA1}/g" Dockerfile.alpine
           filters: *on-push-main
 
+  slim image build:
+    jobs:
+      # buildevents 'watch' feature currently not working as expected
+      - trace/watch-workflow:
+          name: poll for slim build completion
+          shell: *shell
+          context: *context
+          before-start:
+            - checkout
+          filters: *on-push-main
       - executor-tools/machine-executor-dev-release:
           name: slim image build
           context: *context
