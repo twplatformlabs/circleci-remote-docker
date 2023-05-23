@@ -34,15 +34,6 @@ workflows:
   alpine image build:
     jobs:
 
-      # buildevents 'watch' feature currently not working as expected
-      - trace/watch-workflow:
-          name: poll for alpine build completion
-          shell: *shell
-          context: *context
-          before-start:
-            - checkout
-          filters: *on-push-main
-
       - executor-tools/dev-release:
           name: alpine image build
           shell: *shell
@@ -70,7 +61,7 @@ workflows:
 
   slim image build:
     jobs:
-      # buildevents 'watch' feature currently not working as expected
+
       - trace/watch-workflow:
           name: poll for slim build completion
           shell: *shell
@@ -78,6 +69,7 @@ workflows:
           before-start:
             - checkout
           filters: *on-push-main
+
       - executor-tools/machine-executor-dev-release:
           name: slim image build
           context: *context
