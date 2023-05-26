@@ -69,15 +69,7 @@ workflows:
   slim image build:
     jobs:
 
-      - trace/watch-workflow:
-          name: poll for slim build completion
-          shell: *shell
-          context: *context
-          before-start:
-            - checkout
-          filters: *on-push-main
-
-      - executor-tools/machine-executor-dev-release-with-trace:
+      - executor-tools/machine-executor-dev-release:
           name: slim image build
           context: *context
           registry: *registry
@@ -105,7 +97,7 @@ workflows:
   release version:
     jobs:
 
-      - executor-tools/publish:
+      - executor-tools/publish-with-trace:
           name: alpine release
           shell: *shell
           context: *context
