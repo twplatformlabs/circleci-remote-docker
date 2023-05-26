@@ -149,9 +149,9 @@ workflows:
           days-of-week: "[\"SUN\"]"
           filters: *on-tag-main
 
-      # - do/release:
-      #     name: generate release notes
-      #     shell: *shell
-      #     context: *context
-      #     on-tag: true
-      #     filters: *on-tag-main
+      - do/release:
+          name: generate release notes
+          shell: *shell
+          context: *context
+          on-tag: true
+          filters: *on-tag-main
