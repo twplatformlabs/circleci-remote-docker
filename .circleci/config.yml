@@ -2,7 +2,7 @@
 version: 2.1
 
 orbs:
-  executor-tools: twdps/executor-tools@dev:latest
+  executor-tools: twdps/executor-tools@1.8.0
   op: twdps/onepassword@1.2.0
   do: twdps/pipeline-events@1.0.0
   trace: twdps/honeycomb-buildevents@dev:latest
