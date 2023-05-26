@@ -2,7 +2,7 @@
 version: 2.1
 
 orbs:
-  executor-tools: twdps/executor-tools@1.7.0
+  executor-tools: twdps/executor-tools@dev:latest
   op: twdps/onepassword@1.2.0
   do: twdps/pipeline-events@1.0.0
   trace: twdps/honeycomb-buildevents@dev:latest
@@ -42,7 +42,7 @@ workflows:
             - checkout
           filters: *on-push-main
 
-      - executor-tools/dev-release:
+      - executor-tools/dev-release-with-trace:
           name: alpine image build
           shell: *shell
           context: *context
@@ -58,7 +58,6 @@ workflows:
           test-path: test/circleci_remote_docker_alpine.bats
           entry-point: /bin/ash
           container-name: circleci-remote-docker-alpine-edge
-          honeycomb-trace: true
           before-build:
             - run:
                 name: update CREATED and VERSION in LABELS
@@ -78,7 +77,7 @@ workflows:
             - checkout
           filters: *on-push-main
 
-      - executor-tools/machine-executor-dev-release:
+      - executor-tools/machine-executor-dev-release-with-trace:
           name: slim image build
           context: *context
           registry: *registry
@@ -92,7 +91,6 @@ workflows:
           test-path: test/circleci_remote_docker_slim.bats
           entry-point: /bin/bash
           container-name: circleci-remote-docker-slim-edge
-          honeycomb-trace: true
           after-checkout:
             - op/env:
                 env-file: op.env
