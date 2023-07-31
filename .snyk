@@ -4,11 +4,27 @@ version: v1.0.0
 ignore:
   SNYK-ALPINE318-OPENSSL-5776808:
     - "*":
-      reason: Improper Authentication, remediation = ephemeral running that execute in circleci space
+      reason: Improper Authentication, remediation- not expose on this ephemeral circleci executor
       expires: '2023-11-01T14:26:34.404Z'
   SNYK-ALPINE318-OPENSSL-5788370:
     - "*":
-      reason: Inefficient Regular Expression Complexity, remediation = ephemeral running that execute in circleci space
+      reason: Inefficient Regular Expression Complexity, remediation- not expose on this ephemeral circleci executor
+      expires: '2023-11-01T14:26:34.404Z'
+  SNYK-DEBIANUNSTABLE-OPENSSL-5776699:
+    - "*":
+      reason: Improper Authentication, remediation- not expose on this ephemeral circleci executor
+      expires: '2023-11-01T14:26:34.404Z'
+  SNYK-DEBIANUNSTABLE-OPENSSL-5788327:
+    - "*":
+      reason: Improper Authentication, remediation- not expose on this ephemeral circleci executor
+      expires: '2023-11-01T14:26:34.404Z'
+  SNYK-DEBIANUNSTABLE-PERL-5489187:
+    - "*":
+      reason: Improper Authentication, remediation- not expose on this ephemeral circleci executor
+      expires: '2023-11-01T14:26:34.404Z'
+  SNYK-DEBIANUNSTABLE-OPENLDAP-5660619:
+    - "*":
+      reason: Improper Authentication, remediation- not expose on this ephemeral circleci executor
       expires: '2023-11-01T14:26:34.404Z'
 
 patch: {}

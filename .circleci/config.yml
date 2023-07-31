@@ -34,14 +34,6 @@ workflows:
   alpine image build:
     jobs:
 
-      - trace/watch-workflow:
-          name: poll for alpine build completion
-          shell: *shell
-          context: *context
-          before-start:
-            - checkout
-          filters: *on-push-main
-
       - executor-tools/dev-release-with-trace:
           name: alpine image build
           shell: *shell
