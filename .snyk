@@ -2,6 +2,10 @@
 version: v1.0.0
 # ignores vulnerabilities until expiry date; change duration by modifying expiry date
 ignore:
+  SNYK-DEBIANUNSTABLE-PROCPS-5816468:
+    - "*":
+      reason: Out-of-bounds Write
+      expires: '2023-11-01T14:26:34.404Z'
   SNYK-ALPINE318-OPENSSL-5776808:
     - "*":
       reason: Improper Authentication, remediation- not expose on this ephemeral circleci executor

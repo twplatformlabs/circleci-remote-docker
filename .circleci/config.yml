@@ -5,7 +5,6 @@ orbs:
   executor-tools: twdps/executor-tools@1.8.0
   op: twdps/onepassword@1.2.0
   do: twdps/pipeline-events@1.0.0
-  trace: twdps/honeycomb-buildevents@dev:latest
 
 # ================================================================= global pipeline values =
 
@@ -34,7 +33,7 @@ workflows:
   alpine image build:
     jobs:
 
-      - executor-tools/dev-release-with-trace:
+      - executor-tools/dev-release:
           name: alpine image build
           shell: *shell
           context: *context
@@ -89,7 +88,7 @@ workflows:
   release version:
     jobs:
 
-      - executor-tools/publish-with-trace:
+      - executor-tools/publish:
           name: alpine release
           shell: *shell
           context: *context
