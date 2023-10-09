@@ -1,26 +1,10 @@
 # Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
-version: v1.0.0
+version: v1.22.1
 # ignores vulnerabilities until expiry date; change duration by modifying expiry date
 ignore:
   SNYK-DEBIANUNSTABLE-PROCPS-5816468:
     - "*":
       reason: Out-of-bounds Write
-      expires: '2023-11-01T14:26:34.404Z'
-  SNYK-ALPINE318-OPENSSL-5776808:
-    - "*":
-      reason: Improper Authentication, remediation- not expose on this ephemeral circleci executor
-      expires: '2023-11-01T14:26:34.404Z'
-  SNYK-ALPINE318-OPENSSL-5788370:
-    - "*":
-      reason: Inefficient Regular Expression Complexity, remediation- not expose on this ephemeral circleci executor
-      expires: '2023-11-01T14:26:34.404Z'
-  SNYK-DEBIANUNSTABLE-OPENSSL-5776699:
-    - "*":
-      reason: Improper Authentication, remediation- not expose on this ephemeral circleci executor
-      expires: '2023-11-01T14:26:34.404Z'
-  SNYK-DEBIANUNSTABLE-OPENSSL-5788327:
-    - "*":
-      reason: Improper Authentication, remediation- not expose on this ephemeral circleci executor
       expires: '2023-11-01T14:26:34.404Z'
   SNYK-DEBIANUNSTABLE-PERL-5489187:
     - "*":
@@ -30,5 +14,12 @@ ignore:
     - "*":
       reason: Improper Authentication, remediation- not expose on this ephemeral circleci executor
       expires: '2023-11-01T14:26:34.404Z'
-
+  SNYK-DEBIANUNSTABLE-GLIBC-5918241:
+    - "*":
+      reason: Memory Leak
+      expires: '2023-11-01T14:26:34.404Z'
+  SNYK-DEBIANUNSTABLE-GLIBC-5927135:
+    - "*":
+      reason: Out-of-bounds Write
+      expires: '2023-11-01T14:26:34.404Z'
 patch: {}
