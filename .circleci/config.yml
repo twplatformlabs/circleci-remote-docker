@@ -2,14 +2,14 @@
 version: 2.1
 
 orbs:
-  executor-tools: twdps/executor-tools@1.8.0
+  executor-tools: twdps/executor-tools@1.10.0
   op: twdps/onepassword@1.2.0
-  do: twdps/pipeline-events@1.0.0
+  do: twdps/pipeline-events@2.0.0
 
 # ================================================================= global pipeline values =
 
 globals:
-  - &context twdps-core-labs-team
+  - &context empc-lab
   - &shell op run --env-file op.env -- /bin/bash -eo pipefail
   - &registry docker.io
 

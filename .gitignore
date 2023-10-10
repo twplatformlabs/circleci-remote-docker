@@ -4,3 +4,4 @@ cosign.key
 *.asc
 *.pem
 Pipfile.lock
+.python-version
