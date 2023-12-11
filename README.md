@@ -87,7 +87,7 @@ This image is maintained with both an Alpine and Debian Linux based distribution
 - ca-certificates
 
 _See release notes or distribution dockerfiles for specific versions_
-https://keybase.io/twdps
+
 ### Tagging Scheme
 
 This image has the following tagging scheme:
