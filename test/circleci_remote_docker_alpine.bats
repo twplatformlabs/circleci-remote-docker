@@ -7,7 +7,7 @@
 
 @test "openssh version" {
   run bash -c "docker exec circleci-remote-docker-alpine-edge ssh -V"
-  [[ "${output}" =~ "9.5" ]]
+  [[ "${output}" =~ "9.6" ]]
 }
 
 @test "tar version" {

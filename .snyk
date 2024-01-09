@@ -2,12 +2,12 @@
 version: v1.22.1
 # ignores vulnerabilities until expiry date; change duration by modifying expiry date
 ignore:
-  SNYK-DEBIANUNSTABLE-PERL-5489187:
-    - "*":
-      reason: Improper Authentication. Not expose on this ephemeral circleci executor.
-      expires: '2023-11-01T14:26:34.404Z'
-  SNYK-DEBIANUNSTABLE-OPENLDAP-5660619:
-    - "*":
-      reason: Improper Authentication. Not expose on this ephemeral circleci executor.
-      expires: '2023-11-01T14:26:34.404Z'
+  # SNYK-DEBIANUNSTABLE-PERL-5489187:
+  #   - "*":
+  #     reason: Improper Authentication. Not expose on this ephemeral circleci executor.
+  #     expires: '2023-11-01T14:26:34.404Z'
+  # SNYK-DEBIANUNSTABLE-OPENLDAP-5660619:
+  #   - "*":
+  #     reason: Improper Authentication. Not expose on this ephemeral circleci executor.
+  #     expires: '2023-11-01T14:26:34.404Z'
 patch: {}
