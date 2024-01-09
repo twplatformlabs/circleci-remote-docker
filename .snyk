@@ -1,13 +1,21 @@
 # Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
 version: v1.22.1
-# ignores vulnerabilities until expiry date; change duration by modifying expiry date
+# Nearly all CVE's are remediated by virtue of the runtime context, e.g., on an ephemeral circleci executor.
 ignore:
-  # SNYK-DEBIANUNSTABLE-PERL-5489187:
-  #   - "*":
-  #     reason: Improper Authentication. Not expose on this ephemeral circleci executor.
-  #     expires: '2023-11-01T14:26:34.404Z'
-  # SNYK-DEBIANUNSTABLE-OPENLDAP-5660619:
-  #   - "*":
-  #     reason: Improper Authentication. Not expose on this ephemeral circleci executor.
-  #     expires: '2023-11-01T14:26:34.404Z'
+  SNYK-DEBIANUNSTABLE-SYSTEMD-6137711:
+    - "*":
+      reason: CVE-2023-7008
+      expires: '2024-04-01T14:26:34.404Z'
+  SNYK-DEBIANUNSTABLE-PERL-5489187:
+    - "*":
+      reason: Improper Certificate Validation
+      expires: '2024-04-01T14:26:34.404Z'
+  SNYK-DEBIANUNSTABLE-OPENSSH-6139208:
+    - "*":
+      reason: CVE-2023-51767
+      expires: '2024-04-01T14:26:34.404Z'
+  SNYK-DEBIANUNSTABLE-OPENLDAP-5660619:
+    - "*":
+      reason: NULL Pointer Dereference
+      expires: '2024-04-01T14:26:34.404Z'
 patch: {}
