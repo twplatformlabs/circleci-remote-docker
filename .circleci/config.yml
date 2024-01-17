@@ -70,7 +70,7 @@ workflows:
           snyk-organization: twdps
           bats-test: true
           bats-run-container-name: circleci-remote-docker-slim-edge
-          bats-entry-point: /bin/ash
+          bats-entry-point: /bin/bash
           bats-test-path: test/circleci_remote_docker_slim.bats
           after-checkout:
             - op/env
