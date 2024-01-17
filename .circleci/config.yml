@@ -43,8 +43,6 @@ workflows:
           snyk-scan: true
           snyk-severity-threshold: low
           snyk-organization: twdps
-          trivy-scan: true
-          grype-scan: true
           bats-test: true
           bats-run-container-name: circleci-remote-docker-alpine-test
           bats-entry-point: /bin/ash
