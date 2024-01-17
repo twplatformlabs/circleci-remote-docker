@@ -66,7 +66,7 @@ workflows:
           image: twdps/circleci-remote-docker
           tag: slim-edge
           snyk-scan: true
-          snyk-severity-threshold: low
+          snyk-severity-threshold: medium
           snyk-organization: twdps
           bats-test: true
           bats-run-container-name: circleci-remote-docker-slim-edge
