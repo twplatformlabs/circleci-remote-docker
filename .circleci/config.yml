@@ -30,7 +30,7 @@ on-tag-main: &on-tag-main
 workflows:
   version: 2
 
-  dev build:
+  alpine build:
     jobs:
 
       - executor-tools/dev-release:
@@ -44,7 +44,7 @@ workflows:
           snyk-severity-threshold: low
           snyk-organization: twdps
           bats-test: true
-          bats-run-container-name: circleci-remote-docker-alpine-test
+          bats-run-container-name: circleci-remote-docker-alpine-edge
           bats-entry-point: /bin/ash
           bats-test-path: test/circleci_remote_docker_alpine.bats
           after-checkout:
