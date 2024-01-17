@@ -2,7 +2,7 @@
 version: 2.1
 
 orbs:
-  executor-tools: twdps/executor-tools@2.0.0
+  executor-tools: twdps/executor-tools@2.1.0
   op: twdps/onepassword@2.0.2
   do: twdps/pipeline-events@2.0.0
 
@@ -25,10 +25,17 @@ on-tag-main: &on-tag-main
   tags:
     only: /.*/
 
+# commands:
+
+#   set-environment:
+#     steps:
+
+#   set-image-labels:
+#     steps:
+
 # ================================================================= workflows
 
 workflows:
-  version: 2
 
   alpine build:
     jobs:
@@ -46,41 +53,46 @@ workflows:
           bats-run-container-name: circleci-remote-docker-alpine-edge
           bats-entry-point: /bin/ash
           bats-test-path: test/circleci_remote_docker_alpine.bats
+          opencontainer-labels: true
           after-checkout:
             - op/env
-          before-build:
+          after-build:
             - run:
-                name: update CREATED and VERSION in LABELS
-                command: |
-                  sed -i "s/CREATED/$(date -u +"%Y-%m-%dT%H:%M:%SZ")/g" Dockerfile.alpine
-                  sed -i "s/VERSION/${CIRCLE_SHA1}/g" Dockerfile.alpine
+                command: cat Dockerfile.alpine
+          # before-build:
+          #   - run:
+          #       name: update CREATED and VERSION in LABELS
+          #       command: |
+          #         sed -i "s/CREATED/$(date -u +"%Y-%m-%dT%H:%M:%SZ")/g" Dockerfile.alpine
+          #         sed -i "s/VERSION/${CIRCLE_SHA1}/g" Dockerfile.alpine
           filters: *on-push-main
 
-  slim build:
-    jobs:
-      - executor-tools/dev-release:
-          name: slim image build
-          context: *context
-          shell: *shell
-          dockerfile: Dockerfile.slim
-          image: twdps/circleci-remote-docker
-          tag: slim-edge
-          snyk-scan: true
-          snyk-severity-threshold: medium
-          snyk-organization: twdps
-          bats-test: true
-          bats-run-container-name: circleci-remote-docker-slim-edge
-          bats-entry-point: /bin/bash
-          bats-test-path: test/circleci_remote_docker_slim.bats
-          after-checkout:
-            - op/env
-          before-build:
-            - run:
-                name: update CREATED and VERSION in LABELS
-                command: |
-                  sed -i "s/CREATED/$(date -u +"%Y-%m-%dT%H:%M:%SZ")/g" Dockerfile.slim
-                  sed -i "s/VERSION/${CIRCLE_SHA1}/g" Dockerfile.slim
-          filters: *on-push-main
+  # slim build:
+  #   jobs:
+  #     - executor-tools/dev-release:
+  #         name: slim image build
+  #         context: *context
+  #         shell: *shell
+  #         dockerfile: Dockerfile.slim
+  #         image: twdps/circleci-remote-docker
+  #         tag: slim-edge
+  #         snyk-scan: true
+  #         snyk-severity-threshold: medium
+  #         snyk-organization: twdps
+  #         bats-test: true
+  #         bats-run-container-name: circleci-remote-docker-slim-edge
+  #         bats-entry-point: /bin/bash
+  #         bats-test-path: test/circleci_remote_docker_slim.bats
+  #         opencontainer-labels: true
+  #         after-checkout:
+  #           - op/env
+  #         # before-build:
+  #         #   - run:
+  #         #       name: update CREATED and VERSION in LABELS
+  #         #       command: |
+  #         #         sed -i "s/CREATED/$(date -u +"%Y-%m-%dT%H:%M:%SZ")/g" Dockerfile.slim
+  #         #         sed -i "s/VERSION/${CIRCLE_SHA1}/g" Dockerfile.slim
+  #         filters: *on-push-main
 
 
   release version:
@@ -126,23 +138,26 @@ workflows:
                 out-file: cosign.pub
           filters: *on-tag-main
 
-  # release-events:
-  #   jobs:
-  #     - do/schedule-pipeline:
-  #         name: configure weekly trigger
-  #         shell: *shell
-  #         context: *context
-  #         scheduled-pipeline-name: weekly-ci-build
-  #         scheduled-pipeline-description: |
-  #           Automatically trigger image build on a weekly schedule. Failure of
-  #           this recurring build indicates new releases of dependent packages.
-  #         hours-of-day: "[1]"
-  #         days-of-week: "[\"SUN\"]"
-  #         filters: *on-tag-main
+      - do/release:
+          name: generate release notes
+          shell: *shell
+          context: *context
+          on-tag: true
+          requires:
+            - alpine release
+            - slim release
+          filters: *on-tag-main
 
-  #     - do/release:
-  #         name: generate release notes
-  #         shell: *shell
-  #         context: *context
-  #         on-tag: true
-  #         filters: *on-tag-main
+  schedule ci build:
+    jobs:
+      - do/schedule-pipeline:
+          name: configure weekly trigger
+          shell: *shell
+          context: *context
+          scheduled-pipeline-name: weekly-ci-build
+          scheduled-pipeline-description: |
+            Automatically trigger image build on a weekly schedule. Failure of
+            this recurring build indicates new releases of dependent packages.
+          hours-of-day: "[1]"
+          days-of-week: "[\"SUN\"]"
+          filters: *on-tag-main
