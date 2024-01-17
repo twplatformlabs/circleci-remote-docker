@@ -32,7 +32,6 @@ workflows:
 
   alpine build:
     jobs:
-
       - executor-tools/dev-release:
           name: alpine image build
           context: *context
@@ -55,6 +54,32 @@ workflows:
                 command: |
                   sed -i "s/CREATED/$(date -u +"%Y-%m-%dT%H:%M:%SZ")/g" Dockerfile.alpine
                   sed -i "s/VERSION/${CIRCLE_SHA1}/g" Dockerfile.alpine
+          filters: *on-push-main
+
+  slim build:
+    jobs:
+      - executor-tools/dev-release:
+          name: slim image build
+          context: *context
+          shell: *shell
+          dockerfile: Dockerfile.slim
+          image: twdps/circleci-remote-docker
+          tag: slim-edge
+          snyk-scan: true
+          snyk-severity-threshold: low
+          snyk-organization: twdps
+          bats-test: true
+          bats-run-container-name: circleci-remote-docker-slim-edge
+          bats-entry-point: /bin/ash
+          bats-test-path: test/circleci_remote_docker_slim.bats
+          after-checkout:
+            - op/env
+          before-build:
+            - run:
+                name: update CREATED and VERSION in LABELS
+                command: |
+                  sed -i "s/CREATED/$(date -u +"%Y-%m-%dT%H:%M:%SZ")/g" Dockerfile.slim
+                  sed -i "s/VERSION/${CIRCLE_SHA1}/g" Dockerfile.slim
           filters: *on-push-main
 
   #     - executor-tools/machine-executor-dev-release:
