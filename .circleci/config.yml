@@ -83,18 +83,6 @@ workflows:
             - op/env
           filters: *on-push-main
 
-      - do/slack:
-          context: *context
-          channel: lab-events
-          message: "New twdps/circleci-remote-docker release"
-          include-tag: true
-          filters: *on-tag-main
-          before-message:
-            - op/env
-          requires:
-            - alpine release
-            - slim release
-
   release version:
     jobs:
 
@@ -136,6 +124,17 @@ workflows:
             - slim release
           filters: *on-tag-main
 
+      - do/slack:
+          context: *context
+          channel: lab-events
+          message: "New twdps/circleci-remote-docker release"
+          include-tag: true
+          filters: *on-tag-main
+          before-message:
+            - op/env
+          requires:
+            - alpine release
+            - slim release
 
   schedule ci build:
     jobs:
