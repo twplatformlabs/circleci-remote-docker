@@ -25,13 +25,17 @@ on-tag-main: &on-tag-main
   tags:
     only: /.*/
 
-# commands:
+commands:
 
-#   set-environment:
-#     steps:
-
-#   set-image-labels:
-#     steps:
+  set-environment:
+    steps:
+      - op/env
+      - op/write:
+          op-value: empc-lab/svc-cosign-private-key/notesPlain
+          out-file: cosign.key
+      - op/write:
+          op-value: empc-lab/svc-cosign-public-key/notesPlain
+          out-file: cosign.pub
 
 # ================================================================= workflows
 
@@ -56,43 +60,28 @@ workflows:
           opencontainer-labels: true
           after-checkout:
             - op/env
-          after-build:
-            - run:
-                command: cat Dockerfile.alpine
-          # before-build:
-          #   - run:
-          #       name: update CREATED and VERSION in LABELS
-          #       command: |
-          #         sed -i "s/CREATED/$(date -u +"%Y-%m-%dT%H:%M:%SZ")/g" Dockerfile.alpine
-          #         sed -i "s/VERSION/${CIRCLE_SHA1}/g" Dockerfile.alpine
           filters: *on-push-main
 
-  # slim build:
-  #   jobs:
-  #     - executor-tools/dev-release:
-  #         name: slim image build
-  #         context: *context
-  #         shell: *shell
-  #         dockerfile: Dockerfile.slim
-  #         image: twdps/circleci-remote-docker
-  #         tag: slim-edge
-  #         snyk-scan: true
-  #         snyk-severity-threshold: medium
-  #         snyk-organization: twdps
-  #         bats-test: true
-  #         bats-run-container-name: circleci-remote-docker-slim-edge
-  #         bats-entry-point: /bin/bash
-  #         bats-test-path: test/circleci_remote_docker_slim.bats
-  #         opencontainer-labels: true
-  #         after-checkout:
-  #           - op/env
-  #         # before-build:
-  #         #   - run:
-  #         #       name: update CREATED and VERSION in LABELS
-  #         #       command: |
-  #         #         sed -i "s/CREATED/$(date -u +"%Y-%m-%dT%H:%M:%SZ")/g" Dockerfile.slim
-  #         #         sed -i "s/VERSION/${CIRCLE_SHA1}/g" Dockerfile.slim
-  #         filters: *on-push-main
+  slim build:
+    jobs:
+      - executor-tools/dev-release:
+          name: slim image build
+          context: *context
+          shell: *shell
+          dockerfile: Dockerfile.slim
+          image: twdps/circleci-remote-docker
+          tag: slim-edge
+          snyk-scan: true
+          snyk-severity-threshold: medium
+          snyk-organization: twdps
+          bats-test: true
+          bats-run-container-name: circleci-remote-docker-slim-edge
+          bats-entry-point: /bin/bash
+          bats-test-path: test/circleci_remote_docker_slim.bats
+          opencontainer-labels: true
+          after-checkout:
+            - op/env
+          filters: *on-push-main
 
 
   release version:
@@ -109,13 +98,7 @@ workflows:
           sign-image: true
           sbom: true
           after-checkout:
-            - op/env
-            - op/write:
-                op-value: empc-lab/svc-cosign-private-key/notesPlain
-                out-file: cosign.key
-            - op/write:
-                op-value: empc-lab/svc-cosign-public-key/notesPlain
-                out-file: cosign.pub
+            - set-environment
           filters: *on-tag-main
 
       - executor-tools/publish:
@@ -129,13 +112,7 @@ workflows:
           sign-image: true
           sbom: true
           after-checkout:
-            - op/env
-            - op/write:
-                op-value: empc-lab/svc-cosign-private-key/notesPlain
-                out-file: cosign.key
-            - op/write:
-                op-value: empc-lab/svc-cosign-public-key/notesPlain
-                out-file: cosign.pub
+            - set-environment
           filters: *on-tag-main
 
       - do/release:
