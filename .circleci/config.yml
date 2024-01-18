@@ -4,7 +4,7 @@ version: 2.1
 orbs:
   executor-tools: twdps/executor-tools@2.1.0
   op: twdps/onepassword@2.0.2
-  do: twdps/pipeline-events@2.0.0
+  do: twdps/pipeline-events@3.2.1
 
 # ================================================================= global pipeline values =
 
@@ -83,6 +83,17 @@ workflows:
             - op/env
           filters: *on-push-main
 
+      - do/slack:
+          context: *context
+          channel: lab-events
+          message: "New twdps/circleci-remote-docker release"
+          include-tag: true
+          filters: *on-tag-main
+          before-message:
+            - op/env
+          requires:
+            - alpine release
+            - slim release
 
   release version:
     jobs:
@@ -124,6 +135,7 @@ workflows:
             - alpine release
             - slim release
           filters: *on-tag-main
+
 
   schedule ci build:
     jobs:
