@@ -7,12 +7,12 @@
 
 @test "openssh-server version" {
   run bash -c "docker exec circleci-remote-docker-slim-edge ssh -V"
-  [[ "${output}" =~ "9.6" ]]
+  [[ "${output}" =~ "9.7" ]]
 }
 
 @test "tar version" {
   run bash -c "docker exec circleci-remote-docker-slim-edge tar --version"
-  [[ "${output}" =~ "1.34" ]]
+  [[ "${output}" =~ "1.35" ]]
 }
 
 @test "gzip version" {
