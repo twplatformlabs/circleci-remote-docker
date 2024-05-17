@@ -27,10 +27,10 @@ commands:
   set-environment:
     steps:
       - op/env
-      - op/write:
+      - op/write-to-file:
           op-value: empc-lab/svc-cosign-private-key/notesPlain
           out-file: cosign.key
-      - op/write:
+      - op/write-to-file:
           op-value: empc-lab/svc-cosign-public-key/notesPlain
           out-file: cosign.pub
 
