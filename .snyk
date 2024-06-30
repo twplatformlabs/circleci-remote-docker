@@ -1,33 +1,33 @@
 # Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
-version: v1.22.1
+version: v1.25.0
 # Nearly all CVE's are remediated by virtue of the runtime context, e.g., on an ephemeral circleci executor.
 ignore:
-  SNYK-DEBIANUNSTABLE-COREUTILS-6180568:
-    - "*":
-      reason: Out-of-bounds Write
-      expires: '2024-05-01T14:26:34.404Z'
-  SNYK-ALPINE319-OPENSSL-6191693:
-    - "*":
-      reason: CVE-2024-0727
-      expires: '2024-05-01T14:26:34.404Z'
-  SNYK-ALPINE319-OPENSSL-6148881:
-    - "*":
-      reason: CVE-2023-6129
-      expires: '2024-05-01T14:26:34.404Z'
-  SNYK-DEBIANUNSTABLE-SYSTEMD-6137711:
-    - "*":
-      reason: CVE-2023-7008
-      expires: '2024-05-01T14:26:34.404Z'
-  SNYK-DEBIANUNSTABLE-PERL-5489187:
-    - "*":
-      reason: Improper Certificate Validation
-      expires: '2024-05-01T14:26:34.404Z'
-  SNYK-DEBIANUNSTABLE-OPENSSH-6139208:
-    - "*":
-      reason: CVE-2023-51767
-      expires: '2024-05-01T14:26:34.404Z'
-  SNYK-DEBIANUNSTABLE-OPENLDAP-5660619:
-    - "*":
-      reason: NULL Pointer Dereference
-      expires: '2024-05-01T14:26:34.404Z'
+  # SNYK-DEBIANUNSTABLE-COREUTILS-6180568:
+  #   - "*":
+  #     reason: Out-of-bounds Write
+  #     expires: '2024-05-01T14:26:34.404Z'
+  # SNYK-ALPINE319-OPENSSL-6191693:
+  #   - "*":
+  #     reason: CVE-2024-0727
+  #     expires: '2024-05-01T14:26:34.404Z'
+  # SNYK-ALPINE319-OPENSSL-6148881:
+  #   - "*":
+  #     reason: CVE-2023-6129
+  #     expires: '2024-05-01T14:26:34.404Z'
+  # SNYK-DEBIANUNSTABLE-SYSTEMD-6137711:
+  #   - "*":
+  #     reason: CVE-2023-7008
+  #     expires: '2024-05-01T14:26:34.404Z'
+  # SNYK-DEBIANUNSTABLE-PERL-5489187:
+  #   - "*":
+  #     reason: Improper Certificate Validation
+  #     expires: '2024-05-01T14:26:34.404Z'
+  # SNYK-DEBIANUNSTABLE-OPENSSH-6139208:
+  #   - "*":
+  #     reason: CVE-2023-51767
+  #     expires: '2024-05-01T14:26:34.404Z'
+  # SNYK-DEBIANUNSTABLE-OPENLDAP-5660619:
+  #   - "*":
+  #     reason: NULL Pointer Dereference
+  #     expires: '2024-05-01T14:26:34.404Z'
 patch: {}

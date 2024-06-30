@@ -2,7 +2,7 @@
 
 @test "git version" {
   run bash -c "docker exec circleci-remote-docker-slim-edge git --version"
-  [[ "${output}" =~ "2.43" ]]
+  [[ "${output}" =~ "2.45" ]]
 }
 
 @test "openssh-server version" {
