@@ -2,8 +2,8 @@
 version: v1.25.0
 # Nearly all CVE's are remediated by virtue of the runtime context, e.g., on an ephemeral circleci executor.
 ignore:
-  SNYK-DEBIANUNSTABLE-COREUTILS-6180568:
-    - "*":
-      reason: Out-of-bounds Write
-      expires: '2024-05-01T14:26:34.404Z'
+  # SNYK-DEBIANUNSTABLE-COREUTILS-6180568:
+  #   - "*":
+  #     reason: Out-of-bounds Write
+  #     expires: '2024-05-01T14:26:34.404Z'
 patch: {}
