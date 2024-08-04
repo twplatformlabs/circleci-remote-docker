@@ -8,6 +8,7 @@
         "Bug Fixes:": ["bug"]
     },
     "template": {
+        "commit": "({ message, url}) => `- [${message}](${url})}`",
         "issue": "- [{{text}}]({{url}}) {{name}}",
         "group": "\n#### {{heading}}",
         "release": "## {{release}} ({{date}})\n{{body}}",
