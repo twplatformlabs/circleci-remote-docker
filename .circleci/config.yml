@@ -114,6 +114,7 @@ workflows:
           shell: *shell
           context: *context
           on-tag: true
+          additional-args: "--data-source=commits"
           requires:
             - alpine release
             - slim release
