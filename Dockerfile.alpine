@@ -1,4 +1,4 @@
-FROM alpine:3.20.1
+FROM alpine:3.20.2
 
 LABEL org.opencontainers.image.title="circleci-remote-docker" \
       org.opencontainers.image.description="Alpine-based CircleCI executor image containing only the minimum required packages" \
@@ -13,7 +13,7 @@ LABEL org.opencontainers.image.title="circleci-remote-docker" \
 
 RUN apk add --no-cache \
         git==2.45.2-r0 \
-        openssh==9.7_p1-r3 \
+        openssh==9.7_p1-r4 \
         tar==1.35-r2 \
         gzip==1.13-r0 \
-        ca-certificates==20240226-r0
+        ca-certificates==20240705-r0
