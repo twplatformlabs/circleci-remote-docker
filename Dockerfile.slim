@@ -1,4 +1,4 @@
-FROM debian:sid-20240722-slim
+FROM debian:sid-20240812-slim
 
 LABEL org.opencontainers.image.title="circleci-remote-docker" \
       org.opencontainers.image.description="Debian-based CircleCI executor image containing only the minimum required packages" \
@@ -14,7 +14,7 @@ LABEL org.opencontainers.image.title="circleci-remote-docker" \
 RUN apt-get update && \
     apt-get install --no-install-recommends -y \
             git=1:2.45.2-1 \
-            openssh-server=1:9.8p1-2 \
+            openssh-server=1:9.8p1-4 \
             tar=1.35+dfsg-3 \
             gzip=1.12-1.1 \
             ca-certificates=20240203 && \
