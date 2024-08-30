@@ -57,22 +57,22 @@ workflows:
             - op/env
           filters: *on-push-main
 
-  slim build:
+  ubuntu build:
     jobs:
       - executor-tools/dev-release:
-          name: slim image build
+          name: ubuntu image build
           context: *context
           shell: *shell
-          dockerfile: Dockerfile.slim
+          dockerfile: Dockerfile.ubuntu
           image: twdps/circleci-remote-docker
-          tag: slim-edge
+          tag: ubuntu-edge
           snyk-scan: true
           snyk-severity-threshold: medium
           snyk-organization: twdps
           bats-test: true
-          bats-run-container-name: circleci-remote-docker-slim-edge
+          bats-run-container-name: circleci-remote-docker-ubuntu-edge
           bats-entry-point: /bin/bash
-          bats-test-path: test/circleci_remote_docker_slim.bats
+          bats-test-path: test/circleci_remote_docker_ubuntu.bats
           opencontainer-labels: true
           after-checkout:
             - op/env
@@ -96,13 +96,13 @@ workflows:
           filters: *on-tag-main
 
       - executor-tools/publish:
-          name: slim release
+          name: ubuntu release
           context: *context
           shell: *shell
           image: twdps/circleci-remote-docker
-          pull-tag: slim-edge
-          tag-annotation: slim-
-          release-tag: slim-stable
+          pull-tag: ubuntu-edge
+          tag-annotation: ubuntu-
+          release-tag: ubuntu-stable
           sign-image: true
           sbom: true
           after-checkout:
@@ -117,7 +117,7 @@ workflows:
           additional-args: "--data-source=commits"
           requires:
             - alpine release
-            - slim release
+            - ubuntu release
           filters: *on-tag-main
 
       - do/slack:
@@ -130,7 +130,7 @@ workflows:
             - op/env
           requires:
             - alpine release
-            - slim release
+            - ubuntu release
 
   schedule ci build:
     jobs:
