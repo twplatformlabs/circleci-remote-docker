@@ -1,4 +1,4 @@
-FROM ubuntu:oracular-20240811.1
+FROM ubuntu:oracular-20241009
 
 LABEL org.opencontainers.image.title="circleci-remote-docker" \
       org.opencontainers.image.description="Ubuntu-based CircleCI executor image containing only the minimum required packages" \
@@ -14,7 +14,7 @@ LABEL org.opencontainers.image.title="circleci-remote-docker" \
 RUN apt-get update && \
     apt-get install --no-install-recommends -y \
             git=1:2.45.2-1ubuntu1 \
-            openssh-server=1:9.7p1-7ubuntu3 \
+            openssh-server=1:9.7p1-7ubuntu4 \
             tar=1.35+dfsg-3build1 \
             gzip=1.12-1.1ubuntu1 \
             ca-certificates=20240203 && \
