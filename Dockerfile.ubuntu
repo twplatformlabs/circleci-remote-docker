@@ -1,4 +1,4 @@
-FROM ubuntu:oracular-20241009
+FROM ubuntu:oracular-20241120
 
 LABEL org.opencontainers.image.title="circleci-remote-docker" \
       org.opencontainers.image.description="Ubuntu-based CircleCI executor image containing only the minimum required packages" \
