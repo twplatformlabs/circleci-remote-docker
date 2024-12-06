@@ -2,6 +2,14 @@
 version: v1.25.0
 # Nearly all CVE's are remediated by virtue of the runtime context, e.g., on an ephemeral circleci executor.
 ignore:
+  SNYK-UBUNTU2410-PAM-8303373:
+    - "*":
+      reason: Insecure Storage of Sensitive Information
+      expires: 2024-12-01T14:26:34.404Z
+  SNYK-UBUNTU2410-PAM-8352844:
+    - "*":
+      reason: Improper Authentication
+      expires: 2024-12-01T14:26:34.404Z
   SNYK-UBUNTU2410-KRB5-8192081:
     - "*":
       reason: CVE-2024-26462
