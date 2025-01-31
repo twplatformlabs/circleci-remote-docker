@@ -118,16 +118,20 @@ workflows:
             - ubuntu image build
           filters: *on-tag-main
 
-      # - do/release:
-      #     name: generate release notes
-      #     shell: *shell
-      #     context: *context
-      #     on-tag: true
-      #     additional-args: "--data-source=commits"
-      #     requires:
-      #       - alpine release
-      #       - ubuntu release
-      #     filters: *on-tag-main
+      - do/gh-release:
+          name: generate release notes
+          shell: *shell
+          context: *context
+          notes-from-file: release.md
+          include-commit-msg: true
+          upload-artifacts: true
+          artifact-folder: workspace
+          before-release:
+            - set-environment
+          requires:
+            - alpine release
+            - ubuntu release
+          filters: *on-tag-main
 
       # - do/slack:
       #     context: *context
