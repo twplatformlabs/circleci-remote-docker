@@ -2,9 +2,9 @@
 version: 2.1
 
 orbs:
-  executor-tools: twdps/executor-tools@dev:alpha #3.0.1
+  executor-tools: twdps/executor-tools@4.0.0
   op: twdps/onepassword@3.0.0
-  do: twdps/pipeline-events@dev:alpha #4.1.0
+  do: twdps/pipeline-events@5.0.1
 
 globals:
   - &context empc-lab
@@ -127,17 +127,17 @@ workflows:
             - ubuntu release
           filters: *on-tag-main
 
-      # - do/slack:
-      #     context: *context
-      #     channel: lab-events
-      #     message: "New twdps/circleci-remote-docker release"
-      #     include-tag: true
-      #     filters: *on-tag-main
-      #     before-message:
-      #       - op/env
-      #     requires:
-      #       - alpine release
-      #       - ubuntu release
+      - do/slack:
+          context: *context
+          channel: lab-events
+          message: "New twdps/circleci-remote-docker release"
+          include-tag: true
+          filters: *on-tag-main
+          before-message:
+            - op/env
+          requires:
+            - alpine release
+            - ubuntu release
 
   schedule ci build:
     jobs:
