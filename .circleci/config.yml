@@ -16,12 +16,6 @@ on-each-run: &on-each-run
   tags:
     only: /.*/
 
-# on-push-main: &on-push-main
-#   branches:
-#     only: /main/
-#   tags:
-#     ignore: /.*/
-
 on-tag-main: &on-tag-main
   branches:
     ignore: /.*/
