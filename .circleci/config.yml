@@ -4,17 +4,23 @@ version: 2.1
 orbs:
   executor-tools: twdps/executor-tools@dev:alpha #3.0.1
   op: twdps/onepassword@3.0.0
-  do: twdps/pipeline-events@4.1.0
+  do: twdps/pipeline-events@dev:alpha #4.1.0
 
 globals:
   - &context empc-lab
   - &shell op run --env-file op.env -- /bin/bash -eo pipefail
 
-on-push-main: &on-push-main
+on-each-run: &on-each-run
   branches:
     only: /main/
   tags:
-    ignore: /.*/
+    only: /.*/
+
+# on-push-main: &on-push-main
+#   branches:
+#     only: /main/
+#   tags:
+#     ignore: /.*/
 
 on-tag-main: &on-tag-main
   branches:
@@ -36,7 +42,7 @@ commands:
 
 workflows:
 
-  alpine build:
+  build and publish:
     jobs:
       - executor-tools/dev-release:
           name: alpine image build
@@ -56,10 +62,8 @@ workflows:
           security-scan-nofail: true
           after-checkout:
             - op/env
-          filters: *on-push-main
+          filters: *on-each-run
 
-  ubuntu build:
-    jobs:
       - executor-tools/dev-release:
           name: ubuntu image build
           context: *context
@@ -78,10 +82,7 @@ workflows:
           security-scan-nofail: true
           after-checkout:
             - op/env
-          filters: *on-push-main
-
-  release version:
-    jobs:
+          filters: *on-each-run
 
       - executor-tools/publish:
           name: alpine release
@@ -95,6 +96,9 @@ workflows:
           sbom: true
           after-checkout:
             - set-environment
+          requires:
+            - alpine image build
+            - ubuntu image build
           filters: *on-tag-main
 
       - executor-tools/publish:
@@ -109,30 +113,33 @@ workflows:
           sbom: true
           after-checkout:
             - set-environment
+          requires:
+            - alpine image build
+            - ubuntu image build
           filters: *on-tag-main
 
-      - do/release:
-          name: generate release notes
-          shell: *shell
-          context: *context
-          on-tag: true
-          additional-args: "--data-source=commits"
-          requires:
-            - alpine release
-            - ubuntu release
-          filters: *on-tag-main
+      # - do/release:
+      #     name: generate release notes
+      #     shell: *shell
+      #     context: *context
+      #     on-tag: true
+      #     additional-args: "--data-source=commits"
+      #     requires:
+      #       - alpine release
+      #       - ubuntu release
+      #     filters: *on-tag-main
 
-      - do/slack:
-          context: *context
-          channel: lab-events
-          message: "New twdps/circleci-remote-docker release"
-          include-tag: true
-          filters: *on-tag-main
-          before-message:
-            - op/env
-          requires:
-            - alpine release
-            - ubuntu release
+      # - do/slack:
+      #     context: *context
+      #     channel: lab-events
+      #     message: "New twdps/circleci-remote-docker release"
+      #     include-tag: true
+      #     filters: *on-tag-main
+      #     before-message:
+      #       - op/env
+      #     requires:
+      #       - alpine release
+      #       - ubuntu release
 
   schedule ci build:
     jobs:
