@@ -11,7 +11,7 @@
 </div>
 <br />
 
-**Debian version deprecated. 2024.08.1 is last update. Moving to ubutu:oracular as Alpine alternative to be more aligned with CircleCI environment.**  
+**Debian version deprecated. 2024.08.1 is last update. Moving to ubuntu:oracular as Alpine alternative to be more aligned with CircleCI environment.**  
 
 With inspiration from the CircleCI convenience images, `twdps/circleci-remote-docker` maintains both Alpine and Ubuntu variants with both remote and self-hosted runners in mind. As the name suggests, this image is designed to serve as a starter image for building a use-tailored CircleCI [remote docker executor](https://circleci.com/docs/2.0/custom-images/#section=configuration).  
 
@@ -122,7 +122,6 @@ Use `test_local.sh` to build and test image locally. In order to successfully ru
 **requirements**  
 
 [bats](https://github.com/bats-core/bats-core)  
-[conftest](https://github.com/open-policy-agent/conftest)  
 [hadolint](https://github.com/hadolint/hadolint)  
 
 ### Publishing Official Images (for Maintainers only)
