@@ -2,9 +2,9 @@ FROM ubuntu:oracular-20241120
 
 LABEL org.opencontainers.image.created="%%CREATED%%" \
       org.opencontainers.image.authors="nic.cheneweth@thoughtworks.com" \
-      org.opencontainers.image.url="https://github.com/ThoughtWorks-DPS/circleci-remote-docker" \
-      org.opencontainers.image.documentation="https://github.com/ThoughtWorks-DPS/circleci-remote-docker" \
-      org.opencontainers.image.source="https://github.com/ThoughtWorks-DPS/circleci-remote-docker" \
+      org.opencontainers.image.url="https://github.com/twplatformlabs/circleci-remote-docker" \
+      org.opencontainers.image.documentation="https://github.com/twplatformlabs/circleci-remote-docker" \
+      org.opencontainers.image.source="https://github.com/twplatformlabs/circleci-remote-docker" \
       org.opencontainers.image.version="%%VERSION%%" \
       org.opencontainers.image.vendor="ThoughtWorks, Inc." \
       org.opencontainers.image.licenses="MIT" \
@@ -15,7 +15,7 @@ LABEL org.opencontainers.image.created="%%CREATED%%" \
 RUN apt-get update && \
     apt-get install --no-install-recommends -y \
             git=1:2.45.2-1ubuntu1 \
-            openssh-server=1:9.7p1-7ubuntu4.1 \
+            openssh-server=1:9.7p1-7ubuntu4.2 \
             tar=1.35+dfsg-3build1 \
             gzip=1.12-1.1ubuntu1 \
             ca-certificates=20240203 && \
