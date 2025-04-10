@@ -48,7 +48,7 @@ workflows:
           name: configure monthly trigger
           shell: *shell
           context: *context
-          scheduled-pipeline-name: monthly-automated-release
+          scheduled-pipeline-name: Monthly General Release
           scheduled-pipeline-description: |
             Automatically build and release a current version of the remote-docker-ready image
             using the YYYY.MM tag format.
