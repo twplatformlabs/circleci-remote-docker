@@ -16,11 +16,11 @@ on-push-main: &on-push-main
   tags:
     ignore: /.*/
 
-# on-each-run: &on-each-run
-#   branches:
-#     only: /main/
-#   tags:
-#     only: /.*/
+on-each-run: &on-each-run
+  branches:
+    only: /main/
+  tags:
+    only: /.*/
 
 # on-tag-main: &on-tag-main
 #   branches:
@@ -41,14 +41,63 @@ on-push-main: &on-push-main
 #           out-file: cosign.pub
 
 workflows:
+  build and test:
+    jobs:
+      - executor-tools/dev-release:
+          name: alpine image build
+          context: *context
+          shell: *shell
+          dockerfile: Dockerfile.alpine
+          image: twdps/circleci-remote-docker
+          tag: alpine-edge
+          snyk-scan: true
+          snyk-severity-threshold: medium
+          snyk-organization: twplatformlabs
+          bats-test: true
+          bats-entry-point: /bin/ash
+          bats-test-path: test/circleci_remote_docker.bats
+          opencontainer-labels: true
+          security-scan-nofail: true
+          after-checkout:
+            - op/env
+          filters: *on-each-run
+
+      - executor-tools/dev-release:
+          name: ubuntu image build
+          context: *context
+          shell: *shell
+          dockerfile: Dockerfile.ubuntu
+          image: twdps/circleci-remote-docker
+          tag: ubuntu-edge
+          snyk-scan: true
+          snyk-severity-threshold: medium
+          snyk-organization: twplatformlabs
+          bats-test: true
+          bats-entry-point: /bin/bash
+          bats-test-path: test/circleci_remote_docker.bats
+          opencontainer-labels: true
+          security-scan-nofail: true
+          after-checkout:
+            - op/env
+          filters: *on-each-run
+
+  # monthly build:
+  #   when:
+  #     equal: [ scheduled_pipeline, << pipeline.trigger_source >> ]
+  #   jobs:
+
+  #     - recurring-integration-tests:
+  #         name: sbx-i01-aws-us-east-1 integration test
+  #         context: *context
+  #         cluster: sbx-i01-aws-us-east-1
 
   schedule monthly build:
     jobs:
       - do/schedule-pipeline:
-          name: configure monthly trigger
+          name: configure scheduled pipeline run for monthly general release
           shell: *shell
           context: *context
-          scheduled-pipeline-name: Monthly General Release
+          scheduled-pipeline-name: Monthly update release
           scheduled-pipeline-description: |
             Automatically build and release a current version of the remote-docker-ready image
             using the YYYY.MM tag format.
@@ -87,47 +136,7 @@ workflows:
 #             git push origin "${TAG_NAME}"
 
 
-  # build and publish:
-  #   jobs:
-  #     - executor-tools/dev-release:
-  #         name: alpine image build
-  #         context: *context
-  #         shell: *shell
-  #         dockerfile: Dockerfile.alpine
-  #         image: twdps/circleci-remote-docker
-  #         tag: alpine-edge
-  #         snyk-scan: true
-  #         snyk-severity-threshold: medium
-  #         snyk-organization: twplatformlabs
-  #         bats-test: true
-  #         bats-run-container-name: circleci-remote-docker-alpine-edge
-  #         bats-entry-point: /bin/ash
-  #         bats-test-path: test/circleci_remote_docker_alpine.bats
-  #         opencontainer-labels: true
-  #         security-scan-nofail: true
-  #         after-checkout:
-  #           - op/env
-  #         filters: *on-each-run
 
-  #     - executor-tools/dev-release:
-  #         name: ubuntu image build
-  #         context: *context
-  #         shell: *shell
-  #         dockerfile: Dockerfile.ubuntu
-  #         image: twdps/circleci-remote-docker
-  #         tag: ubuntu-edge
-  #         snyk-scan: true
-  #         snyk-severity-threshold: medium
-  #         snyk-organization: twplatformlabs
-  #         bats-test: true
-  #         bats-run-container-name: circleci-remote-docker-ubuntu-edge
-  #         bats-entry-point: /bin/bash
-  #         bats-test-path: test/circleci_remote_docker_ubuntu.bats
-  #         opencontainer-labels: true
-  #         security-scan-nofail: true
-  #         after-checkout:
-  #           - op/env
-  #         filters: *on-each-run
 
   #     - executor-tools/publish:
   #         name: alpine release
