@@ -22,23 +22,23 @@ on-each-run: &on-each-run
   tags:
     only: /.*/
 
-# on-tag-main: &on-tag-main
-#   branches:
-#     ignore: /.*/
-#   tags:
-#     only: /.*/
+on-tag-main: &on-tag-main
+  branches:
+    ignore: /.*/
+  tags:
+    only: /.*/
 
-# commands:
+commands:
 
-#   set-environment:
-#     steps:
-#       - op/env
-#       - op/write-to-file:
-#           op-value: platform/svc-cosign-private-key/notesPlain
-#           out-file: cosign.key
-#       - op/write-to-file:
-#           op-value: platform/svc-cosign-public-key/notesPlain
-#           out-file: cosign.pub
+  set-environment:
+    steps:
+      - op/env
+      - op/write-to-file:
+          op-value: platform/svc-cosign-private-key/notesPlain
+          out-file: cosign.key
+      - op/write-to-file:
+          op-value: platform/svc-cosign-public-key/notesPlain
+          out-file: cosign.pub
 
 workflows:
   build and test:
@@ -80,6 +80,38 @@ workflows:
           after-checkout:
             - op/env
           filters: *on-each-run
+
+      - executor-tools/publish:
+          name: alpine release
+          context: *context
+          shell: *shell
+          image: twdps/circleci-remote-docker
+          pull-tag: alpine-edge
+          tag-annotation: alpine-
+          sign-image: true
+          sbom: true
+          after-checkout:
+            - set-environment
+          requires:
+            - alpine image build
+            - ubuntu image build
+          filters: *on-tag-main
+
+      - executor-tools/publish:
+          name: ubuntu release
+          context: *context
+          shell: *shell
+          image: twdps/circleci-remote-docker
+          pull-tag: ubuntu-edge
+          tag-annotation: ubuntu-
+          sign-image: true
+          sbom: true
+          after-checkout:
+            - set-environment
+          requires:
+            - alpine image build
+            - ubuntu image build
+          filters: *on-tag-main
 
   # monthly build:
   #   when:
