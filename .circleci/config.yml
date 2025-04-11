@@ -46,6 +46,8 @@ workflows:
 
       - do/automated-tag:
           tag-type: monthly-recurring
+          committer-email: twplatformlabs@gmail.com
+          committer-name: twplatformlabs-sa
           filters: *on-push-main
 
       # - executor-tools/dev-release:
