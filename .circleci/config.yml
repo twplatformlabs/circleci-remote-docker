@@ -4,7 +4,7 @@ version: 2.1
 orbs:
   executor-tools: twdps/executor-tools@4.0.1
   op: twdps/onepassword@3.0.0
-  do: twdps/pipeline-events@dev:alpha
+  do: twdps/pipeline-events@5.1.0
 
 globals:
   - &context platform
@@ -89,6 +89,7 @@ workflows:
           image: twdps/circleci-remote-docker
           pull-tag: alpine-edge
           tag-annotation: alpine-
+          release-tag: alpine-stable
           sign-image: true
           sbom: true
           after-checkout:
@@ -105,6 +106,7 @@ workflows:
           image: twdps/circleci-remote-docker
           pull-tag: ubuntu-edge
           tag-annotation: ubuntu-
+          release-tag: ubuntu-stable
           sign-image: true
           sbom: true
           after-checkout:
