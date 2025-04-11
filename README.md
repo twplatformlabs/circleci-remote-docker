@@ -1,17 +1,15 @@
 
 <div align="center">
 	<p>
-		<img alt="Thoughtworks Logo" src="https://raw.githubusercontent.com/twplatformlabs/static/master/thoughtworks_flamingo_wave.png?sanitize=true" width=200 />
-    <br />
-		<img alt="DPS Title" src="https://raw.githubusercontent.com/twplatformlabs/static/master/EMPCPlatformStarterKitsImage.png" width=350/>
+		<img alt="Thoughtworks Logo" src="https://raw.githubusercontent.com/twplatformlabs/static/master/psk_banner.png?sanitize=true" width=600 />
 	</p>
-  <h3>PSK Convenience Images</h3>
+  <h3>PSK CircleCI Convenience Images</h3>
   <h1>twdps/circleci-remote-docker</h1>
   <a href="https://app.circleci.com/pipelines/github/twplatformlabs/circleci-remote-docker"><img src="https://circleci.com/gh/twplatformlabs/circleci-remote-docker.svg?style=shield"></a> <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/github/license/twplatformlabs/circleci-remote-docker"></a>
 </div>
 <br />
 
-**Debian version deprecated. 2024.08.1 is last update. Moving to ubuntu:oracular as Alpine alternative to be more aligned with CircleCI environment.**  
+**Debian version deprecated. 2024.08.1 is last update. Moving to ubuntu:24.04 for the Alpine alternative to aligned with CircleCI default environments.**  
 
 With inspiration from the CircleCI convenience images, `twdps/circleci-remote-docker` maintains both Alpine and Ubuntu variants with both remote and self-hosted runners in mind. As the name suggests, this image is designed to serve as a starter image for building a use-tailored CircleCI [remote docker executor](https://circleci.com/docs/2.0/custom-images/#section=configuration).  
 
@@ -100,7 +98,7 @@ twdps/circleci-remote-docker:stable
 twdps/circleci-remote-docker:<YYYY.MM>
 ```
 
-`<YYYY.MM>` - Release version of the image, referred to by the 4 digit year, dot, and a 2 digit month. For example `2020.05` would be the monthly tag from May 2020. This is the recommended version for use in an executor Dockerfile. Where interim patches are required you may see `2021.08.1` or addtional numbered versions.  
+`<YYYY.MM>` - Release version of the image, referred to by the 4 digit year, dot, and a 2 digit month. For example `2020.05` would be the monthly tag from May 2020. A new This is the recommended version for use in an executor Dockerfile. Where interim patches are released you may see `2021.08.1` or addtional numbered versions.  
 
 `stable` - generic tag that always points to the latest, monthly release image. Provides a decent level of stability while recieving all software updates and recommended security patches. Security patches can sometimes include pre-release or release candidate versions of packages.  
 
