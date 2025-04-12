@@ -3,8 +3,8 @@
 	<p>
 		<img alt="Thoughtworks Logo" src="https://raw.githubusercontent.com/twplatformlabs/static/master/psk_banner.png" width=800 />
 	</p>
-  <h3>PSK CircleCI Convenience Images</h3>
   <h1>twdps/circleci-remote-docker</h1>
+  <h3>PSK CircleCI Convenience Images</h3>
   <a href="https://app.circleci.com/pipelines/github/twplatformlabs/circleci-remote-docker"><img src="https://circleci.com/gh/twplatformlabs/circleci-remote-docker.svg?style=shield"></a> <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/github/license/twplatformlabs/circleci-remote-docker"></a>
 </div>
 <br />
