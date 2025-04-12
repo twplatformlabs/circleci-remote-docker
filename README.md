@@ -85,7 +85,7 @@ This image is maintained with both an Alpine and Debian Linux based distribution
 - gzip
 - ca-certificates
 
-_See release notes or distribution dockerfiles for specific versions_
+_Review the build and CVE scan logs in the release artifacts for specific packages versions and known vulnerabilities (if any)._
 
 ### Tagging Scheme
 
@@ -102,8 +102,6 @@ twdps/circleci-remote-docker:<YYYY.MM>
 `stable` - generic tag that always points to the latest, monthly release image. Provides a decent level of stability while recieving all software updates and recommended security patches.  
 
 `edge` - is the latest development of the Base image. Built from the `HEAD` of the `main` branch. Intended to be used as a testing version of the image with the most recent changes.  
-
-Review the build and CVE scan logs in the release artifacts for specific packages versions and known vulnerabilities (if any).
 
 ## Contributing
 
