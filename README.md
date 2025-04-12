@@ -26,16 +26,15 @@ cosign verify --key cosign.pub twdps/circleci-remote-docker:alpine-2023.04
 
 fetch image manifest:  
 ```
-docker image inspect --format='{{index .RepoDigests 0}}' twdps/circleci-remote-docker:alpine-2023.04
-```
+docker image inspect --format='{{index .RepoDigests 0}}' twdps/circleci-remote-docker:alpine-2023.04  
+
 twdps/circleci-remote-docker@sha256:9d8e8eef60900fcf207e3b258b4ce13b4cdb1765f0f7ca3022fd685cd53b8a14
+```
 
 download sbom:  
 ```
 oras pull docker.io/twdps/circleci-remote-docker:sha256-9d8e8eef60900fcf207e3b258b4ce13b4cdb1765f0f7ca3022fd685cd53b8a14.spdx
 ```
-
-Review `.snyk` for current vulnerability status.  
 
 **Other images in this series**  
 
@@ -72,7 +71,7 @@ RUN curl -L -o node.tar.xz "https://nodejs.org/dist/v${NODE_VERSION}/node-v${NOD
 	sudo ln -s /usr/local/bin/node /usr/local/bin/nodejs
 ```
 
-The tag `2021.08` indicates that the version of the base image used will be the August 2021 release.  
+The tag `2025.01` indicates that the version of the base image used will be the January 2025 release.  
 See how tags work below for more information.  
 
 ## What is Included in the Image
@@ -98,35 +97,26 @@ twdps/circleci-remote-docker:stable
 twdps/circleci-remote-docker:<YYYY.MM>
 ```
 
-`<YYYY.MM>` - Release version of the image, referred to by the 4 digit year, dot, and a 2 digit month. For example `2020.05` would be the monthly tag from May 2020. A new This is the recommended version for use in an executor Dockerfile. Where interim patches are released you may see `2021.08.1` or addtional numbered versions.  
+`<YYYY.MM>` - Release version of the image, referred to by the 4 digit year, dot, and a 2 digit month. For example `2020.05` would be the monthly tag from May 2020. This image is generated monthly, based on the then current release of the base image and related packages and provides a predictable fixed point for use in an executor Dockerfile. Occasionally there will be interim patches released and you may see `2021.08.1` or addtional numbered versions.  
 
-`stable` - generic tag that always points to the latest, monthly release image. Provides a decent level of stability while recieving all software updates and recommended security patches. Security patches can sometimes include pre-release or release candidate versions of packages.  
+`stable` - generic tag that always points to the latest, monthly release image. Provides a decent level of stability while recieving all software updates and recommended security patches.  
 
 `edge` - is the latest development of the Base image. Built from the `HEAD` of the `main` branch. Intended to be used as a testing version of the image with the most recent changes.  
 
-Also please note, stable in this case does not always imply general release for underlying components. For example, `sid` is used for the debain image in order to pick up the latest, patch versions of packages to eliminate any median or critical CVE issues.  
+Review the build and CVE scan logs in the release artifacts for specific packages versions and known vulnerabilities (if any).
 
 ## Contributing
 
 We encourage [issues](https://github.com/twdps/circleci-remote-docker/issues) and [pull requests](https://github.com/twdps/circleci-remote-docker/pulls) against this repository. In order to value your time, here are some things to consider:  
 
-1. Intended to be the minimum configuration necessary for an alpine or debain based image to be successfully launched by circleci as a remote docker executor and specifically does not include any other packages.  
-1. PRs are welcome. Given the role of this image as a building block in building CircleCI remote docker executors, it is expected that PRs or Issue will be releated to bugs or compatibility issues. PR's to include additional packages will only be considered where necessary to continue supporting Alpine or debian linux as a remote docker base.  
+1. Intended to be the minimum configuration necessary for an Alpine or Ubuntu based image to be successfully launched by CircleCI as a remote docker executor and specifically does not include any other packages.  
+1. PRs are welcome. Given the role of this image as a building block in building CircleCI remote docker executors, it is expected that PRs or Issue will be releated to bugs or compatibility issues. PR's to include additional packages will only be considered where necessary to continue supporting Alpine or Ubuntu linux as a remote docker base.  
 
-### Local development
-
-Use `test_local.sh` to build and test image locally. In order to successfully run the CIS benchmark test locally you will need a local copy of the CIS Docker benchmark section 4 policy statement. The [orb-executor-tools](https://circleci.com/developer/orbs/orb/twdps/executor-tools) used to build this image includes a standard set of CIS requirements, pull a copy of that file and name it `policy.rego` (which will be ignored by current git settings) for local testing.  
-
-**requirements**  
+**CI requirements**  
 
 [bats](https://github.com/bats-core/bats-core)  
 [hadolint](https://github.com/hadolint/hadolint)  
-
-### Publishing Official Images (for Maintainers only)
-
-Git push will trigger the dev-build pipeline. In addition to the tests performed in testlocal.sh, a snyk scan is done to expose any known vulnerabilities.  
-
-To create a release version, simply tag HEAD with the release version format `YYYY.MM`  
+[snyk](https://github.com/snyk/cli)  
 
 ## Additional Resources
 
