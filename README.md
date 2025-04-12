@@ -1,7 +1,7 @@
 
 <div align="center">
 	<p>
-		<img alt="Thoughtworks Logo" src="https://raw.githubusercontent.com/twplatformlabs/static/master/psk_banner.png?sanitize=true" width=600 />
+		<img alt="Thoughtworks Logo" src="https://raw.githubusercontent.com/twplatformlabs/static/master/psk_banner.png" width=600 />
 	</p>
   <h3>PSK CircleCI Convenience Images</h3>
   <h1>twdps/circleci-remote-docker</h1>
