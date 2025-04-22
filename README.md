@@ -30,6 +30,7 @@ cosign download attestation twdps/circleci-remote-docker:alpine-2025.04 > attest
 jq -r '.payload' attestation.json | base64 -d > envelope.json
 jq '.predicate' envelope.json > sbom.spdx.json
 ```
+_Note. Dockerhub Scout does not appear to support non-docker attestations_  
 
 **Other images in this series**  
 
