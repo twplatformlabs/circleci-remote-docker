@@ -12,9 +12,11 @@ LABEL org.opencontainers.image.created="%%CREATED%%" \
       org.opencontainers.image.description="Alpine-based CircleCI executor image containing only the minimum required packages" \
       org.opencontainers.image.base.name="%%BASE%%"
 
-# build to current ga release versions
+# Configured for automatic, monthly build using current package repository release versions.
+# Pin downstream executor builds to specific OS and package versions using YYYY.MM tag.
 # hadolint ignore=DL3018
 RUN apk add --no-cache \
+        bash \
         git \
         openssh \
         tar \
