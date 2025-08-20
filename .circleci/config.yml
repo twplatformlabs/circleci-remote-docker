@@ -118,8 +118,6 @@ workflows:
           include-commit-msg: true
           upload-artifacts: true
           artifact-folder: workspace
-          before-release:
-            - set-environment
           requires:
             - alpine release
             - ubuntu release
