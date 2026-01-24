@@ -1,0 +1,65 @@
+{
+  "variable": {
+    "CREATED": { "default": "" },
+    "VERSION": { "default": "" },
+    "ALPINE_BASE": { "default": "" },
+    "UBUNTU_BASE": { "default": "" },
+    "TAG": { "default": "" }
+  },
+
+  "group": {
+    "executors": {
+      "targets": ["alpine", "ubuntu"]
+    }
+  },
+  "target": {
+    "_release": {
+      "labels": {
+        "org.opencontainers.image.created": "${CREATED}",
+        "org.opencontainers.image.authors": "nic.cheneweth@thoughtworks.com",
+        "org.opencontainers.image.version": "${VERSION}",
+        "org.opencontainers.image.vendor": "ThoughtWorks, Inc.",
+        "org.opencontainers.image.licenses": "MIT"
+      },
+      "args": {
+        "BUILDKIT_CONTEXT_KEEP_GIT_DIR": "1",
+        "BUILDX_EXPERIMENTAL": "1",
+        "BUILDKIT_SBOM_SCAN_CONTEXT": "1"
+      },
+      "attest": [
+        "type=provenance,mode=max,version=v1",
+        "type=sbom"
+      ]
+    },
+    "alpine": {
+      "dockerfile": "Dockerfile.alpine",
+      "tags": ["ghcr.io/twplatformlabs/orb-remote-docker:alpine-${TAG}"],
+      "context": ".",
+      "platforms": ["linux/amd64", "linux/arm64"],
+      "inherits": ["_release"],
+      "labels": {
+        "org.opencontainers.image.url": "https://github.com/twplatformlabs/circleci-remote-docker",
+        "org.opencontainers.image.documentation": "https://github.com/twplatformlabs/circleci-remote-docker",
+        "org.opencontainers.image.source": "https://github.com/twplatformlabs/circleci-remote-docker",
+        "org.opencontainers.image.title": "circleci-remote-docker",
+        "org.opencontainers.image.description": "Alpine-based CircleCI executor image containing only the minimum required packages",
+        "org.opencontainers.image.base.name": "${ALPINE_BASE}"
+      }
+    },
+    "ubuntu": {
+      "dockerfile": "Dockerfile.ubuntu",
+      "tags": ["ghcr.io/twplatformlabs/circleci-remote-docker:ubuntu-${TAG}"],
+      "context": ".",
+      "platforms": ["linux/amd64", "linux/arm64"],
+      "inherits": ["_release"],
+      "labels": {
+        "org.opencontainers.image.url": "https://github.com/twplatformlabs/circleci-remote-docker",
+        "org.opencontainers.image.documentation": "https://github.com/twplatformlabs/circleci-remote-docker",
+        "org.opencontainers.image.source": "https://github.com/twplatformlabs/circleci-remote-docker",
+        "org.opencontainers.image.title": "circleci-remote-docker",
+        "org.opencontainers.image.description": "Ubuntu-based CircleCI executor image containing only the minimum required packages",
+        "org.opencontainers.image.base.name": "${UBUNTU_BASE}"
+      }
+    }
+  }
+}
