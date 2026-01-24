@@ -1,17 +1,5 @@
 FROM ubuntu:24.04
 
-LABEL org.opencontainers.image.created="%%CREATED%%" \
-      org.opencontainers.image.authors="nic.cheneweth@thoughtworks.com" \
-      org.opencontainers.image.url="https://github.com/twplatformlabs/circleci-remote-docker" \
-      org.opencontainers.image.documentation="https://github.com/twplatformlabs/circleci-remote-docker" \
-      org.opencontainers.image.source="https://github.com/twplatformlabs/circleci-remote-docker" \
-      org.opencontainers.image.version="%%VERSION%%" \
-      org.opencontainers.image.vendor="ThoughtWorks, Inc." \
-      org.opencontainers.image.licenses="MIT" \
-      org.opencontainers.image.title="circleci-remote-docker" \
-      org.opencontainers.image.description="Ubuntu-based CircleCI executor image containing only the minimum required packages" \
-      org.opencontainers.image.base.name="%%BASE%%"
-
 # Configured for automatic, monthly build using current package repository release versions.
 # Pin downstream executor builds to specific OS and package versions using YYYY.MM tag.
 # hadolint ignore=DL3008
