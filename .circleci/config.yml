@@ -8,7 +8,7 @@ orbs:
 
 globals:
   - &registry ghcr.io
-  - &executor-name twplatformlabs/circleci-remote-docker
+  - &executor-name twpdps/circleci-executor-builder:alpine-2026.01
   - &context platform
   - &shell op run --env-file op.env -- /bin/bash -eo pipefail
 
