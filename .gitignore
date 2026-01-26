@@ -1,6 +1,5 @@
-policy.rego
-cosign.asc
 cosign.key
+cosign.pub
 *.asc
 *.pem
 Pipfile.lock

@@ -17,7 +17,7 @@
       "labels": {
         "org.opencontainers.image.created": "${CREATED}",
         "org.opencontainers.image.authors": "nic.cheneweth@thoughtworks.com",
-        "org.opencontainers.image.version": "${VERSION}",
+        "org.opencontainers.image.revision": "${REVISION}",
         "org.opencontainers.image.vendor": "ThoughtWorks, Inc.",
         "org.opencontainers.image.licenses": "MIT"
       },
@@ -33,7 +33,7 @@
     },
     "alpine": {
       "dockerfile": "Dockerfile.alpine",
-      "tags": ["ghcr.io/twplatformlabs/orb-remote-docker:alpine-${TAG}"],
+      "tags": ["ghcr.io/twplatformlabs/circleci-remote-docker:alpine-${TAG}"],
       "context": ".",
       "platforms": ["linux/amd64", "linux/arm64"],
       "inherits": ["_release"],

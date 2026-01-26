@@ -14,7 +14,7 @@ With inspiration from the CircleCI convenience images, `ghcr.io/twplatformlabs/c
 
 This image contains the [minimum packages required](https://circleci.com/docs/custom-images/) to function as a remote_docker executor on CircleCI.  
 
-_difference with cimg libraries._ Enterprise settings often require specific security and configuration testing. The twdps series of convenience images is designed to demonstrate an effective, automated executor lifecycle architecture.  
+_difference with cimg libraries._ Enterprise settings often require specific security and configuration testing. The twplatformlabs series of convenience images is designed to demonstrate an effective, automated executor lifecycle architecture.  
 
 **signature**. Images are signed using `cosign`. Verify images using the twplatformlabs [public key](https://raw.githubusercontent.com/twplatformlabs/static/master/cosign.pub).  
 ```bash
