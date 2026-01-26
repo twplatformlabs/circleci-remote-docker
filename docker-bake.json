@@ -1,7 +1,7 @@
 {
   "variable": {
     "CREATED": { "default": "" },
-    "VERSION": { "default": "" },
+    "REVISION": { "default": "" },
     "ALPINE_BASE": { "default": "" },
     "UBUNTU_BASE": { "default": "" },
     "TAG": { "default": "" }
