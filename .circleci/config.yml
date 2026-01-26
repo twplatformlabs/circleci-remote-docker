@@ -76,9 +76,6 @@ workflows:
             - op/write-to-file:
                 op-value: platform/svc-cosign-public-key/notesPlain
                 out-file: cosign.pub
-          after-publish:
-            - echo-message:
-                msg: "replace with slack announcement and release notes published"
           requires:
             - development build
           filters: *on-tag-main
