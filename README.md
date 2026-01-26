@@ -2,13 +2,15 @@
 	<p>
 		<img alt="Thoughtworks Logo" src="https://raw.githubusercontent.com/twplatformlabs/static/master/psk_banner.png" width=800 />
 	</p>
-  <h1>twdps/circleci-remote-docker</h1>
+  <h1>ghcr.io/twplatformlabs/circleci-remote-docker</h1>
   <h3>PSK CircleCI Convenience Images</h3>
   <a href="https://app.circleci.com/pipelines/github/twplatformlabs/circleci-remote-docker"><img src="https://circleci.com/gh/twplatformlabs/circleci-remote-docker.svg?style=shield"></a> <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/github/license/twplatformlabs/circleci-remote-docker"></a>
 </div>
 <br />
 
-With inspiration from the CircleCI convenience images, `twdps/circleci-remote-docker` maintains Alpine and Ubuntu variants with both remote and self-hosted runners in mind. As the name suggests, this image is designed to serve as a starter image for building a use-tailored CircleCI [remote docker executor](https://circleci.com/docs/2.0/custom-images/#section=configuration).  
+With inspiration from the CircleCI convenience images, `ghcr.io/twplatformlabs/circleci-remote-docker` maintains Alpine and Ubuntu variants with both remote and self-hosted runners in mind. As the name suggests, this image is designed to serve as a starter image for building a use-tailored CircleCI [remote docker executor](https://circleci.com/docs/2.0/custom-images/#section=configuration).  
+
+>**Note:** This image was previously published to Dockerhub as twdps/circleci-remote-docker. For 2026, release version will continue to be mirrored to Dockerhub. Starting in 2027, the PSK Circleci convenience images will only by published to ghcr.io.  
 
 This image contains the [minimum packages required](https://circleci.com/docs/custom-images/) to function as a remote_docker executor on CircleCI.  
 
@@ -57,7 +59,7 @@ This image is intended to be used as the FROM image in a custom CircleCI remote 
 For example:
 
 ```Dockerfile
-FROM twdps/circleci-remote-docker:2025.04  
+FROM ghct.io/twplatformlabs/circleci-remote-docker:2025.04  
 
 ENV NODE_VERSION=12.16.3
 
@@ -67,7 +69,7 @@ RUN curl -L -o node.tar.xz "https://nodejs.org/dist/v${NODE_VERSION}/node-v${NOD
 	sudo ln -s /usr/local/bin/node /usr/local/bin/nodejs
 ```
 
-The tag `2025.01` indicates that the image was created in January 2025. Monthly, automated image builds occur on the 5th of each month.  
+The tag `2025.04` indicates that the image was created in April 2025. Monthly, automated image builds occur on the 5th of each month.  
 
 ## What is Included in the Image
 
