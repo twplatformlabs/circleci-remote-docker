@@ -62,6 +62,7 @@ workflows:
       - executor-tools/publish:
           name: Publish release version
           context: *context
+          shell: *shell
           executor-image-name: *executor-name
           registry: *registry
           registry-login: GHCR_LOGIN
@@ -69,7 +70,6 @@ workflows:
           include-latest: "true"
           sign-image: true
           after-checkout:
-            - set-environment
             - op/write-to-file:
                 op-value: platform/svc-cosign-private-key/notesPlain
                 out-file: cosign.key
