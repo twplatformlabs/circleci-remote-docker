@@ -59,6 +59,30 @@ workflows:
           bats-test-path: test/circleci_remote_docker.bats
           filters: *on-each-run
 
+      - executor-tools/publish:
+          name: Publish release version
+          context: *context
+          executor-image-name: *executor-name
+          registry: *registry
+          registry-login: GHCR_LOGIN
+          registry-password: GHCR_PASSWORD
+          include-latest: "true"
+          sign-image: true
+          after-checkout:
+            - set-environment
+            - op/write-to-file:
+                op-value: platform/svc-cosign-private-key/notesPlain
+                out-file: cosign.key
+            - op/write-to-file:
+                op-value: platform/svc-cosign-public-key/notesPlain
+                out-file: cosign.pub
+          after-publish:
+            - echo-message:
+                msg: "replace with slack announcement and release notes published"
+          requires:
+            - development build
+          filters: *on-tag-main
+
   #     - executor-tools/dev-release:
   #         name: alpine image build
   #         context: *context
