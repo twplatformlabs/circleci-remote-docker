@@ -76,6 +76,12 @@ workflows:
             - op/write-to-file:
                 op-value: platform/svc-cosign-public-key/notesPlain
                 out-file: cosign.pub
+          after-publish:
+            - do/gh-buildx-image-release:
+                notes-from-file: release.md
+                include-commit-msg: true
+                include-sbom: true
+                verify-tag: true
           requires:
             - development build
           filters: *on-tag-main
