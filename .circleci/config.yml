@@ -7,10 +7,10 @@ orbs:
   do: twdps/pipeline-events@dev:alpha                   # 5.2.0
 
 globals:
-  - &registry ghcr.io
-  - &executor-name twdps/circleci-executor-builder:alpine-stable
   - &context platform
   - &shell op run --env-file op.env -- /bin/bash -eo pipefail
+  - &registry ghcr.io
+  - &executor-name twdps/circleci-executor-builder:alpine-stable
 
 on-push-main: &on-push-main
   branches:
@@ -85,104 +85,26 @@ workflows:
           requires:
             - development build
           filters: *on-tag-main
-  #     - executor-tools/dev-release:
-  #         name: alpine image build
-  #         context: *context
-  #         shell: *shell
-  #         image: *image
-  #         dockerfile: Dockerfile.alpine
-  #         tag: alpine-edge
-  #         snyk-scan: true
-  #         snyk-severity-threshold: medium
-  #         snyk-organization: twplatformlabs
-  #         bats-test: true
-  #         bats-entry-point: /bin/ash
-  #         opencontainer-labels: true
-  #         security-scan-nofail: true
-  #         filters: *on-each-run
 
-  #     - executor-tools/dev-release:
-  #         name: ubuntu image build
-  #         context: *context
-  #         shell: *shell
-  #         image: *image
-  #         dockerfile: Dockerfile.ubuntu
-  #         tag: ubuntu-edge
-  #         snyk-scan: true
-  #         snyk-severity-threshold: medium
-  #         snyk-organization: twplatformlabs
-  #         bats-test: true
-  #         bats-entry-point: /bin/bash
-  #         opencontainer-labels: true
-  #         security-scan-nofail: true
-  #         filters: *on-each-run
+  monthly build:
+    when:
+      equal: [ scheduled_pipeline, << pipeline.trigger_source >> ]
+    jobs:
+      - do/automated-tag:
+          tag-type: monthly-recurring
+          committer-email: twplatformlabs@gmail.com
+          committer-name: twplatformlabs-sa
 
-  #     - executor-tools/publish:
-  #         name: alpine release
-  #         context: *context
-  #         shell: *shell
-  #         image: *image
-  #         pull-tag: alpine-edge
-  #         tag-annotation: alpine-
-  #         release-tag: alpine-stable
-  #         sign-image: true
-  #         sbom: true
-  #         after-checkout:
-  #           - set-signing-keys
-  #         requires:
-  #           - alpine image build
-  #           - ubuntu image build
-  #         filters: *on-tag-main
-
-  #     - executor-tools/publish:
-  #         name: ubuntu release
-  #         context: *context
-  #         shell: *shell
-  #         image: *image
-  #         pull-tag: ubuntu-edge
-  #         tag-annotation: ubuntu-
-  #         release-tag: ubuntu-stable
-  #         sign-image: true
-  #         sbom: true
-  #         after-checkout:
-  #           - set-signing-keys
-  #         requires:
-  #           - alpine image build
-  #           - ubuntu image build
-  #         filters: *on-tag-main
-
-  #     - do/gh-release:
-  #         name: generate release notes
-  #         shell: *shell
-  #         context: *context
-  #         notes-from-file: release.md
-  #         include-commit-msg: true
-  #         upload-artifacts: true
-  #         artifact-folder: workspace
-  #         requires:
-  #           - alpine release
-  #           - ubuntu release
-  #         filters: *on-tag-main
-
-  # monthly build:
-  #   when:
-  #     equal: [ scheduled_pipeline, << pipeline.trigger_source >> ]
-  #   jobs:
-  #     - do/automated-tag:
-  #         tag-type: monthly-recurring
-  #         committer-email: twplatformlabs@gmail.com
-  #         committer-name: twplatformlabs-sa
-
-  # schedule monthly build:
-  #   jobs:
-  #     - do/schedule-pipeline:
-  #         name: configure scheduled pipeline run for monthly general release
-  #         shell: *shell
-  #         context: *context
-  #         scheduled-pipeline-name: Monthly update release
-  #         scheduled-pipeline-description: |
-  #           Automatically build and release a current version of the executor image
-  #           using the YYYY.MM tag format.
-  #         hours-of-day: "[11]" # 11 am UTC = 6am Central
-  #         days-of-month: "[5]" # 5th of each month
-  #         filters: *on-push-main
+  schedule monthly build:
+    jobs:
+      - do/schedule-pipeline:
+          name: configure scheduled pipeline run for monthly general release
+          shell: *shell
+          context: *context
+          scheduled-pipeline-name: Monthly update release
+          scheduled-pipeline-description: |
+            Automatically build and release a current version of the executor image
+            using the YYYY.MM tag format.
+          hours-of-day: "[11]" # 11 am UTC = 6am Central
+          days-of-month: "[5]" # 5th of each month
+          filters: *on-push-main
