@@ -175,16 +175,16 @@ _Review the build and CVE scan logs in the release artifacts of the monthly buil
 This image has the following tagging scheme:
 
 ```
-twdps/circleci-remote-docker:<YYYY.MM>
-twdps/circleci-remote-docker:latest
-twdps/circleci-remote-docker:edge
+twdps/circleci-remote-docker:[alpine | ubuntu]-<YYYY.MM>
+twdps/circleci-remote-docker:[alpine | ubuntu]-latest
+twdps/circleci-remote-docker:[alpine | ubuntu]-dev.SHA:0:7
 ```
 
-`<YYYY.MM>` - Release version of the image, referred to by the four-digit year and two-digit month. For example, `2025.04` would be the April 2025 build. This image is generated on the 5th day of each month, pulling the current release of the base image and related packages and provides a predictable fixed point for use in an executor Dockerfile. Review the build log in the pipeline artifacts for the specific image and package versions. Occasionally, there will be interim patch released and you may see `YYYY.MM.1` or additional further numbered versions.  
+`-<YYYY.MM>` - Release version of the image, referred to by the four-digit year and two-digit month. For example, `2025.04` would be the April 2025 build. This image is generated on the 5th day of each month, pulling the current release of the base image and related packages and provides a predictable fixed point for use in an executor Dockerfile. Review the build log in the pipeline artifacts for the specific image and package versions. Occasionally, there will be interim patch released and you may see `YYYY.MM.1` or additional further numbered versions.  
 
-`latest` - generic tag that always points to the latest, monthly release image. Intended for use by other recurring builds and not recommended for normal executor Dockerfile usage. Pin custom executors to specific month-tagged base images.  
+`-latest` - generic tag that always points to the latest, monthly release image. Intended for use by other recurring builds and not recommended for normal executor Dockerfile usage. Pin custom executors to specific month-tagged base images.  
 
-`edge` - is the latest development of the Base image. Built from the `HEAD` of the `main` branch as part of continuous integration testing.  
+`-dev.SHA:0:7` - is the latest development of the Base image. Built from the `HEAD` of the `main` branch as part of continuous integration testing.  
 
 ## Contributing
 
@@ -192,12 +192,6 @@ We encourage [issues](https://github.com/twplatformlabs/circleci-remote-docker/i
 
 1. Intended to be the minimum configuration necessary for an Alpine or Ubuntu based image to be successfully launched by CircleCI as a remote docker executor and intentionally does not include any other packages.  
 1. PRs are welcome. Given the role of this image as a building block in building CircleCI remote docker executors, it is expected that PRs or Issues will be releated to bugs or compatible purpose issues. PR's to include additional packages will only be considered where necessary to continue supporting Alpine or Ubuntu linux as a remote docker starting point.  
-
-**CI requirements**  
-
-[bats](https://github.com/bats-core/bats-core)  
-[hadolint](https://github.com/hadolint/hadolint)  
-[snyk](https://github.com/snyk/cli)  
 
 ## Additional Resources
 

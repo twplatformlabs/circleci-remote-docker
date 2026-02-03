@@ -1,4 +1,4 @@
-FROM ubuntu:24.04
+FROM mirror.gcr.io/ubuntu:24.04
 
 # Configured for automatic, monthly build using current package repository release versions.
 # Pin downstream executor builds to specific OS and package versions using YYYY.MM tag.

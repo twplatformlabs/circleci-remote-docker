@@ -1,4 +1,4 @@
-FROM alpine:3
+FROM  mirror.gcr.io/alpine:3
 
 # Configured for automatic, monthly build using current package repository release versions.
 # Pin downstream executor builds to specific OS and package versions using YYYY.MM tag.
