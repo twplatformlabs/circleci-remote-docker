@@ -2,7 +2,7 @@
 version: 2.1
 
 orbs:
-  executor-tools: twdps/executor-tools@dev:alpha        # 5.0.0
+  executor-tools: twdps/executor-tools@dev:alpha
   op: twdps/onepassword@3.0.0
   do: twdps/pipeline-events@5.3.0
 
@@ -45,7 +45,7 @@ workflows:
   build and test:
     jobs:
 
-      - executor-tools/dev-release:
+      - executor-tools/dev-buildx:
           name: development build
           context: *context
           shell: *shell
@@ -59,7 +59,7 @@ workflows:
           bats-test-path: test/circleci_remote_docker.bats
           filters: *on-each-run
 
-      - executor-tools/publish:
+      - executor-tools/releasex:
           name: Publish release version
           context: *context
           shell: *shell
