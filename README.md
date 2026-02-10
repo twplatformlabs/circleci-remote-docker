@@ -8,9 +8,11 @@
 </div>
 <br />
 
+**New for 2026: Image now published from ghcr.io**  
+
 With inspiration from the CircleCI convenience images, `ghcr.io/twplatformlabs/circleci-remote-docker` maintains Alpine and Ubuntu variants with both remote and self-hosted runners in mind. As the name suggests, this image is designed to serve as a starter image for building a use-tailored CircleCI [remote docker executor](https://circleci.com/docs/2.0/custom-images/#section=configuration).  
 
->**Note:** This image was previously published to Dockerhub as twdps/circleci-remote-docker. For 2026, semantic release version will continue to be mirrored to Dockerhub. Starting in 2027, the PSK Circleci convenience images will only by published to ghcr.io.  
+>**Note:** This image was previously published to Dockerhub as twdps/circleci-remote-docker. Beginning in February 2026, circleci-remote-docker is now release from ghcr.io/twplatformlabs.  
 
 This image contains the [minimum packages required](https://circleci.com/docs/custom-images/) to function as a remote_docker executor on CircleCI.  
 
@@ -116,11 +118,11 @@ Digest: sha256:b860750b20f684659a680ebf3593e43d090139e835961c364d148886edbdf487
 
 **Other images in this series**  
 
-twplatformlabs/circleci-base-image  
-twplatformlabs/circleci-executor-builder  
-twplatformlabs/circleci-infra-aws  
-twplatformlabs/circleci-infra-gcp  
-twplatformlabs/circleci-kube-ops
+ghcr.io/twplatformlabs/circleci-base-image  
+ghcr.io/twplatformlabs/circleci-executor-builder  
+ghcr.io/twplatformlabs/circleci-infra-aws  
+ghcr.io/twplatformlabs/circleci-infra-gcp  
+ghcr.io/twplatformlabs/circleci-kube-ops
 
 ## Table of Contents
 
@@ -175,9 +177,9 @@ _Review the build and CVE scan logs in the release artifacts of the monthly buil
 This image has the following tagging scheme:
 
 ```
-twdps/circleci-remote-docker:[alpine | ubuntu]-<YYYY.MM>
-twdps/circleci-remote-docker:[alpine | ubuntu]-latest
-twdps/circleci-remote-docker:[alpine | ubuntu]-dev.SHA:0:7
+ghcr.io/twplatformlabs/circleci-remote-docker:[alpine | ubuntu]-<YYYY.MM>
+ghcr.io/twplatformlabs/circleci-remote-docker:[alpine | ubuntu]-latest
+ghcr.io/twplatformlabs/circleci-remote-docker:[alpine | ubuntu]-dev.SHA:0:7
 ```
 
 `-<YYYY.MM>` - Release version of the image, referred to by the four-digit year and two-digit month. For example, `2025.04` would be the April 2025 build. This image is generated on the 5th day of each month, pulling the current release of the base image and related packages and provides a predictable fixed point for use in an executor Dockerfile. Review the build log in the pipeline artifacts for the specific image and package versions. Occasionally, there will be interim patch released and you may see `YYYY.MM.1` or additional further numbered versions.  
