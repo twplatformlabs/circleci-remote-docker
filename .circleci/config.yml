@@ -81,6 +81,11 @@ workflows:
                 notes-from-file: release.md
                 include-commit-msg: true
                 verify-tag: true
+            - do/slack-bot:
+                channel: lab-events
+                message: "new release circeci-remote-docker image"
+                include-link: true
+                include-tag: true
           requires:
             - development build
           filters: *on-tag-main
