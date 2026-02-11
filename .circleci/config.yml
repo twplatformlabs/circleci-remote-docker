@@ -96,13 +96,7 @@ workflows:
                 op-value: platform/svc-cosign-public-key/notesPlain
                 out-file: cosign.pub
             - attach_workspace:
-                at: workspace
-            - run:
-                command: ls -la
-            - run:
-                command: mkdir -p workspace
-            - attach_workspace:
-                at: workspace
+                at: ./workspace
             - run:
                 command: |
                   ls -la
