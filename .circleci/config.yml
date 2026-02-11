@@ -76,6 +76,9 @@ workflows:
           bats-test: true
           bats-entry-point: /bin/bash
           bats-test-path: test/circleci_remote_docker.bats
+          after-build:
+            - run:
+                command: ls -la workspace
           filters: *on-each-run
 
       - executor-tools/releasex:
