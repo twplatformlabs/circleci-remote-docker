@@ -47,8 +47,6 @@ commands:
           notes-from-file: release.md
           include-commit-msg: true
           verify-tag: true
-      - attach_workspace:
-          at: workspace
       - run:
           name: include build logs in release assets
           command: |
@@ -95,17 +93,11 @@ workflows:
             - op/write-to-file:
                 op-value: platform/svc-cosign-public-key/notesPlain
                 out-file: cosign.pub
-            - attach_workspace:
-                at: ./workspace
-            - run:
-                command: |
-                  ls -la
-                  ls -la workspace
           after-publish:
             - release-notes
           requires:
             - development build
-          filters: *on-push-main
+          filters: *on-tag-main
 
   monthly build:
     when:
