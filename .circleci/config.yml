@@ -98,6 +98,10 @@ workflows:
             - op/write-to-file:
                 op-value: platform/svc-cosign-public-key/notesPlain
                 out-file: cosign.pub
+            - run:
+                command: |
+                  ls -la
+                  ls -la workspace
           after-publish:
             - release-notes
           requires:
