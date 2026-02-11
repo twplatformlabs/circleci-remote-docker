@@ -10,7 +10,7 @@ globals:
   - &context platform
   - &shell op run --env-file op.env -- /bin/bash -eo pipefail
   - &registry ghcr.io
-  - &executor-name twdps/circleci-executor-builder:alpine-stable
+  - &executor-name ghcr.io/twplatformlabs/circleci-executor-builder:alpine-latest
 
 on-push-main: &on-push-main
   branches:
