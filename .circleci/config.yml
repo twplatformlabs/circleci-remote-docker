@@ -2,7 +2,7 @@
 version: 2.1
 
 orbs:
-  executor-tools: twdps/executor-tools@dev:alpha
+  executor-tools: twdps/executor-tools@6.0.1
   op: twdps/onepassword@3.0.0
   do: twdps/pipeline-events@5.3.1
 
@@ -50,8 +50,8 @@ commands:
       - run:
           name: include build logs in release assets
           command: |
-            gh release upload $CIRCLE_TAG workspace/docker-bake.json.executors.build.out
-            gh release upload $CIRCLE_TAG workspace/scout.out
+            mv workspace/docker-bake.json.executors.build.out build.log && gh release upload $CIRCLE_TAG build.log
+            mv workspace/scout.out cve-scan.log && gh release upload $CIRCLE_TAG cve-scan.log
       - do/slack-bot:
           channel: lab-events
           message: "new release circeci-remote-docker"
