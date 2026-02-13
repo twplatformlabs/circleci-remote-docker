@@ -44,15 +44,7 @@
         "org.opencontainers.image.title": "circleci-remote-docker",
         "org.opencontainers.image.description": "Alpine-based CircleCI executor image containing only the minimum required packages",
         "org.opencontainers.image.base.name": "${ALPINE_BASE}"
-      },
-      "annotations": [
-        "org.opencontainers.image.url=https://github.com/twplatformlabs/circleci-remote-docker",
-        "org.opencontainers.image.documentation=https://github.com/twplatformlabs/circleci-remote-docker",
-        "org.opencontainers.image.source=https://github.com/twplatformlabs/circleci-remote-docker",
-        "org.opencontainers.image.title=circleci-remote-docker",
-        "org.opencontainers.image.description=Alpine-based CircleCI executor image containing only the minimum required packages",
-        "org.opencontainers.image.base.name=${ALPINE_BASE}"
-      ]
+      }
     },
     "ubuntu": {
       "dockerfile": "Dockerfile.ubuntu",
@@ -67,15 +59,7 @@
         "org.opencontainers.image.title": "circleci-remote-docker",
         "org.opencontainers.image.description": "Ubuntu-based CircleCI executor image containing only the minimum required packages",
         "org.opencontainers.image.base.name": "${UBUNTU_BASE}"
-      },
-      "annotations": [
-        "org.opencontainers.image.url=https://github.com/twplatformlabs/circleci-remote-docker",
-        "org.opencontainers.image.documentation=https://github.com/twplatformlabs/circleci-remote-docker",
-        "org.opencontainers.image.source=https://github.com/twplatformlabs/circleci-remote-docker",
-        "org.opencontainers.image.title=circleci-remote-docker",
-        "org.opencontainers.image.description=Ubuntu-based CircleCI executor image containing only the minimum required packages",
-        "org.opencontainers.image.base.name=${UBUNTU_BASE}"
-      ]
+      }
     }
   }
 }
