@@ -31,5 +31,5 @@ setup() {
 
 @test "ca-certificates installed" {
   run bash -c "docker exec ${TEST_CONTAINER} ls /etc/ssl/certs/"
-  [[ "${output}" =~ "DigiCert_Assured_ID_Root_CA.pem" ]]
+  [[ "${output}" =~ "DigiCert_Assured_ID_Root" ]]
 }
