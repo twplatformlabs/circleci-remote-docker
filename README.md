@@ -175,7 +175,6 @@ _Review the build and CVE scan logs in the release artifacts of the monthly buil
 ### Tagging Scheme
 
 This image has the following tagging scheme:
-
 ```
 ghcr.io/twplatformlabs/circleci-remote-docker:[alpine | ubuntu]-<YYYY.MM>
 ghcr.io/twplatformlabs/circleci-remote-docker:[alpine | ubuntu]-latest
